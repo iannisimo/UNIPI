@@ -1,0 +1,7 @@
+# Ignore extension-less files
+*
+!*/
+!*.*
+
+# Ignore compiled source
+*.out

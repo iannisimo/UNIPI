@@ -1,0 +1,22 @@
+Universale: ((PerOgni) i (Appartenente) [0, dimA)) . ((Esiste) j (Appartenente) [0, dimB)) . (a[i] = b[j])
+
+Dato un array vogliamo verificare che (Esiste) un elemento che compare esattamente due volte
+{
+  {1, 2, 3, 2, 3, 3} {True}
+  {1, 2, 5, 4, 2, 2} {False}
+}
+Cardinalità di un insieme {#I, |I|} (Finito) :
+  Numero degli elementi
+  #{1, 5, 4} = 3
+
+  ((Esiste) i (Appartenente) [0, dim)) . (#(j | j (Appartenente) [0, dim) (And) a[i] = a[j]) = 2)
+
+
+((PerOgni) i (Appartenente) [0, dim)) . (#(j | j (Appartenente) [0, dim) (And) a[i] = a[j]) = 2)
+
+
+Cercare il valore massimo in un array:
+
+
+Shift circolare verso destra:
+{2, 5, -2, 7, 10} --> {10, 2, 5, -2, 7}

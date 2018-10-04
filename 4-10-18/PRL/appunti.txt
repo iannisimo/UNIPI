@@ -1,0 +1,1 @@
+Trovare l'indice in un array della prima occorrenza del valore max
