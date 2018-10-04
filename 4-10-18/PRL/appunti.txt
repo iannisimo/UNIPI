@@ -1,1 +1,12 @@
 Trovare l'indice in un array della prima occorrenza del valore max
+
+Ordinare un array
+
+  Bubble sort:
+
+    {2, 7, 3,-1, 4}
+
+        Confronto due elementi adiacenti dell'array;
+        Se sono in ordine "corretto" non faccio niente, senno' li scambio
+      Ripeto lo stesso procedimento fino all'elemento [dim]
+    Riparto dall'elemento [0] fino all'elemento [dim-n] con n pari al numero di iterazioni gia' fatte
