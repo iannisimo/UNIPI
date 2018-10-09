@@ -1,0 +1,131 @@
+Definizione della sintassi dei linguaggi di programmazione
+  La sintassi di un linguaggio (sia naturale che artificiale) da' il modo di costruire frasi corrette dal punto di vista della forma.
+  es > linguaggio naturale:
+    forma corretta > soggetto predicato complemento
+    forma scorretta > soggetto predicato predicato
+    Una frase formalmente corretta puo' avere un significato sbagiato
+  es > linguaggio C:
+    forma corretta > nome = espressione;
+    forma scorretta > nome = ; espressione;
+
+  Teoria dei linguaggi formali (linguaggi dell'informatica, non naturali):
+    Linguaggio formale:
+      Alfabeto (dizionario) (Definito da una lettera greca):
+        Insieme finito di simboli (parole del linguaggio)
+      Insieme delle frasi (sequenza di simboli) nell'alfabeto che sono formalmente corrette
+      es > alfabeto composto dai simboli Σ = {a, b}:
+        Le frasi formalmente corrette in Σ sono quelle in cui il simbolo 'a', ripetuto a piacere, precede il simbolo 'b', ripetuto a piacere
+        La frase "abb" appartiene al linguaggio
+        La frase "aba" non appartiene al linguaggio
+        La frase "bb" >
+          abbiamo bisogno di una definizione FORMALE della sintassi (ovvero delle frasi formalmente corrette) del linguaggio
+        Σ = {a, b}
+        L = {ab, aab, abb, ...} NO
+          In informatica le definizioni devoon essere FORMALI e FINITE
+        L1 = {abb, aab}
+          Definizione FORMALE e FINITA del linguaggio ma in contrasto con la prima definizione
+
+      Nei linguaggi formali
+        a^n significa 'a' ripetuto n volte
+
+        es:
+          L = {a^(n)b^(n) | n,m (Appartenente) N ⋀ n,m > 0}
+            bb !(Appartenente) L
+
+      es:
+        Σ = {a,b}
+        il linguaggio contiene sequenze con un numero pari maggiore di zero di 'a'
+          "aba" (Appartenente) L
+          "aaba" !(Appartenente) L
+
+      Formalmente dato l'alfabeto Σ, Σ* da' l'insieme di tutte le sequenze di simboli di Σ
+        es:
+          Σ = {a,b}
+          Σ* = {ε, a, b, aa, ab, ba, bb, aaa, aab, aba, abb, bba, bbb, ...} (insieme infinito)
+            ε --> Stringa vuota
+        Un linguaggio su Σ e' un sottoinsieme di Σ*
+
+Automa a stati finiti:
+  Formalmente un ASF
+    A = (Σ, Q, S0, F, δ) --> Quintupla
+    Σ --> Alfabeto
+    Q --> insieme finito di STATI (normalmente indicati con numeri naturali)
+    S0 ∈ Q --> Stato iniziale
+    F ⊂ Q --> insieme degli stati "finali" o "di accetazione"
+    δ ⊂ Q x Σ x Q
+      A x B = {(a, b) | a ∈ A ⋀ b ∈ B}
+      es > δ = {(s0, a, s1), ...}:
+        se sono nello stato s0 e inconto il simbolo a, vado nello stato s1
+    es > A = (Σ, Q, s, F, δ):
+      Σ = {a, b}
+      Q = {0, 1}
+      s = 0
+      F = {1}
+      δ = {(0, a, 0), (0, b, 1), (1, b, 1)}
+      See IMG₁
+  Come usare un ASF per definire un linguaggio:
+    Un ASF puo' essere usato come riconoscitore di stringhe
+      Una stringa ∈ Σ* e' riconosciuta da un ASF A = (Σ, Q, s, F, δ) se partendo dallo stato iniziale di A, leggento in sequenza i simboli di α, e' possibile fare la transizione in A e si termina in uno stato di A che appartiene a F
+      es > A = (Σ, Q, s, F, δ):
+        Σ = {a, b}
+        Q = {0, 1}
+        s = 0
+        F = {1}
+        δ = {(0, a, 0), (0, b, 1), (1, b, 1)}
+        α = aabbb
+        0 -a-> 0 -a-> 0 -b-> 1 -b-> 1 -b-> 1
+          1 ∈ F
+          la stringa α e' riconosciuta
+        α₁ = aa
+        0 -a-> 0 -a-> 0
+          1 ∉ F
+          la stringa α₁ non e' riconosciuta
+        α₂ = aba
+        0 -a-> 0 -b-> 1 -a-> !
+          la stringa α₂ non e' riconosciuta
+  Un ASF A definisce un linguaggio in Σ composto da TUTTE le stringhe riconosciute da A
+
+  es > A = (Σ, Q, s, F, δ):
+    Σ = {a, b}
+    Q = {0, 1, 2}
+    s = 0
+    F = {2}
+    δ = {(0, a, 1), (0, b, 0), (1, a, 2), (1, b, 1), (2, a, 1), (2, b, 2)}
+    See IMG₂
+    Il linguaggio definito da A riconosce stringhe formate da un numero pari di 'a'
+
+  es:
+    il linguaggio L in Σ = {a, b} di stringhe che contengono se sequenze "ab"
+      aaa ∉ L
+      aba ∈ L
+      See IMG₃
+        A = (Σ, Q, s, F, δ):
+        Σ = {a, b}
+        Q = {0, 1, 2}
+        s = 0
+        F = {2}
+        δ = TODO
+
+    es:
+      Σ = {a, b, c}
+      L ==> linguaggio delle stringhe che contengono la sequenza abc
+      L = {α abc β | α,β ∈ Σ*}
+      See IMG₄
+
+    es:
+      Σ = {a, b}
+      L ==> tutte le sequenze su sigma che terminano con 'b'
+      See IMG₅
+
+  La notazione a^n si puo' applicare anche alle stringhe
+    es:
+      α ∈ Σ*      α^n
+      α = ab      α^n
+
+    es:
+      Σ = {a,b,c}
+      L = {(ab)^(n)c^(k) | n,k > 0}
+        abcc ∈ L
+        ababc ∈ L
+      See IMG₆
+    
