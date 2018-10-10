@@ -1,0 +1,80 @@
+Alfabeto: Λ
+Insieme infinito di tutte le stringhe finite su Λ: Λ*
+Insieme finito di stati: Q
+Stato iniziale: s ∈ Q
+Insieme degli stati finali F ⊂ Q
+Relazione di transizione: δ ⊂ Q x Λ x Q
+
+Quando una stringa 'w' su Λ (w ∈ Λ*) e' riconosciuta dall'automa?
+
+Dato un automa A = (Λ, Q, s, F, δ)
+  una stringa w ∈ Λ* e' riconosciuta da A s.se leggendo i simboli di w da sinistra a destra e partendo da s e' possibile fare transizioni in A secondo δ per tutti i simboli di w e si termina in uno stato di F
+  es:
+    L = (α ab β | α ∈ Λ*, β ∈ Λ*)
+    abaa ∈ L
+      0 -a-> 1 -b-> 2 -a-> 2 -a-> 2, 2 ∈ F
+    aaaa ∉ L
+      0 -a-> 1 -a-> 1 -a-> 1 -a-> 1, 1 ∉ F
+    bbaa ∉ L
+      0 -b-> 0 -b-> 0 -a-> 1 -a-> 1, 1 ∉ F
+
+Numeri naturali multipli di 3
+  Un numero ℕ e' multiplo di 3 se
+    la somma delle cifre e' multipla di 3
+    n % 3 = 0
+    Somma del modulo per 3 di tutte le cifre
+      1971
+        1 % 3 = 1
+        1 + 9 = 10, 10 % 3 = 1
+        1 + 7 = 8, 8,% 3 = 2
+        2 + 1 = 3, 3 % 3 = 0 <-- OK
+  Λ = [1, 9]
+  Λ* = {ε, 0, 1,..., 9, 00, 01,.., 99,...}
+  L = (α | α ∈ Λ* \ {ε} ⋀ α % 3 = 0)
+  See IMG₁
+  Se s ∈ F significa che l'automa riconosce la stringa vuota
+- - - - - - - -
+  L = (α ab β | α ∈ Λ*, β ∈ Λ*)
+  Λ = {a, b}
+  See IMG₂
+  la relazione δ in questo caso e' una funzione
+    δ: Q x Λ --> Q
+    δ(0, b) = 1
+    δ(0, a) = 1
+
+Esempio di δ non funzione
+  See IMG₃
+  δ = {<0, a, 0>, <0, b, 0>, <0, a, 1>,...}
+  Se δ non e' una funzione si dice che l'automa a stati finiti e' non deterministico
+  Quando una stringa w ∈ Λ* e' riconosciuta da un ASF ND?
+    aab
+      0 -a-> 1 -a-> !
+        -a-> 0 -a-> 0 -b-> 0, 2 ∉ F
+               -a-> 1 -b-> 2, 2 ∈ F <--
+    Se ∃ un "cammino" che mi permette di leggere tutti i simboli di una stringa e termina in uno stato di accettazione
+      bba
+        0 -b-> 0 -b-> 0 -a-> 1, 1 ∉ F
+                        -a-> 0, 0 ∉ F
+      aaba
+        0 -a-> 1 -a-> !
+          -a-> 0 -a-> 0 -b-> 0 -a-> 0, 0 ∉ F
+                               -a-> 1, 1 ∉ F
+                 -a-> 1 -b-> 2 -a-> 2, 2 ∈ F <--
+    Se un linguaggio L e' riconosciuto da un ASF ND, allora ∃ un ASF D che lo riconosce
+      Dimostrazione costruttiva:
+        ASF ND: See IMG₃
+          aaba
+            0 -a-> 1 -a-> !
+              -a-> 0 -a-> 0 -b-> 0 -a-> 0, 0 ∉ F
+                                   -a-> 1, 1 ∉ F
+                     -a-> 1 -b-> 2 -a-> 2, 2 ∈ F <--
+          {0} -a-> {0, 1} -a-> {0, 1} -b-> {0, 2} -a-> {0, 1, 2}
+          See IMG₄
+      ASF ND A = (Λ, Q, s, F, δ)
+      e' possibile costruire un ASF D A' equivalente
+        A' = (Λ, 𝒫{Q}, {s}, F', δ')
+        F' ⊂ 𝒫(Q) : ciascun insieme I ∈ F' I ⋂ F != {}
+          𝒫(A) e' l'insieme di tutti i sottoinsiemi di A
+        δ' = {<S1, a, S2> | S1, S2 ∈ 𝒫(Q) ⋀ a ∈ Λ}
+
+      Altro sistema: See IMG₅
