@@ -71,7 +71,7 @@ Esempio di δ non funzione
           {0} -a-> {0, 1} -a-> {0, 1} -b-> {0, 2} -a-> {0, 1, 2}
           See IMG₄
       ASF ND A = (Λ, Q, s, F, δ)
-      e' possibile costruire un ASF D A' equivalente
+      e' possibile costruire un ASF D A' equivalente (Tecnica di costruzione a sottoinsiemi)
         A' = (Λ, 𝒫{Q}, {s}, F', δ')
         F' ⊂ 𝒫(Q) : ciascun insieme I ∈ F' I ⋂ F != {}
           𝒫(A) e' l'insieme di tutti i sottoinsiemi di A

@@ -1,0 +1,64 @@
+Linguaggi riconosciuti da ASF (D o ND)
+
+ASF ND --> ASF D
+
+  Λ = {0,1,2,3,4,5,6,7,8,9}
+  L e' il linguaggio di ℕ (rappresentati con Λ+) multipli di 5
+  ASF ND > See IMG₁
+    F = {1}
+    δ = {<0, Λ, 0>, <0, {0, 5}, 1>}
+  ASF D > See IMG₂
+    F = {{0, 1}}
+    δ = {<{0}, Λ \ {0, 5}, {0}>, <{0}, {0, 5}, {0, 1}>, <{0, 1}, Λ \ {0, 5}, {0}>, <{0, 1}, {0, 5}, {0, 1}>}
+
+Linguaggio non riconoscibile da un ASF
+  Λ = {a, b}
+  L = {a^n b^n | n > 0}
+  L = {ab, aabb, aaabbb, aaaabbbb, aaaaabbbbb}
+  Non riconoscibile da un ASF
+  Per riconoscere una stringa lunga k devo attraversare almeno k+1 stati
+    Principio delle buche di piccione (PIGEON HOLES PRINCIPLE)
+    Per ricoscerlo > See IMG₃
+    Dobbiamo utilizzare un nuovo strumento matematico in grado di definire anche linguaggi a stati infiniti
+      Teoria dei linguaggi formali
+      GRAMMATICA A STRUTTURA DI FRASE
+
+GRAMMATICA A STRUTTURA DI FRASE
+  Esiste una gerarchia in grado di definire linguaggi formali (Artificiali) via via piu' complessi
+
+  Λ = {a, b}
+  L = {a^n b^m | n, m > 0}
+    ASF
+  Lⁱ = {a^n b^n | n > 0}
+    Grammatiche libere dal contesto
+
+  Grammatiche libere dal contesto
+    Riescono a definire linguaggi come Lⁱ quindi sono piu' potenti degli ASF
+    E' una quadrupla
+      G = {Λ, V, S, P}
+        Λ: Alfabeto del linguaggio da definire (Insieme dei simboli terminali)
+        V: Insieme delle categorie sintattiche (Insieme finito) [Insieme dei simboli non terminali]
+        S ∈ V: Categoria sintatica iniziale (o simbolo distinto)
+        P: Insieme finito delle produzioni della forma a --> α
+          a ∈ V
+          α e' una stringa di simboli terminali e categorie sintattiche
+          α ∈ (Λ ⋃ V)*
+    ES > G = {Λ, V, S, P}:
+      Λ = {a, b}
+      V = {S}
+      S
+      P = {S --> ab, S --> aSb}
+      G definisce un linguaggio generando tutte e solamente le stringhe che appartengono a L
+        Le grammatiche hanno un approccio generativo alla definizione dele sintassi dei linguaggi
+        Gli ASF hanno un approccio riconoscitivo
+  Come una grammatica genera stringhe
+    Le produzioni dicono come una categoria sintattica puo' essere rimpiazzata da una stringa
+      Categoria sintattica --> stringa
+        S --> aSb dice che la categoria sintattica s puo' essere rimpiazzata dalla stringa aSb
+
+      Genera tutte le stringhe in Λ* ottenute a partire da S e usando le produzioni per rimpiazzare le caetgorie sintattiche
+        S --> ab ∈ Lⁱ
+          --> aSb --> aabb ∈ Lⁱ
+                  --> aaSbb --> aaabbb ∈ Lⁱ
+                            --> aaaSbbb --> aaaabbbb ∈ Lⁱ
+                                        ....
