@@ -1,0 +1,9 @@
+aPumping Lemma
+
+A => B ≡ ¬B => ¬A
+
+L regolare => (∃n ∈ ℕ. (∀w ∈ L. |w| ≥ n => (∃x,y,z. w = xyz ⋀ |xy| ≤ n ⋀ y ≠ ε ⋀ (∀i ∈ ℕ. xyⁱz ∈ L))))
+
+L non regolare => (∀n ∈ ℕ. (∃w ∈ L. |w| ≥ n => (∀x,y,z. (w = xyz ⋀ |xy| ≤ n ⋀ y ≠ ε) => (∃i ∈ ℕ. xyⁱz ∉ L))))
+
+L = {aᵏbᵏ | k > 0}

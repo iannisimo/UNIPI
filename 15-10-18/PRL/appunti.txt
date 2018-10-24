@@ -1,0 +1,77 @@
+Grammatiche a struttura di frase
+  Grammatiche libere dal contesto
+    Quadrupla
+      G = {Λ, V, S, P}
+        Λ: Alfabeto del linguaggio da definire (Insieme dei simboli terminali)
+        V: Insieme delle categorie sintattiche (Insieme finito) [Insieme dei simboli non terminali] [in genere indicate con lettere maiuscole]
+        S ∈ V: Categoria sintatica iniziale (o simbolo distinto)
+        P: Insieme finito delle produzioni della forma A --> α [il simbolo distinto e' indicato nella prima]
+          A ∈ V
+          α e' una stringa di simboli terminali e categorie sintattiche
+          α ∈ (Λ ⋃ V)*
+    ES > G = {Λ, V, S, P}:
+      Λ = {a, b}
+      V = {S}
+      S
+      P = {S --> ab, S --> aSb} || {S --> ab | aSb)} [produzione ricorsiva]
+      L = {a^n b^n | n > 0}
+      Genera tutte le stringhe in Λ* ottenute a partire da S e usando le produzioni per rimpiazzare le caetgorie sintattiche
+        S --> ab ∈ L
+          --> aSb --> aabb ∈ L
+                  --> aaSbb --> aaabbb ∈ L
+                            --> aaaSbbb --> aaaabbbb ∈ L
+                                        ....
+    Le produzioni di una grammatica libera dal contesto ("libera") sono spesso ricorsive
+
+    Derivazione
+      Data una grammatica libera (G = {Λ, V, S, P}), una stringa w ∈ Λ* si dice derivata da G se e' possibile ottenerla partendo da S e sostituendo le categorie sintattiche utilizzando le parti destre delle loro produzioni
+      S --> ab | aSb
+        S --> ab (Derivata dalla grammatica)
+          --> aSb --> aabb (Derivata dalla grammatica)
+                  --> aaSbb --> aaabbb (Derivata dalla grammatica)
+                            --> aaaSbbb --> aaaabbbb (Derivata dalla grammatica)
+                                        ....
+      Una grammatica libera G definisce il linguaggio di tutte, e sole, le stringhe derivabili da G
+        Il linguaggio definito da G si dice anche "GENERATO" da G
+          Apprioccio generativo
+    Le grammatiche libere definiscono linguaggi che non possono essere riconosciuti da un ASF
+      L = {a^n b^n | n > 0}
+    See IMG₁: Esiste un linguaggio riconosciuto da un ASF non generato da una grammatica libera?
+    S --> ab | aSb
+      S --> ab (Derivata dalla grammatica)
+        --> aSb --> aabb (Derivata dalla grammatica)
+                --> aaSbb --> aaabbb (Derivata dalla grammatica)
+    Albero (in informatica)
+      Grafi
+        aciclici
+        ogni nodo ha al massimo un arco entrante
+      See IMG₂
+    Albero di derivazione rispetto ad una grammatica G = (Λ, V, S, P)
+      La radice contiene il simbolo distinto S
+      Le foglie contengono simboli di Λ
+      I nodi intermedi contengono simboli di V
+      I figli di un nodo intermedio contenente A ∈ V sono ottenuti dalla parte destra di una produzione per A
+      ES > S --> ab | aSb:
+        See IMG₃
+      Una grammatica libera definisce il linguaggio di tutte, e sole, le stringhe che hanno un albero di derivazione secondo la grammatica
+    Gli ASF sono un sottoinsieme delle grammatiche
+      Es: See IMG₄
+    ES > S --> ab | aSb | aS:
+      L = {a^n b^m | n ≥ m > 0}
+
+    La sintassi del linguaggio C semplificato puo' essere definita mediante una grammatica libera?
+      Lettera --> a|b|...|z
+      Cifra --> 0|1|...|9
+      Numero --> Cifra|Cifra Numero
+      Espressione --> Nomi|Numero|Espressione Op Espressione
+      Op --> +|-|*|/
+      Nome --> Lettera|Lettera Sequenza
+      Sequenza --> Lettera|Cifra|Lettera Sequenza|Cifra Sequenza
+      Comando --> Nome=Espressione;|if(Espressione)Comando else Comando|While(Espressione) Comando|
+
+    Alberi di Derivazione
+      E --> E + E | E * E | N
+      N --> C | C N
+      C --> 0|1|...|9
+
+    Una grammatica libera si dice ambigua se si puo' generare una stessa stringa con piu' di un albero di derivazione

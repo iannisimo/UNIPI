@@ -1,0 +1,25 @@
+Grammatiche libere
+  Per ogni grammatica ambigua esiste una grammatica non ambigua equivalente?
+    NO
+  Problema grammatiche ambigue
+    Spesso gli alberi di derivazione sono usati come guida alla semantica dei linguaggi
+      See IMG₀
+    Data una grammatica ambigua come si puo' trovarne una non ambigua equivalente
+      In generale non si puo' risolvere
+      In casi particolari e' possibile cambiando le produzioni ed eventualmente aggiungendo categorie sintattiche
+        E --> E + E | E * E | N
+        N --> C | C N
+        C --> 0|1|...|9
+          Le produzioni sono recorsive
+          In questo caso hanno una doppia ricorsione [E + E]
+        E --> N + E | N * E | N
+        N --> C | C N
+        C --> 0|1|...|9
+          Questo linguaggio ha una grammatica equivalente
+          [1]
+    Se vogliamo una grammatica i cui alberi di derivazione(quando usati come guida al calcolo) diano priorita' alla moltiplicazione, dobbiamo avere i prodotti piu' in basso delle somme
+      E --> P + E | P
+      P --> N * P | N
+      N --> C | C N
+      C --> 0|1|...|9
+        [2]
