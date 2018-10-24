@@ -13,6 +13,7 @@ void swap(int *a, int *b) {
 }
 
 void ordered_swap(int *a, int *b, int *c) {
+  // Bubble sort(of)
   if(*a > *b) {
     swap(a, b);
   }
