@@ -9,7 +9,6 @@
 #define COLS_C COLS_B
 
 void mul_matrix(int a[][COLS_A], int b[][COLS_B], int rowsA, int colsA, int rowsB, int colsB, int out[][COLS_C]) {
-  // culo blu uuuuuuuuuuuuuuuuuuuuu jjhgjgjhg
   int i, j, h;
   for(j = 0; j < colsB; j++) {
     int tmpMul[rowsB];
@@ -19,7 +18,7 @@ void mul_matrix(int a[][COLS_A], int b[][COLS_B], int rowsA, int colsA, int rows
     for(i = 0; i < rowsA; i++) {
       out[i][j] = 0;
       for(h = 0; h < colsA; h++) {
-        out[i][j] += a[i][h] * tmpMul[h];
+        out[i][j] += a[i][h] * b[h][j];
       }
     }
   }

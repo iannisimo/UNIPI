@@ -25,6 +25,6 @@ int main(int argc, char const *argv[]) {
     scanf("%d", &arr[i]);
   }
   primoultimopari(arr, ARR_DIM, &first, &last);
-  printf("%d\n%d\n", first, last);
+  printf("%d %d\n", first, last);
   return 0;
 }
