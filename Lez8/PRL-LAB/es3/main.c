@@ -30,15 +30,19 @@ ListaDiElementi pushOrdered(ListaDiElementi head, int v) {
     ListaDiElementi el = malloc(sizeof(ElementoDiLista));
     lPointer->info = VERY_SMALL;
     lPointer->next = head;
+    ListaDiElementi out = lPointer;
     el->info = v;
     while(lPointer->next != NULL && lPointer->next->info < v) {
       lPointer = lPointer->next;
     }
     ListaDiElementi tmp;
-    tmp->
+    tmp = lPointer->next;
+    lPointer->next = el;
+    el->next = tmp;
   } else {
     push(head, v);
   }
+  return out->next;
 }
 
 int main(int argc, char const *argv[]) {
@@ -52,7 +56,10 @@ int main(int argc, char const *argv[]) {
       exit = 1;
     }
     else {
+      printf(">\n");
       head = pushOrdered(head, tmpVal);
+      printAll(head);
+      printf(">\n");
     }
   }
   return 0;
