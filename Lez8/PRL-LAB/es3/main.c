@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define VERY_SMALL -1
-
 struct elemento {
   int info;
   struct elemento * next;
@@ -23,26 +21,21 @@ ListaDiElementi push(ListaDiElementi oldHead, int v) {
   head->next = oldHead;
   return head;
 }
-
 ListaDiElementi pushOrdered(ListaDiElementi head, int v) {
-  if(head != NULL) {
-    ListaDiElementi lPointer;
-    ListaDiElementi el = malloc(sizeof(ElementoDiLista));
-    lPointer->info = VERY_SMALL;
-    lPointer->next = head;
-    ListaDiElementi out = lPointer;
-    el->info = v;
+  ListaDiElementi out = head;
+  if(head != NULL  && head->info < v) {
+    ListaDiElementi lPointer = head;
     while(lPointer->next != NULL && lPointer->next->info < v) {
       lPointer = lPointer->next;
     }
-    ListaDiElementi tmp;
-    tmp = lPointer->next;
+    ListaDiElementi el = malloc(sizeof(ElementoDiLista));
+    el->next = lPointer->next;
     lPointer->next = el;
-    el->next = tmp;
+    el->info = v;
   } else {
-    push(head, v);
+    out = push(head, v);
   }
-  return out->next;
+  return out;
 }
 
 int main(int argc, char const *argv[]) {
@@ -56,10 +49,7 @@ int main(int argc, char const *argv[]) {
       exit = 1;
     }
     else {
-      printf(">\n");
       head = pushOrdered(head, tmpVal);
-      printAll(head);
-      printf(">\n");
     }
   }
   return 0;
