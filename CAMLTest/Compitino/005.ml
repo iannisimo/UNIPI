@@ -4,7 +4,7 @@ let inizio list n =
         [] ->
           []
       | x::xs ->
-          if (sum + x) < sum then
+          if (sum + x) < n then
             x :: (check xs n (sum + x))
           else
             x::[]

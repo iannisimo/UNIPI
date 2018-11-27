@@ -12,7 +12,8 @@ let rec cancella n list =
     | (n, []) ->
         []
     | (n, l) when list != [] ->
-        cancella (n - 1) (delLast l);;
+        cancella (n - 1) (delLast l);;    
+
 
 let rec inserisci list x y =
   let stepAndAdd list val =
