@@ -1,0 +1,8 @@
+Match:
+  match e with
+      pattern1 -> e1
+    | pattern2 -> e2
+    | ..
+    | patternI -> eI;;
+
+  Se il patternI e' il primo pattern che uguaglia il valore di e, allora il risultato e' il valore dell'espressione eI
