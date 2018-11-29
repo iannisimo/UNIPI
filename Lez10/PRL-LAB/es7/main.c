@@ -7,14 +7,9 @@ struct elemento {
 };
 typedef struct elemento ElementoDiLista;
 
-void RecStampa(ElementoDiLista* el) {
-  if(el != NULL) {
-    printf("%d -> ", el->info);
-    RecStampa(el->next);
-  } else {
-    printf("NULL\n");
-  }
-}
+typedef
+  enum {false, true}
+boolean;
 
 void push(ElementoDiLista** l, int v) {
   ElementoDiLista* head = malloc(sizeof(ElementoDiLista));
@@ -23,23 +18,18 @@ void push(ElementoDiLista** l, int v) {
   *l = head;
 }
 
-int even(int v) {
-  return !(v%2);
-}
-
-void addBeforeEven(ElementoDiLista** l) {
-  ElementoDiLista* aux = *l;
-  if(aux != NULL) {
-    if(even(aux->info)) {
-      ElementoDiLista* el = malloc(sizeof(ElementoDiLista));
-      el->info = -1;
-      el->next = aux;
-      *l = el;
-      addBeforeEven(&((*l)->next->next));
+boolean recRising(ElementoDiLista* el) {
+  boolean out = true;
+  if(el->next != NULL) {
+    if(el->info > el->next->info) {
+      out = recRising(el->next);
     } else {
-      addBeforeEven(&((*l)->next));
+      out = false;
     }
+  } else {
+    out = true;
   }
+  return out;
 }
 
 int main(int argc, char const *argv[]) {
@@ -54,7 +44,11 @@ int main(int argc, char const *argv[]) {
       exit = 1;
     }
   }
-  addBeforeEven(&list);
-  RecStampa(list);
+  boolean isRising = recRising(list);
+  if(isRising == false) {
+    printf("False\n");
+  } else {
+    printf("True\n");
+  }
   return 0;
 }

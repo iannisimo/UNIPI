@@ -7,11 +7,13 @@ struct elemento {
 };
 typedef struct elemento ElementoDiLista;
 
-void RecStampa(ElementoDiLista* el) {
+void RecStampaInversa(ElementoDiLista* el, ElementoDiLista* head) {
   if(el != NULL) {
-    printf("%d -> ", el->info);
-    RecStampa(el->next);
-  } else {
+    int val = el->info;
+    RecStampaInversa(el->next, head);
+    printf("%d -> ", val);
+  }
+  if(el == head) {
     printf("NULL\n");
   }
 }
@@ -21,25 +23,6 @@ void push(ElementoDiLista** l, int v) {
   head->info = v;
   head->next = *l;
   *l = head;
-}
-
-int even(int v) {
-  return !(v%2);
-}
-
-void addBeforeEven(ElementoDiLista** l) {
-  ElementoDiLista* aux = *l;
-  if(aux != NULL) {
-    if(even(aux->info)) {
-      ElementoDiLista* el = malloc(sizeof(ElementoDiLista));
-      el->info = -1;
-      el->next = aux;
-      *l = el;
-      addBeforeEven(&((*l)->next->next));
-    } else {
-      addBeforeEven(&((*l)->next));
-    }
-  }
 }
 
 int main(int argc, char const *argv[]) {
@@ -54,7 +37,6 @@ int main(int argc, char const *argv[]) {
       exit = 1;
     }
   }
-  addBeforeEven(&list);
-  RecStampa(list);
+  RecStampaInversa(list, list);
   return 0;
 }
