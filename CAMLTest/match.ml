@@ -17,3 +17,5 @@ let rec getLast (list, n) =
       ([], n) -> []
     | (x::xs, 0) -> []
     | (x::xs, (len list)-n) when ((len list) - n) > 0 -> x::getLast(list, n+1);;
+
+(*test*)
