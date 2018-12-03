@@ -1,0 +1,80 @@
+Funzioni di ordine superiore al primo
+  Funzioni che hanno come argomento o restituiscono come risultato altre funzioni
+    Una definizione CURRYed applicata parzialmente restituisce una funzione
+
+  let apply f x = f x;;
+  apply: ('a -> 'b) -> 'a -> 'b = <fun>
+
+  let incr x = x + 1;;
+  incr: int -> int = <fun>
+
+  apply incr 3;;
+  - : int = 4
+
+  let sum (x, y) = x + y;;
+  sum: int * int -> int = <fun>
+
+  apply sum (3, 4);;
+  - : int = 7
+
+  Predicato: Funzione che ha come risultato un valore di verita'
+    Nel caso del caml e' BOOL
+
+    let pari x = x mod 2 = 0;;
+    pari: int -> bool = <fun>
+
+    let s (x, y) = x + y = 10;;
+    s: int * int -> bool = <fun>
+
+  Come controllare se un predicato vale per tutti gli elementi di una lista
+    forall pari [2;4;10]
+      true
+    forall pari [1;5;4]
+      false
+    Quantificazione universale su liste
+
+
+
+
+    FFFFFFFFFFFFFFFFFFFFFF     OOOOOOOOO     LLLLLLLLLLL             DDDDDDDDDDDDD      RRRRRRRRRRRRRRRRR
+    F::::::::::::::::::::F   OO:::::::::OO   L:::::::::L             D::::::::::::DDD   R::::::::::::::::R
+    F::::::::::::::::::::F OO:::::::::::::OO L:::::::::L             D:::::::::::::::DD R::::::RRRRRR:::::R
+    FF::::::FFFFFFFFF::::FO:::::::OOO:::::::OLL:::::::LL             DDD:::::DDDDD:::::DRR:::::R     R:::::R
+      F:::::F       FFFFFFO::::::O   O::::::O  L:::::L                 D:::::D    D:::::D R::::R     R:::::R
+      F:::::F             O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR::::R     R:::::R
+      F::::::FFFFFFFFFF   O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR::::RRRRRR:::::R
+      F:::::::::::::::F   O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR:::::::::::::RR
+      F:::::::::::::::F   O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR::::RRRRRR:::::R
+      F::::::FFFFFFFFFF   O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR::::R     R:::::R
+      F:::::F             O:::::O     O:::::O  L:::::L                 D:::::D     D:::::DR::::R     R:::::R
+      F:::::F             O::::::O   O::::::O  L:::::L         LLLLLL  D:::::D    D:::::D R::::R     R:::::R
+    FF:::::::FF           O:::::::OOO:::::::OLL:::::::LLLLLLLLL:::::LDDD:::::DDDDD:::::DRR:::::R     R:::::R
+    F::::::::FF            OO:::::::::::::OO L::::::::::::::::::::::LD:::::::::::::::DD R::::::R     R:::::R
+    F::::::::FF              OO:::::::::OO   L::::::::::::::::::::::LD::::::::::::DDD   R::::::R     R:::::R
+    FFFFFFFFFFF                OOOOOOOOO     LLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDD      RRRRRRRR     RRRRRRR
+
+
+foldr f a [x1;x2;...;xn] =
+  f x1 (f x2 (... (f xn a)))
+
+let f x y = 1 + y;;
+
+foldr f 0 [3;4;5]
+= f 3 (f 4 (f 5 0))
+= f 3 (f 4 1)
+= f 3 2
+= 3
+
+
+let f x y =
+  if pari x then
+    x :: y
+  else
+    y;;
+
+filter
+  foldr f [] [3;4;5]
+  = f 3 (f 4 (f 5 []))
+  = f 3 (f 4 [])
+  = f 3 [4]
+  = [4]
