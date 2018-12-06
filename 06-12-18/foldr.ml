@@ -67,3 +67,44 @@ let rec inizio1 lst n =
       else
         []
 ;;
+
+(*
+Si definisca tramite foldr una funzione che data una lista di interi >= 0 e un intero n, calcola la lunghezza del massimo suffisso in cui la somma degli elementi e' strettamente minore di n
+*)
+
+let num lst n =
+  let f val (sum, lenght) =
+    if sum + val < n then
+      (sum + val, 1 + lenght)
+    else
+      (sum + val, lenght)
+  in
+  let (sum, lenght) = foldr f (0, 0) lst in lenght
+;;
+
+(*
+Si definisca una funzione ricorsiva split: int list -> int list * int list che, data una lista lst di interi restituisce
+la coppia (l1, l2) t.c.
+  l1 @ l2 = lst
+  l1 e l2 possono essere vuote
+  l1 e' la sottolista iniziale piu' lunga possibile i cui elementi sono in ordine strettamente crescente
+*)
+
+(*REDO*)
+
+let split lst =
+  let split_aux (l1, l2) =
+    match l2 with
+      | [] ->
+        ([], [])
+      | x :: [] ->
+        ([x], [])
+      | x :: y :: ys ->
+        if x < y then
+          (x :: l1, l2)
+        else
+          (x :: l1, y :: ys)
+  in
+  split_aux ([], lst);;
+
+(*REDO*)
