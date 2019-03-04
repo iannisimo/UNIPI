@@ -3,5 +3,6 @@
 !*/
 !*.*
 
-# Ignore compiled source
+# Ignore test cases
 *.out
+*.in
