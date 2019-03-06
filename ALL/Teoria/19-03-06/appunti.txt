@@ -1,0 +1,11 @@
+SommaValori(A, sx, dx){
+  if(sx == dx) {
+    return A[sx];
+  }
+  cx = (sx + dx) / 2
+  m1 = SommaValori(A, sx, cx)
+  m2 = SommaValori(A, cx + 1, dx)
+  return m1 + m2
+}
+
+Tcf(N) = 2T(N/2) + 1
