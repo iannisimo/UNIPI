@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+
+% commands
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\green}[1]{{\color{teal}#1}}
+\newcommand{\cita}[1]{{\hfill \footnotesize #1 }}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\un}[1]{\underline{#1}}
+\newcommand{\gn}[1]{\lceil #1 \rceil}
+\newcommand{\sq}{\square}
+\newcommand{\nin}{\notin}
+\newcommand{\MCD}{\text{MCD}}
+\newcommand{\mcm}{\text{mcm}}
+\newcommand{\V}{1}
+\newcommand{\F}{0}
+
+\newcommand{\hlinee}{\begin{tabular}{p{\textwidth}}\hline\ \\\end{tabular}}
+
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+
+
+% matrix commands
+\newcommand{\vvec}[2]{
+	\begin{bmatrix}
+		#1 \\ #2
+	\end{bmatrix}
+}
+\newcommand{\vvvec}[3]{
+	\begin{bmatrix}
+		#1 \\ #2 \\ #3
+	\end{bmatrix}
+}
+
+\newcommand{\vvvvec}[4]{
+	\begin{bmatrix}
+		#1 \\ #2 \\ #3 \\ #4
+	\end{bmatrix}
+}
+
+
+\begin{document}
+
+\author{Simone Ianniciello}
+\title{Appunti di Algoritmica}
+\date{Università Di Pisa - AA. 2018-2019}
+
+\frontmatter
+\maketitle
+\tableofcontents
+
+\mainmatter
+\include{./selection.tex}
+
+
+\backmatter
+% bibliography, glossary and index would go here.
+
+\end{document}

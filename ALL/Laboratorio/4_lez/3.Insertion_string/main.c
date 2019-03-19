@@ -1,41 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void readArrayString(char*** arr, int* dim);
-// void insSortString(int* arr, int dim);
+char** readArrayString(int* dim);
+void insSortString(char** arr, int dim);
 void printArrayString(char** arr, int dim);
 
 int main(int argc, char const *argv[]) {
-  char** arr;
-  int  dim;
-  readArrayString(&arr, &dim);
-  // insSort(arr, dim);
-  printArrayString(arr, dim);
+  char** array;
+  int    dim;
+  array = readArrayString(&dim);
+  insSortString(array, dim);
+  printArrayString(array, dim);
   return 0;
 }
 
-void readArrayString(char*** arr, int* dim) {
+char** readArrayString(int* dim) {
   scanf("%d", dim);
-  *arr = malloc(sizeof(char) * (*dim) * 100);
-  for(int i = 0; i < (*dim); i++) {
-    scanf("%s", *arr[i]);
+  char** arr = malloc(*dim * sizeof(char*));
+  for(int i = 0; i < *dim; i++){
+    arr[i] = malloc(100 * sizeof(char));
+    scanf("%s", arr[i]);
+  }
+  return arr;
+}
+
+void insSortString(char** arr, int dim) {
+  for(int i = 1; i < dim; i++) {
+    char* key = arr[i];
+    int j = i-1;
+    while (j >= 0 && strcmp(arr[j], key) > 0) {
+      arr[j+1] = arr[j];
+      j--;
+    }
+    arr[j+1] = key;
   }
 }
 
-// void insSortString(int* arr, int dim) {
-//   for(int i = 1; i < dim; i++) {
-//     int key = arr[i];
-//     int j = i-1;
-//     while (j >= 0 && arr[j] > key) {
-//       arr[j+1] = arr[j];
-//       j--;
-//     }
-//     arr[j+1] = key;
-//   }
-// }
-//
 void printArrayString(char** arr, int dim) {
-  for (int i = 0; i < dim; i++) {
+  for(int i = 0; i < dim; i++) {
     printf("%s\n", arr[i]);
   }
 }

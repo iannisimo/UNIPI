@@ -1,0 +1,233 @@
+\chapter{Dimostrazioni per induzione}
+
+\section{Notazione per gli insiemi}
+
+\begin{itemize}
+	\item Naturali: $\N = \{0, 1, 2 ...\}$ 
+	\item Interi: $\Z = \{..., -2, 1, ... \}$.
+	\item Razionali: $\Q$ = razionali $\frac{m}{n}$ con  $n\ne 0$
+	\item Reali: $\R$. Includono oltre ai razionali anche $\sqrt{2}=1,4142...$ $\pi$
+	\item Complessi: $\mathbb{C}$ includono unità immaginaria $i =\sqrt{-1}$ e tutto ciò che si ottiene dai reali ed $i$ con somme e prodotti come $3 + 4i$
+	\item Il modulo: $\Z /(12)$ interi modulo 12. Interi in base 12 come le ore dove 12 = 0.
+\end{itemize}
+
+
+\section{Relazioni d'ordine}
+
+Un { \bf ordine totale} è un insieme su cui è definita una relazione binaria $\le$ che verifica le seguenti proprietà:
+
+\begin{description}
+
+\item [Transitiva] $x \le y \land y \le z \implies x \le z$ 
+\item [Riflessiva] $x \le x$ 
+\item [Antisimmetrica] $x \le y \land y \le x \implies x = y$
+\item [Totalità] $x \le y \lor y \le x$ 
+	
+\end{description}
+
+Un ordine parziale è un ordine dove non vale la {\bf totalità}
+L'ordinamento sui numeri $\mathbb{N, Q, R}$ è totale.
+Un ordine parziale è dato dalla relazione "x divide y" su $\N$
+
+
+\subsection{Minore Stretto}
+
+\paragraph{Definizione}
+
+Data una relazione d'ordine $\le$ definiamo il corrispondente ordine stretto:
+
+$$x < y \equiv x \le y \land x \ne y$$
+
+Valgono le seguenti proprietà:
+
+\begin{description}
+	\item [Transitiva] $x < y \land y < z \equiv x < z$	
+	\item [Antiriflessiva] $x \not < y$ 
+	\item [Totalità] $x < y \lor y < x \lor x = y$ se l'ordine $\le$ è totale 
+\end{description}
+
+Definiamo il minore uguale quindi come: $x < y \equiv x < y \lor x = y$
+
+\subsection{Buoni ordini}
+
+Un insieme totalmente ordinato è un {\bf buon ordine} (insieme bene ordinato) se non ammette successioni infinite decrescenti: $a_0 > a_1 > a_2 > ...$
+
+Un buon ordine è $\mathbb{N}$. Ogni successione decrescente termina dopo un numero di passi finiti.
+
+$\mathbb{R}$ non è buon ordine.
+
+I buoni ordini sono alla base delle definizioni per induzione e dimostrazioni per induzione
+
+
+\subsection{Principio del minimo}
+
+Dato un sottoinsieme $A$ di un insieme ordinato $X$, scriviamo $m = min(A)$ se valgono le condizioni seguenti:
+
+\begin{itemize}
+
+\item $m \in A$
+\item $(\forall a \in A . m \le a)$
+
+\end{itemize}
+
+Ogni sottoinsieme non vuoto $A$ di $\mathbb{N}$ ha un minimo.
+Un insieme è un buon ordine se qualunque sottoinsieme non vuoto ha un minimo
+
+
+\section{Definizioni ricorsive}
+
+Una funzione $f : \mathbb{N}$  si dice { \bf definita ricorsivamente } se è dato un valore iniziale per $f(0)$ e una legge per ottenere $f(n+1)$ a partire da $f(n)$
+
+Un esempio è il fattoriale $n!$
+
+$$\begin{cases}
+0! = 1 \\
+(n + 1)! = (n + 1) \cdot n!
+\end{cases}$$
+
+Applico la definizione ricorsiva
+
+$$3! = 3 \cdot 2! = 3 \cdot 2 \cdot 1! = 3 \cdot 2 \cdot 1 \cdot 0! = 3 \cdot 2 \cdot 1 \cdot 1 = 6 $$
+
+
+
+\subsection{La sommatoria}
+
+Una somma di più addendi si indica con $\sum$ applicato ad un'espressione dotata di un indice (valore iniziale e finale). Ad esempio:
+
+$$\displaystyle \sum_{i=2}^{5} {x_i} = x_2 + x_3 + x_4 + x_5$$ 
+
+oppure
+
+$$\displaystyle \sum_{j=1}^{4} {x_{j+1}} = x_2 + x_3 + x_4 + x_5$$
+
+Possiamo definire la sommatoria $\sum_{i=1}^{n}{x_i}$ per ricorsione su $n$ come:
+
+$$\begin{cases}
+\displaystyle \sum_{i=0}^0 {x_i} = x_0 \\
+\displaystyle \sum_{i=0}^{n+1} {x_i} = x_{n+1} + \sum_{i=0}^{n} {x_i}
+\end{cases}$$
+
+
+Esempio: la somma dei primi 5 quadrati:
+
+$$\displaystyle \sum_{i=1}^{5} {i^2} = 1^2 + 2^2 + 3^2 + 4^2 + 5^2 $$
+
+Somma dei primi $n$ quadrati:
+
+$$\displaystyle \sum_{i=1}^{n} {i^2} = 1^2 + 2^2 + ... + n^2$$
+
+La notazione $\sum$ è più precisa di quella con i puntini di sospensione.
+I puntini sono incomprensibili per la macchina e possono rendere la formula ambigua.
+
+\subsection{Linearità della sommatoria}
+
+Applicando le proprietà distributive si verifica che un fattore comune $c$ si può portare fuori dalla sommatoria:
+
+$$ \displaystyle \sum_{i=a}^{a+n} {(c \cdot x_i)} = c \cdot \sum_{i=a}^{a+n} {x_i}  $$
+
+Analogamente 
+
+$$ \displaystyle \sum_{i=a}^{a+n} {(x_i + y_i)} = \sum_{i=a}^{a+n} {x_i} + \sum_{i=a}^{a+n} {y_i} $$
+
+
+\subsection{Produttoria}
+
+La produttoria $\prod$ è definita analogamente a $\sum$ salvo che invece delle somme si fanno i prodotti.
+
+$$\begin{cases}
+\displaystyle \prod_{i=0}^0 {x_i} = x_0 \\
+\displaystyle \prod_{i=0}^{n+1} {x_i} = \prod_{i=0}^{n}{x_i}  \cdot x_{n+1} 
+\end{cases}$$
+
+Se tutti i fattori $x_i$ sono uguali ad $x$ si ottiene $x^{n+1}$
+
+
+
+\subsection{Fibonacci: Ricorsione sui valori precedenti}
+
+Consideriamo la successione di Fibonacci $F_n (n \in \mathbb{N})$
+
+$$\begin{cases}
+F_0 = 0 \\
+F_1 = 1 \\
+F_{n+1} = F_{n+1} + F_n \\
+\end{cases} $$
+
+
+\section{Dimostrazioni per induzione}
+
+Le dimostrazioni per induzione sono simili alle definizioni ricorsive. Le definizioni ricorsive servono per { \bf definire} delle funzioni su $\mathbb{N}$ mentre le {\bf dimostrazioni per induzione} servono a dimostrare degli enunciati (su $\mathbb{N}$)
+
+Supponiamo che qualcuno abbia colorato i numeri naturali:
+
+\begin{itemize}
+
+\item $Red(7)$ 7 è rosso
+\item $(\forall k \in \mathbb{N} . Red(k) \implies Red(k+1))$ Il successore di un numero rosso è rosso.
+
+\end{itemize}
+
+
+\subsection{Principio di induzione}
+
+Consideriamo una proposizione $P(n)$ che dipende da un parametro $n \in \N$ come $3^n \leq n!$ oppure $n^3 \leq 2^n$. 
+
+Sia $k \in \N$ un valore iniziale, supponiamo di dimostrare le due cose.
+
+\begin{description}
+\item [Base dell'induzione] $P(k)$ è $T$
+\item [Passo induttivo] Per qualsiasi $n \geq k$ se vale $P(n)$ allora vale anche $P(n+1)$
+\end{description}
+
+
+
+Esercizio:
+
+$$\displaystyle \sum_{i=1}^{n}{i} = \frac{n(n+1)}{2}$$
+
+Nel caso $n = 1$ abbiamo $\displaystyle \sum_{i=1}^{i}{i} = 1 = \frac{1(1+1)}{2}$
+
+Suppongo che 
+$$\displaystyle \sum_{i=1}^{k}{i} = \frac{k(k+1)}{2}$$
+
+per un certo $k$ (ipotesi induttiva).
+
+Verifico il caso $k + 1$
+
+$$
+\displaystyle \sum_{i=1}^{k+1}{i} = \displaystyle \sum_{i=1}^{k}{i} + (k+1) 
+$$ 
+
+$\equiv$ (per definizione di $\sum$)
+
+$$ \displaystyle \frac{k(k+1)}{2} + (k+1)$$
+
+$\equiv$ (sfruttando l'ipotesi induttiva)
+
+$$\displaystyle \frac{(k+1)(k+2)}{2}$$
+
+
+\section{Induzione Forte}
+
+Per dimostrare $\left(\forall n \in \mathbb{N} . P(n) \right)$ è sufficiente riuscire a dimostrare $P(0)$ (caso base) e che per ogni $n > 0$ vale l'implicazione $P(0) \land ... \land P(n - 1) \implies P(n)$ ({\bf passo induttivo})
+
+Si può partire da qualsiasi valore iniziale. Nel dubbio fra induzione debole e forte, usiamo la forte. Se funziona la debole funziona anche la forte.
+
+\subsection{Esempio}
+
+Un intero $p > 1$ è primo se è divisibile solo per $1$ e per $p$, ovvero non si può scomporre come prodotto $p = ab$ con entrambi i fattori $a,b$ minori di $p$.
+
+Facciamo un esempio di induzione forte nella dimostrazione del seguente teorema.
+
+\paragraph{Teorema} Ogni numero $n > 1$ si scrive come prodotto di fattori primi
+
+Assumiamo per ipotesi induttiva che sia vero per tutti gli interi $x$ dove $1 < x < n$. 
+
+\begin{itemize}
+	
+	\item Dato $n > 1$ distinguiamo due casi
+	\item Se $n$ è primo abbiamo fininto
+	\item Se $n$ non è primo si scrive come prodotto $n = ab$ di due fattori $< n$
+	
+\end{itemize}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Quicksort</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h2 id="quicksort">Quicksort</h2>
+<hr>
+<p><strong>Divide:</strong>
+Scegli un pivot e dividi l'insieme in elementi &gt; e &lt; di esso</p>
+<p><strong>Impera:</strong>
+Ordina ricorsivamente le due parti</p>
+<p><strong>Combina:</strong>
+<em><strong>NO</strong></em></p>
+<hr>
+<pre><code>Quicksort(A, p, r):
+    if p &lt; r:
+        q = Partition(A, p, r)
+        Quicksort(A, p, q - 1)
+        Quicksort(A, q + 1, r)
+
+
+Partiton(A, p, r):
+    i = p - 1
+    for j = p to r - 1:
+        if A[j] &lt;= x:
+            i++
+            Swap(A[i]), A[j]
+    Swap(A[i++], A[r])
+return i
+
+Swap(a, b):
+    Do some swap stuff
+</code></pre>
+<hr>
+<p><strong>Caso migliore</strong>
+<em>(gli elementi venono divisi sempre in 2 parti quasi equivalenti)</em><strong>:</strong></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>(</mo><mi>n</mi><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\Theta(n\cdot\log{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Θ</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">n</span></span><span class="mclose">)</span></span></span></span></p>
+<p><strong>Caso peggiore</strong>
+<em>(gli elementi sono gia' ordinati)</em><strong>:</strong></p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>(</mo><msup><mi>n</mi><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">\Theta(n^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Θ</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+
+    </body>
+    </html>
