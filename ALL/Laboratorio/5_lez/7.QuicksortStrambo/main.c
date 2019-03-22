@@ -15,7 +15,7 @@ int main() {
   if( legge(&A, &n)) return 1;
 
   int pivot = partEvenOdd(A, 0, n - 1);
-  quicksort(A, 0, pivot-1);
+  quicksort(A, 0, pivot);
   quicksort(A, pivot + 1, n - 1);
 
   /* Stampa l'array ordinato */
@@ -25,17 +25,25 @@ int main() {
   return 0;
 }
 
+void quicksort( int a[], int sx, int dx ) {
 
-void swap(int* a, int *b) {
-  int t = *a;
-  *a = *b;
-  *b = t;
+  int perno, pivot;
+  if( sx < dx ) {
+    pivot = sx + (rand() % (dx - sx));
+    perno = part(a, sx, pivot, dx); // separa gli elementi minori di a[pivot]
+					     // da quelli maggiori o uguali
+    /* Ordina ricorsivamente le due metà */
+    quicksort(a, sx, perno-1);
+    quicksort(a, perno+1, dx);
+
+  }
 }
 
 int partEvenOdd(int a[], int sx, int dx) {
   int i = sx - 1;
   for(int j = sx; j <= dx; j++) {
-    if(!(a[j] % 2)) {
+    if(!(a[j] % 2)) {\
+
       swap(&a[++i], &a[j]);
     }
   }
@@ -54,21 +62,6 @@ int part(int a[], int sx, int px, int dx) {
   }
   swap(&a[++i], &a[px]);
   return i;
-}
-
-void quicksort( int a[], int sx, int dx ) {
-
-  int perno, pivot;
-  if( sx < dx ) {
-    pivot = sx + (rand() % (sx - dx));
-    perno = part(a, sx, pivot, dx); // separa gli elementi minori di a[pivot]
-					     // da quelli maggiori o uguali
-    /* Ordina ricorsivamente le due metà */
-    quicksort(a, sx, perno-1);
-    quicksort(a, perno+1, dx);
-
-  }
-
 }
 
 /* Lettura di un array di interi da input.
@@ -95,4 +88,10 @@ int legge(int **a, int *len) {
 
   return 0;
 
+}
+
+void swap(int* a, int *b) {
+  int t = *a;
+  *a = *b;
+  *b = t;
 }
