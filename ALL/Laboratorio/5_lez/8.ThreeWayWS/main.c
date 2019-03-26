@@ -3,13 +3,31 @@
 #include <stdio.h>
 #include <time.h>
 
-/*
-  !!!!!!!!!!!! D A  F A R E !!!!!!!!!!!!
-  sx e dx sono le posizioni del primo e dell'ultimo elemento dell'array mentre
-  px è la posizione dell'elemento perno.
-  La funzione deve restituire la posizione del perno dopo che gli elementi sono
-  stati partizionati.
-*/
+typedef struct {
+  int x;
+  int y;
+} int_2d;
+
+void swap(int*, int*);
+int_2d distribuzione(int*, int, int, int);
+void quicksort(int*, int, int);
+int legge(int**, int*);
+
+int main() {
+  srand(time(NULL));
+  int i, n, *A;
+
+  if( legge(&A, &n)) return 1;
+
+  srand(time(NULL));
+  quicksort(A, 0, n-1);
+
+  /* Stampa l'array ordinato */
+  for( i = 0; i < n; i++)
+    printf("%d ", A[i]);
+
+  return 0;
+}
 
 void swap(int* a, int *b) {
   int t = *a;
@@ -17,7 +35,7 @@ void swap(int* a, int *b) {
   *b = t;
 }
 
-int distribuzione(int a[], int sx, int px, int dx) {
+int_2d distribuzione(int a[], int sx, int px, int dx) {
   swap(&a[px], &a[dx]);
   px = dx;
   int i = sx - 1;
@@ -31,7 +49,6 @@ int distribuzione(int a[], int sx, int px, int dx) {
 }
 
 void quicksort( int a[], int sx, int dx ) {
-
   int perno, pivot;
   if( sx < dx ) {
     pivot = sx + (rand() % (sx - dx));
@@ -42,11 +59,8 @@ void quicksort( int a[], int sx, int dx ) {
     quicksort(a, perno+1, dx);
 
   }
-
 }
 
-/* Lettura di un array di interi da input.
-Il primo elemento è la lunghezza dell'array */
 int legge(int **a, int *len) {
 
   int i;
@@ -61,20 +75,4 @@ int legge(int **a, int *len) {
 
   return 0;
 
-}
-
-int main() {
-  srand(time(NULL));
-  int i, n, *A;
-
-  if( legge(&A, &n)) return 1;
-
-  srand(time(NULL));
-  quicksort(A, 0, n-1);
-
-  /* Stampa l'array ordinato */
-  for( i = 0; i < n; i++ )
-    printf("%d ", A[i]);
-
-  return 0;
 }

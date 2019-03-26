@@ -18,11 +18,12 @@ void swap(int* a, int *b) {
 }
 
 int distribuzione(int a[], int sx, int px, int dx) {
-  swap(&a[px], &a[dx]);
-  px = dx;
   int i = sx - 1;
   for(int j = sx; j < dx; j++) {
     if(a[j] <= a[px]) {
+      if(a[j] == a[px]) {
+        swap(&a[j], &a[j + 1]);
+      }
       swap(&a[++i], &a[j]);
     }
   }
@@ -34,7 +35,7 @@ void quicksort( int a[], int sx, int dx ) {
 
   int perno, pivot;
   if( sx < dx ) {
-    pivot = sx + (rand() % (sx - dx));
+    pivot = dx;
     perno = distribuzione(a, sx, pivot, dx); // separa gli elementi minori di a[pivot]
 					     // da quelli maggiori o uguali
     /* Ordina ricorsivamente le due metà */
@@ -78,3 +79,16 @@ int main() {
 
   return 0;
 }
+
+/*
+8
+11
+63
+18
+2
+8
+32
+15
+18
+
+*/

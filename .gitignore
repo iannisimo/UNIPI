@@ -6,6 +6,3 @@
 # Ignore test cases
 *.out
 *.in
-
-# Ignore FIS
-FIS/*
