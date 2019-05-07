@@ -7,6 +7,7 @@
 \usepackage{url}
 \usepackage{multicol}
 \usepackage{amsfonts}
+\usepackage{graphicx}
 
 \def\nt{\\[3mm]\hline\\[-2mm]}
 \def\nnt{\hline\\[-2mm]}
@@ -63,18 +64,33 @@
 
 \subsection{Trigonometria}
 
+
 \begin{tabular}{| p{9.5cm} | p{9.5cm} |}
-\nnt
-Angolo tra vettore e asse X & \texttt{$\overrightarrow{V} = \sqrt{V_x^2 + V_y^2} \ \ \alpha = \arccos(\dfrac{V_x}{\sqrt{V_x^2 + V_y^2})})$} \nt
-Prodotto seno $\cdot$ coseno & \texttt{$\cos\alpha \cdot \sin\alpha = \dfrac12 \cdot \sin{(2\alpha)}$} \tnn
+	\nnt
+	Angolo tra vettore e asse X & \texttt{$\overrightarrow{V} = \sqrt{V_x^2 + V_y^2} \ \ \alpha = \arccos(\dfrac{V_x}{\sqrt{V_x^2 + V_y^2})})$} \nt
+	Prodotto seno $\cdot$ coseno & \texttt{$\cos\alpha \cdot \sin\alpha = \dfrac12 \cdot \sin{(2\alpha)}$} \tnn
 \end{tabular}
+
+\begin{tabular}{p{5cm} p{8.9cm}}
+	\includegraphics{img/triangoloretto.png} &
+	\begin{tabular}{| p{4.5cm} | p{8.3cm} |}
+		\nnt
+		Cateto da ipotenusa & \texttt{$b = a \cdot \sin\beta = a \cdot \cos\gamma \ \ c = a \cdot \sin\gamma = a \cdot \cos\beta$} \nt
+		Cateto da cateto & \texttt{$b = c \cdot \tan\beta = c \cdot \cot\gamma \ \ c = b \cdot \tan\gamma = b \cdot \cot\beta$} \nt
+		Teorema dei seni & \texttt{$\dfrac{a}{\sin\alpha} = \dfrac{b}{\sin\beta} = \dfrac{c}{\sin\gamma}$} \nt
+		Teorema del coseno & \texttt{$a^2 = b^2 + c^2 - 2bc\cos\alpha$}
+		\tnn
+	\end{tabular}
+\end{tabular}
+
+
 
 \subsection{Attrito}
 
 \begin{tabular}{| p{9.5cm} | p{9.5cm} |}
 \nnt
 Forza risultante $(attrito\ statico)$ & \texttt{$F = \mu_s \cdot F_\perp$} \nt
-Forza risultante $(attrito\ dinamico)$ & \texttt{$F = \mu_d \cdot F_hfi$} \tnn
+Forza risultante $(attrito\ dinamico)$ & \texttt{$F = \mu_d \cdot F_hfi = \mu_d \cdot F_\perp$} \tnn
 \end{tabular}
 
 \subsection{Moto parabolico}
@@ -92,8 +108,8 @@ Legge oraria &
 	\texttt{$x = x_0 + v_{0_x} \cdot t \ \ (moto\ rettilineo\ uniforme)$} \\
 	\texttt{$y = -\dfrac12 \cdot g \cdot t^2 + v_{0_y} \cdot t + y_0 \ \ (moto\ uif.\ accelerato)$}
 	\end{cases}$ \nt
-Gittata & \texttt{$v_g = \dfrac{2 \cdot v_{0_x} \cdot v_{0_y}}{g}$} \nt
-Gittata massima $(45^\circ,\ \dfrac\pi4)$ & \texttt{$v_{g_max} = \dfrac{v_0^2}{g}$} \nt
+Gittata & \texttt{$x_g = \dfrac{2 \cdot v_{0_x} \cdot v_{0_y}}{g}$} \nt
+Gittata massima $(45^\circ,\ \dfrac\pi4)$ & \texttt{$x_{g_max} = \dfrac{v_0^2}{g}$} \nt
 Tempo di volo & \texttt{$t_{volo} = \dfrac{2 \cdot v_{0_y}}{g}$} \nt
 Altezza massima & \texttt{$y_{max} = \dfrac{v_{0_y}^2}{2 \cdot g}$} \nt
 Tempo per raggiungere l'altezza massima & \texttt{$t_{y\ max} = \dfrac{v_{0_y}}{g}$} \tnn
@@ -138,8 +154,23 @@ Forza centripeta & \texttt{$\vec{F}_c = m \cdot \vec{a}\ \ \vec{F}_c = m \cdot \
 \begin{tabular}{| p{9.5cm} | p{9.5cm} |}
 \nnt
 Elongazione & \texttt{$\Delta x = L - (\pm L_0)$} \nt
-Forza elastica $(Hooke's\ law)$ & \texttt{$\vec{F}_e = -k \cdot \vec{x}_{metri}$} \tnn
+Forza elastica $(Hooke's\ law)$ & \texttt{$\vec{F}_e = -k \cdot \vec{x}_{metri}$} \nt
+Pulsazione & \texttt{$\omega = \sqrt{\dfrac{k}{m}}$} \nt
+Periodo & \texttt{$T = \dfrac{2\pi}{\omega}$}
+\tnn
 
+\end{tabular}
+
+\subsection{Lavoro}
+
+\begin{tabular}{| p{9.5cm} | p{9.5cm} |}
+\nnt
+Lavoro & \texttt{$L = F \cdot \Delta s$} \nt
+Energia cinetica & \texttt{$K = \dfrac12 \cdot m \cdot |\vec{v}|$} \nt
+Energia potenziale & \texttt{$U = m \cdot g \cdot h$} \nt
+Energia potenziale elastica & \texttt{$U_e = \dfrac12 \cdot k \cdot \Delta x^2$} \nt
+Energia Meccanica $(totale)$ & \texttt{$M = K + U$} \nt
+Principio di conservazione & \texttt{$\Delta M = M_f - M_0 = 0$} \tnn
 \end{tabular}
 
 

@@ -42,7 +42,7 @@ void quicksort( int a[], int sx, int dx ) {
 int partEvenOdd(int a[], int sx, int dx) {
   int i = sx - 1;
   for(int j = sx; j <= dx; j++) {
-    if(!(a[j] % 2)) {\
+    if(!(a[j] % 2)) {  // <-- \
 
       swap(&a[++i], &a[j]);
     }
