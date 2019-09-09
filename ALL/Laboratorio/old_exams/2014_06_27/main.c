@@ -22,10 +22,6 @@ int hash_name(char* name, int mod) {
   return sum % (mod);
 }
 
-void insert_node_before(node_m_st** node, ab_entry entry) {
-
-}
-
 void hash_insert(node_m_st** node, ab_entry entry) {
   if(*node == NULL) {
     *node = malloc(sizeof(node_m_st));

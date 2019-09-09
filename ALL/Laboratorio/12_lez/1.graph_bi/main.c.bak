@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _node_m_i {
+  int value;
+  int group;
+  struct _node_m_i* next;
+} node_m_i;
+
+node_m_i** init_adj_lists(int n) {
+  node_m_i** adj_lists = malloc(n * sizeof(node_m_i*));
+  for(int i = 0; i < n; i++) {
+    adj_lists[i] = malloc(sizeof(node_m_i));
+    adj_lists[i]->value = i;
+    adj_lists[i]->group = 2;
+    adj_lists[i]->next = NULL;
+  }
+  return adj_lists;
+}
+
+node_m_i** read_graph(int* n) {
+  scanf("%d", n);
+  node_m_i** adj_lists = init_adj_lists(*n);
+  for(int i = 0; i < *n; i++) {
+    int arcs;
+    scanf("%d", &arcs);
+    node_m_i* node = adj_lists[i];
+    for(int j = 0; j < arcs; j++) {
+      int key;
+      scanf("%d", &key);
+      node->next = malloc(sizeof(node_m_i));
+      node = node->next;
+      node->value = key;
+      node->group = 2;
+      node->next = NULL;
+    }
+  }
+  return adj_lists;
+}
+
+int dfs_visit_bi(node_m_i** lists, int cur_node) {
+  node_m_i* adj = lists[cur_node]->next;
+  while(adj != NULL) {
+    if(lists[adj->value]->group == 2) {
+      adj->group = (lists[cur_node]->group + 1) % 2;
+      if(lists[adj->value]->group == 2) {
+        lists[adj->value]->group = adj->group;
+      } else if(lists[adj->value]->group != adj->group) {
+        return 0;
+      }
+      printf("%d %d -> %d %d\n", lists[cur_node]->value, lists[cur_node]->group, adj->value, adj->group);
+      dfs_visit_bi(lists, adj->value);
+    } else if(adj->group == lists[cur_node]->group) {
+      return 0;
+    }
+    adj = adj->next;
+  }
+  return 1;
+}
+
+int dfs_bi(node_m_i** lists, int dim) {
+  for(int i = 0; i < dim; i++) {
+    if(lists[i]->group == 2) {
+      lists[i]->group = 0;
+      printf("%d <--\n", i);
+      if(!dfs_visit_bi(lists, i)) {
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+int main(int argc, char const *argv[]) {
+  int n;
+  node_m_i** adj_lists = read_graph(&n);
+  int ok = dfs_bi(adj_lists, n);
+  printf("%d\n", ok);
+  return 0;
+}
+
+/*
+5
+2 1 3
+3 0 2 4
+2 1 3
+3 0 2 4
+2 1 3
+*/
