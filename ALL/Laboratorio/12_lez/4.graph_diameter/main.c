@@ -58,13 +58,14 @@ void push_tt(node_m_i** head, node_m_i** tail, int value) {
   }
 }
 
-void bfs(adj_arr_i* adj_arrs, int start, int end) {
+int bfs(adj_arr_i* adj_arrs, int start) {
   node_m_i* queue_head = NULL;
   node_m_i* queue_tail = NULL;
   push_tt(&queue_head, &queue_tail, start);
   adj_arrs[start].distance = 0;
+  int cur_node;
   while(queue_head != NULL) {
-    int cur_node = pop(&queue_head);
+    cur_node = pop(&queue_head);
     for(int i = 0; i < adj_arrs[cur_node].arcs; i++) {
       int adj_node = adj_arrs[cur_node].adj[i];
       if(adj_arrs[adj_node].visited == 0) {
@@ -74,53 +75,49 @@ void bfs(adj_arr_i* adj_arrs, int start, int end) {
       }
     }
     adj_arrs[cur_node].visited = 2;
-    if(cur_node == end) {
-      return;
-    }
   }
+  // The last node to be dequeued has the maximum distance (I hope)
+  return adj_arrs[cur_node].distance;
 }
 
 int main(int argc, char const *argv[]) {
   int n;
   adj_arr_i* adj_arrs = read_graph(&n);
-  int m;
-  scanf("%d", &m);
-  for(int i = 0; i < m; i++) {
-    int start;
-    int end;
-    scanf("%d %d", &start, &end);
+  int max_min_distance = 0;
+  for(int i = 0; i < n; i++) {
     reset_graph_visits(adj_arrs, n);
-    bfs(adj_arrs, start, end);
-    printf("%d\n", adj_arrs[end].distance);
-    //printf("%d\n", bfs(adj_arrs, start, end));
+    int tmp_distance = bfs(adj_arrs, i);
+    if(tmp_distance > max_min_distance) {
+      max_min_distance = tmp_distance;
+    }
+    if(!i) {
+      for(int i = 0; i < n; i ++) {
+        if(!adj_arrs[i].visited) {
+          max_min_distance = -1;
+          printf("-1\n");
+          return 0;
+        }
+      }
+    }
   }
+  printf("%d\n", max_min_distance);
   return 0;
 }
 
 /*
-7
+6
 2 1 3
 2 0 2
 2 1 5
 2 0 4
 1 2
 1 2
-6 0 1 2 3 4 5
-4
-0 4
-5 0
-3 3
-2 6
 
-8
-2 1 2
-1 3
-2 4 5
-0
-2 5 6
-1 7
-1 7
-0
-1
-0 1
+6
+2 1 3
+2 0 2
+2 1
+2 0
+1 5
+1 4
 */
