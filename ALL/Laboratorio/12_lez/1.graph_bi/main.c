@@ -27,22 +27,26 @@ adj_arr_i* read_graph(int* n) {
 }
 
 int dfs_visit_bi(adj_arr_i* adj_arrs, int cur_vertex) {
-  adj_arrs[cur_vertex].group = 1;
-
   for(int i = 0; i < adj_arrs[cur_vertex].arcs; i++) {
-    if(!adj_arrs[adj_arrs[cur_vertex].adj[i]].group) {
-
-      dfs_visit(adj_arrs, adj_arrs[cur_vertex].adj[i]);
+    if(adj_arrs[adj_arrs[cur_vertex].adj[i]].group == 2) {
+      adj_arrs[adj_arrs[cur_vertex].adj[i]].group = (adj_arrs[cur_vertex].group + 1) % 2;
+      if(!dfs_visit_bi(adj_arrs, adj_arrs[cur_vertex].adj[i])) {
+        return 0;
+      }
+    } else if(adj_arrs[cur_vertex].group == adj_arrs[adj_arrs[cur_vertex].adj[i]].group) {
+      return 0;
     }
   }
-  adj_arrs[cur_vertex].group = 2;
-
+  return 1;
 }
 
 int dfs_bi(adj_arr_i* adj_arrs, int dim) {
   for(int i = 0; i < dim;  i++) {
     if(adj_arrs[i].group == 2) {
-      dfs_visit(adj_arrs, i);
+      adj_arrs[i].group = 0;
+      if(!dfs_visit_bi(adj_arrs, i)) {
+        return 0;
+      }
     }
   }
   return 1;
@@ -51,7 +55,7 @@ int dfs_bi(adj_arr_i* adj_arrs, int dim) {
 int main(int argc, char const *argv[]) {
   int n;
   adj_arr_i* adj_arrs = read_graph(&n);
-  int ok = dfs(adj_arrs, n);
+  int ok = dfs_bi(adj_arrs, n);
   printf("%d\n", ok);
   return 0;
 }
