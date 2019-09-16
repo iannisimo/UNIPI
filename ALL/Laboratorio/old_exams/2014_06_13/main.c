@@ -64,27 +64,3 @@ int main(int argc, char const *argv[]) {
   print_exams(doable_exams, n);
   return 0;
 }
-
-/*
-30
-6
-AB
-12
-15
-CD
-6
-10
-EF
-12
-8
-GH
-12
-9
-LM
-6
-9
-NP
-9
-14
-
-*/

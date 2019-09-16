@@ -56,9 +56,6 @@ route_values get_min_maxRoute(bt_node* node) {
   if(left_route >= right_route) {
     return (route_values) {min(left.min_val, node->value), left_route};
   }
-  // if(left_route == right_route) {
-  //   return (route_values) {min(min(left.min_val, right.min_val), node.value), }
-  // }
   return (route_values) {min(right.min_val, node->value), right_route};
 }
 

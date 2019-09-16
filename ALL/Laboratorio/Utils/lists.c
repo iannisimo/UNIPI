@@ -1,9 +1,11 @@
+// Lists
+
 typedef struct _node_m_i {
   int value;
   struct _node_m_i* next;
 } node_m_i;
 
-// Read from stdin and insert in monodirectional list to the tail 
+// Read from stdin and insert in monodirectional list to the tail
 int readList_mono_tail(node_m_i** head) {
   int n;
   scanf("%d", &n);

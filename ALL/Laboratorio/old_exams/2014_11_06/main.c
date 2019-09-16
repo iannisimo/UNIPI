@@ -36,29 +36,6 @@ void hash_insert(node_m_st** node, object obj) {
   }
 }
 
-// void hash_insert(node_m_st** objs, object obj, int hash) {
-  // if(objs[hash] == NULL) {
-  //   objs[hash] = malloc(sizeof(node_m_st));
-  //   objs[hash]->obj = obj;
-  //   objs[hash]->next = NULL;
-  // } else if(objs[hash]->obj.type == obj.type && objs[hash]->obj.value < obj.value) {
-  //   objs[hash]->obj.value = obj.value;
-  // } else {
-  //   node_m_st* pointer = objs[hash]->next;
-  //   while(pointer != NULL) {
-  //     if(pointer == NULL) {
-  //       objs[hash] = malloc(sizeof(node_m_st));
-  //       objs[hash]->obj = obj;
-  //       objs[hash]->next = NULL;
-  //     } else if(pointer->obj.type == obj.type && pointer->obj.value < obj.value) {
-  //       pointer->obj.value = obj.value;
-  //     }
-  //
-  //     pointer = pointer->next;
-  //   }
-  // }
-// }
-
 node_m_st** read_and_hash_obj(int* n) {
   scanf("%d", n);
   node_m_st** objs = malloc(sizeof(node_m_st*) * 2 * *n);

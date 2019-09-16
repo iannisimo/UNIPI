@@ -65,16 +65,3 @@ int main(int argc, char const *argv[]) {
   print_entrys(entrys[k]);
   return 0;
 }
-
-/*
-4
-Gianni
-1
-Carlo
-2
-Maria
-3
-Antonella
-4
-6
-*/
