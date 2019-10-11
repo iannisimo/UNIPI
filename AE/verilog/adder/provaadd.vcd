@@ -1,0 +1,91 @@
+$date
+	Wed Oct  2 14:29:57 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module test_adder $end
+$var wire 4 ! my_z [3:0] $end
+$var wire 1 " my_of $end
+$var reg 4 # my_a [3:0] $end
+$var reg 4 $ my_b [3:0] $end
+$scope module add $end
+$var wire 4 % a [3:0] $end
+$var wire 4 & b [3:0] $end
+$var wire 4 ' z [3:0] $end
+$var wire 1 " oflow $end
+$var wire 1 ( of2 $end
+$var wire 1 ) of1 $end
+$var wire 1 * of0 $end
+$scope module a0 $end
+$var wire 1 + a $end
+$var wire 1 , b $end
+$var wire 1 - r $end
+$var wire 1 . z $end
+$var wire 1 * o $end
+$upscope $end
+$scope module a1 $end
+$var wire 1 / a $end
+$var wire 1 0 b $end
+$var wire 1 * r $end
+$var wire 1 1 z $end
+$var wire 1 ) o $end
+$upscope $end
+$scope module a2 $end
+$var wire 1 2 a $end
+$var wire 1 3 b $end
+$var wire 1 ) r $end
+$var wire 1 4 z $end
+$var wire 1 ( o $end
+$upscope $end
+$scope module a3 $end
+$var wire 1 5 a $end
+$var wire 1 6 b $end
+$var wire 1 ( r $end
+$var wire 1 7 z $end
+$var wire 1 " o $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+07
+06
+05
+04
+03
+02
+01
+00
+0/
+0.
+0-
+0,
+0+
+0*
+0)
+0(
+b0 '
+b0 &
+b0 %
+b0 $
+b0 #
+0"
+b0 !
+$end
+#10
+1"
+b0 !
+b0 '
+07
+16
+15
+b1000 $
+b1000 &
+b1000 #
+b1000 %
+#20

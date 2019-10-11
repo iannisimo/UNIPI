@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b618b734-9503-432b-81ac-413f1d256a9b" name="Default Changelist" comment="" />
+    <list default="true" id="b618b734-9503-432b-81ac-413f1d256a9b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../AE/verilog/adder/adder.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../AE/verilog/adder/adder2.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../AE/verilog/adder/provaadd.vcd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../AE/verilog/registry/d-flip-flop.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../AE/verilog/adder/add2.sv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../start.java" beforeDir="false" afterPath="$PROJECT_DIR$/../start.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +25,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
   <component name="ProjectId" id="1RNHRMaa5mDygQKD5ifXwfanveC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -66,10 +80,26 @@
       <workItem from="1569827899664" duration="49000" />
       <workItem from="1569827997743" duration="1686000" />
       <workItem from="1569833557677" duration="1357000" />
+      <workItem from="1570021091872" duration="68000" />
+      <workItem from="1570108452370" duration="17000" />
+      <workItem from="1570709518417" duration="33000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
