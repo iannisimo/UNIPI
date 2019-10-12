@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+//FIXME: contains/indexOf not working because of strange 'equals' behaviour
+
 public class ModStringCollection implements ModStringCollection_iface{
     private int dim;
     private final Vector<ModString_iface> strs;
@@ -7,16 +9,20 @@ public class ModStringCollection implements ModStringCollection_iface{
 
     public ModStringCollection() {
         dim = 0;
-        strs = new Vector<>();
-        occs = new Vector<>();
+        strs = new Vector<ModString_iface>();
+        occs = new Vector<Integer>();
+    }
+
+    public int test(ModString_iface str) {
+        return strs.indexOf(str);
     }
 
 
     @Override
     public int occurrences(ModString_iface str) throws NullPointerException {
         if(str == null) throw new NullPointerException();
-        if(contains(str)) {
-            return occs.get(indexOf(str));
+        if(strs.contains(str)) {
+            return occs.get(strs.indexOf(str));
         }
         return 0;
     }
@@ -29,8 +35,8 @@ public class ModStringCollection implements ModStringCollection_iface{
     @Override
     public void insert(ModString_iface str) throws NullPointerException{
         if(str == null) throw new NullPointerException();
-        if(contains(str)) {
-            int index = indexOf(str);
+        if(strs.contains(str)) {
+            int index = strs.indexOf(str);
             occs.setElementAt(occs.get(index) + 1, index);
         } else {
             strs.add(str);
@@ -43,8 +49,8 @@ public class ModStringCollection implements ModStringCollection_iface{
     public int remove(ModString_iface str, int num) throws NullPointerException, IllegalArgumentException {
         if(str == null) throw new NullPointerException();
         if(num < 0) throw new IllegalArgumentException();
-        if(contains(str)) {
-            int index = indexOf(str);
+        if(strs.contains(str)) {
+            int index = strs.indexOf(str);
             int occurrences = occs.get(index);
 
             if(0 < num && num < occurrences) {
@@ -68,18 +74,5 @@ public class ModStringCollection implements ModStringCollection_iface{
             tmp[i] = strs.get(i).toString();
         }
         return tmp;
-    }
-
-    private boolean contains(ModString_iface str) {
-        return indexOf(str) >= 0;
-    }
-
-    private int indexOf(ModString_iface str) {
-        for(int i = 0; i < strs.size(); i++) {
-            if(strs.get(i).toString().equals(str.toString())) {
-                return i;
-            }
-        }
-        return -1;
     }
 }
