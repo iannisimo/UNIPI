@@ -10,7 +10,7 @@ public class test {
         msc.insert(new ModString("ciao"));
 
         System.out.println(msc.occurrences(new ModString("ciao")));
-        msc.remove(new ModString("ciao"), 0);
+        msc.remove(new ModString("ciao"), 2);
         System.out.println(msc.occurrences(new ModString("ciao")));
         String[] mscS = msc.getUnique();
         for(String s : mscS) {

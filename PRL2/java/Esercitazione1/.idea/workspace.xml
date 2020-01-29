@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7f6b067-794f-41e5-a643-8abf2ebad8a8" name="Default Changelist" comment="Java es2">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ModStringCollection.java.bak" afterDir="false" />
+    <list default="true" id="e7f6b067-794f-41e5-a643-8abf2ebad8a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Esercitazione1/ModString.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Esercitazione1/ModString.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Esercitazione1/ModStringCollection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Esercitazione1/ModStringCollection.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Esercitazione1/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Esercitazione1/test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModString.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModString.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ModStringCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModStringCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.java" afterDir="false" />
     </list>
@@ -38,9 +38,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Tinder_com.tinder" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -88,8 +89,20 @@
       <updated>1570709551502</updated>
       <workItem from="1570709556299" duration="1767000" />
       <workItem from="1570796791240" duration="9124000" />
-      <workItem from="1570883663973" duration="4180000" />
+      <workItem from="1570883663973" duration="4258000" />
+      <workItem from="1571036495092" duration="500000" />
+      <workItem from="1571047576042" duration="136000" />
+      <workItem from="1571233866324" duration="91000" />
+      <workItem from="1571403339421" duration="337000" />
     </task>
+    <task id="LOCAL-00001" summary="Java es2">
+      <created>1570889936627</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1570889936627</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,7 +113,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -109,5 +124,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Java es2" />
     <option name="LAST_COMMIT_MESSAGE" value="Java es2" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

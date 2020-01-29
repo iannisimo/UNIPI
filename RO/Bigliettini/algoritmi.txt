@@ -1,0 +1,15 @@
+Cammini minimi:
+   9: Bellman
+  15: Dijkstra
+  25: Bellman-Ford
+Albero di copertura min:
+   5: Ottimalita sui cicli
+  13: Ottimalita sui tagli
+  25: Kruskal
+  39: Prim
+Flusso massimo:
+  (grafo residuo, cammino aumentante, Ford-Fulkerson)
+   4: Ottimalita
+   6: Condizioni di ottimalita
+   8: MaxFlow <-> MinCut
+  38: Accoppiamento di massima cardinalita

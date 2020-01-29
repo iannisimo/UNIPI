@@ -39,4 +39,11 @@ public class ModString implements ModString_iface {
         }
         return s.toString();
     }
+
+    public boolean equals(Object o) {
+        if(o == null) return false;
+        if(!(this.getClass().equals(o.getClass()))) return false;
+        if(o == this) return true;
+        return this.toString().equals(o.toString());
+    }
 }

@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+//FIXME: contains/indexOf not working because of strange 'equals' behaviour
+
 public class ModStringCollection implements ModStringCollection_iface{
     private int dim;
     private final Vector<ModString_iface> strs;
@@ -7,8 +9,12 @@ public class ModStringCollection implements ModStringCollection_iface{
 
     public ModStringCollection() {
         dim = 0;
-        strs = new Vector<>();
-        occs = new Vector<>();
+        strs = new Vector<ModString_iface>();
+        occs = new Vector<Integer>();
+    }
+
+    public int test(ModString_iface str) {
+        return strs.indexOf(str);
     }
 
 
@@ -69,17 +75,4 @@ public class ModStringCollection implements ModStringCollection_iface{
         }
         return tmp;
     }
-
-//    private boolean contains(ModString_iface str) {
-//        return strs.indexOf(str) >= 0;
-//    }
-//
-//    private int strs.indexOf(ModString_iface str) {
-//        for(int i = 0; i < strs.size(); i++) {
-//            if(strs.get(i).toString().equals(str.toString())) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
 }
