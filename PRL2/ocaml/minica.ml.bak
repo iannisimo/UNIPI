@@ -144,19 +144,63 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
             		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
                          			                eval letBody r1 |
             		_ -> failwith("non functional def")) |
-	Edict(d) -> Dict(evalDict d r "undefined" [])
+	Edict(d) -> Dict(evalDict d r "undefined" []) |
+  Has_key(i, d) -> match eval d r with
+      Dict(lst) -> has_key i lst
+    | _ -> failwith("Wrong type in Has_key(ide, exp) where exp ~ Dict at " ^ string_of_int __LINE__) |
+  Insert(i, e, d) -> match eval d r with
+      Dict(lst) -> (
+        match has_key i lst with
+            Bool false -> let value = eval e r in (
+              Dict(evalDict d r (dict_type ) [(i, value)])
+              (* match typecheck (dict_type d) val with
+                  Bool true ->
+                | _ -> failwith("Wrong type in Insert")  *)
+            )
+          | _ -> failwith("Key already present")
+      )
+    | _ -> failwith("Wrong type in Insert(ide, exp) where exp ~ Dict at " ^ string_of_int __LINE__)
 
 	and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
 		match d with
 				Empty -> acc
-			| Val(i, e, ls) -> let value = (eval e r) in match tpe with
-					"undefined" -> (i, value) :: (evalDict ls r (if (typecheck "int" value) then "int" else "bool"))
-				| "int" -> if(typecheck "int" value)
-					then (i, value) :: evalDict ls r "int"
-					else failwith("Type error")
-				| "bool" -> if(typecheck "bool" value)
-					then (i, value) :: evalDict ls r "bool"
-					else failwith("Type error")
+			| Val(i, e, ls) -> match (has_key i acc) with
+          Bool false -> let value = (eval e r) in (
+            match tpe with
+			       		"undefined" -> (evalDict ls r (if (typecheck "int" value) then "int" else "bool") ((i, value)::acc))
+			       	| "int" -> if(typecheck "int" value)
+			       		then (evalDict ls r "int" ((i, value)::acc))
+			       		else failwith("Type error")
+			       	| "bool" -> if(typecheck "bool" value)
+			       		then (evalDict ls r "bool" ((i, value)::acc))
+			       		else failwith("Type error")
+          )
+        | _ ->
+            failwith("Key already present")
+
+  and has_key (i : ide) (lst : (ide * evT) list) : evT =
+    match lst with
+        [] -> Bool false
+      | (x,v)::xs ->
+        if x = i
+          then Bool true
+          else has_key i xs
+      | _ -> failwith("Impossible pattern")
+
+  and evT_type (e : evT) : string = (
+    if typecheck "int" e
+      then "int"
+      else "bool"
+  )
+
+  and dict_type (d : dict) : string =
+    match d with
+        Empty -> "undefined"
+      | Val(i, e, ls) ->
+          let value = eval e r in
+          if typecheck "int" value
+            then "int"
+            else "bool"
 ;;
 
 (*#use "minica.ml";;*)
@@ -178,6 +222,10 @@ let x = Eint 2;;
 
 eval x env0;;
 
-let y = Edict(Val("a", Eint(10), Val("b", Ebool(true), Empty)));;
+let y = Edict(Val("a", Eint(10), Val("a", Eint(3), Empty)));;
 
 eval y env0;;
+
+let z = Has_key("b", x);;
+
+eval z env0;;

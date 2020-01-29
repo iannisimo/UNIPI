@@ -139,12 +139,25 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
 							let aEnv = (bind rEnv arg aVal) in
 								eval fBody aEnv |
 				_ -> failwith("non functional value")) |
-        Letrec(f, funDef, letBody) ->
-        		(match funDef with
-            		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
-                         			                eval letBody r1 |
-            		_ -> failwith("non functional def")) |
-	Edict(d) -> Dict(evalDict d r "undefined" [])
+  Letrec(f, funDef, letBody) ->
+  		(match funDef with
+      		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
+                   			                eval letBody r1 |
+      		_ -> failwith("non functional def")) |
+	Edict(d) -> Dict(evalDict d r "undefined" []) |
+  Insert(i, e, d) -> let value = eval e r in (
+    match eval d r with
+      | Dict(dt) -> Dict(insert i e dt r)
+      | _ -> failwith("Not a dict in Insert")
+    ) |
+  Delete(i, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(delete i dt)
+      | _ -> failwith("Not a dict in Delete")
+    ) |
+  Has_key(i, d) -> match eval d r with
+      Dict(lst) -> has_key i lst
+    | _ -> failwith("Wrong type in Has_key")
 
 	and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
 		match d with
@@ -171,6 +184,33 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
           then Bool true
           else has_key i xs
       | _ -> failwith("Impossible pattern")
+
+  and dict_type (d : (ide * evT) list) : string =
+    match d with
+      | [] -> "undefined"
+      | (i,e)::xs -> (
+        if typecheck "int" e
+          then "int"
+          else "bool"
+      )
+      | _ -> failwith("Impossible pattern")
+
+  and insert (i : ide) (e : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
+    match (has_key i d) with
+      | Bool false -> let value = eval e r in (
+        if typecheck (dict_type d) value
+          then (i,value)::d
+          else failwith("Incompatible types for insert")
+      )
+      | _ -> failwith("Key already present")
+
+  and delete (i : ide) (d : (ide * evT) list) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (x, v)::ls ->
+        if i = x
+          then ls
+          else (x, v) :: (delete i ls)
 ;;
 
 (*#use "minica.ml";;*)
@@ -192,6 +232,20 @@ let x = Eint 2;;
 
 eval x env0;;
 
-let y = Edict(Val("ba", Eint(10), Val("a", Eint(3), Empty)));;
+let y = Edict(Val("a", Eint(10), Val("b", Eint(3), Empty)));;
 
 eval y env0;;
+
+let yy = Insert("c", Eint(3), y);;
+
+(* eval yy env0;; *)
+
+let zz = Delete("c", yy);;
+
+eval zz env0;;
+
+let myf = Fun("x", Sum(Den("x"), Den("x")));;
+let call = FunCall(myf, Eint(3));;
+
+eval myf env0;;
+eval call env0;;
