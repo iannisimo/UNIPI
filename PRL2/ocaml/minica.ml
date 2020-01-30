@@ -155,9 +155,26 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
       | Dict(dt) -> Dict(delete i dt)
       | _ -> failwith("Not a dict in Delete")
     ) |
-  Has_key(i, d) -> match eval d r with
-      Dict(lst) -> has_key i lst
-    | _ -> failwith("Wrong type in Has_key")
+  Has_key(i, d) -> (
+    match eval d r with
+      | Dict(dt) -> (has_key i dt)
+      | _ -> failwith("Wrong type in Has_key")
+    ) |
+  Iterate(f, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(iterate f dt r)
+      | _ -> failwith("Not a dict in Iterate")
+    ) |
+  Fold(f, d) -> (
+    match eval d r with
+      | Dict(dt) -> (fold f dt (Int(0)) r)
+      | _ -> failwith("Not a dict in Fold")
+    ) |
+  Filter(is, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(filter is dt)
+      | _ -> failwith("Not a dict in Filter")
+    )
 
 	and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
 		match d with
@@ -195,6 +212,18 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
       )
       | _ -> failwith("Impossible pattern")
 
+
+  and fun_call (fClosure : evT) (v : evT) (r : evT env) : evT =
+    match fClosure with
+      | FunVal(arg, fBody, fDecEnv) ->
+        eval fBody (bind fDecEnv arg v)
+      | RecFunVal(g, (arg, fBody, fDecEnv)) ->
+        let aVal = v in
+          let rEnv = (bind fDecEnv g fClosure) in
+            let aEnv = (bind rEnv arg aVal) in
+              eval fBody aEnv
+      | _ -> failwith("Non functional value")
+
   and insert (i : ide) (e : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
     match (has_key i d) with
       | Bool false -> let value = eval e r in (
@@ -211,9 +240,35 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
         if i = x
           then ls
           else (x, v) :: (delete i ls)
-;;
 
-(*#use "minica.ml";;*)
+  and iterate (f : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (i, v)::xs ->
+        (i, (fun_call (eval f r) v r))::(iterate f xs r)
+      | _ -> failwith("Impossible pattern")
+  and fold (f : exp) (d : (ide * evT) list) (acc : evT) (r : evT env) : evT =
+    match d with
+      | [] -> acc
+      | (i, v)::xs -> (fold f xs (fun_call (fun_call (eval f r) acc r) v r) r)
+  and filter (is : ide list) (d : (ide * evT) list) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (i, v)::xs ->
+        if (contains i is)
+          then (i, v)::(filter is xs)
+          else filter is xs
+
+
+  and contains (i : ide) (is : ide list) : bool =
+    match is with
+      | [] -> false
+      | x::xs ->
+        if x = i
+          then true
+          else (contains i xs)
+      | _ -> failwith("Impossible pattern")
+;;
 
 (* =============================  TESTS  ================= *)
 
@@ -222,30 +277,41 @@ let env0 = emptyenv Unbound;;
 
 let e1 = FunCall(Fun("y", Sum(Den "y", Eint 1)), Eint 3);;
 
-eval e1 env0;;
+(* eval e1 env0;; *)
 
-let e2 = FunCall(Let("x", Eint 2, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
+let e2 = FunCall(Let("x", Eint 9, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
 
 eval e2 env0;;
 
+let e3 = Fun("y", Fun("x", Sum(Den "y", Den "x")));;
+eval e3 env0;;
+let e3_bis = FunCall(FunCall(e3, Eint 4), Eint 3);;
+eval e3_bis env0;;
+
 let x = Eint 2;;
 
-eval x env0;;
+(* eval x env0;; *)
 
 let y = Edict(Val("a", Eint(10), Val("b", Eint(3), Empty)));;
 
-eval y env0;;
+(* eval y env0;; *)
 
 let yy = Insert("c", Eint(3), y);;
 
-(* eval yy env0;; *)
+eval yy env0;;
 
 let zz = Delete("c", yy);;
 
-eval zz env0;;
+(* eval zz env0;; *)
 
-let myf = Fun("x", Sum(Den("x"), Den("x")));;
-let call = FunCall(myf, Eint(3));;
+let myf = Fun("x", Sum(Den("x"), Eint(10)));;
 
-eval myf env0;;
-eval call env0;;
+let it = Iterate(myf, yy);;
+eval it env0;;
+
+let fil = Filter(["a";"c"], yy);;
+
+eval fil env0;;
+
+let fol = Fold(e3, yy);;
+eval fol env0;;

@@ -139,27 +139,53 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
 							let aEnv = (bind rEnv arg aVal) in
 								eval fBody aEnv |
 				_ -> failwith("non functional value")) |
-        Letrec(f, funDef, letBody) ->
-        		(match funDef with
-            		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
-                         			                eval letBody r1 |
-            		_ -> failwith("non functional def")) |
+  Letrec(f, funDef, letBody) ->
+  		(match funDef with
+      		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
+                   			                eval letBody r1 |
+      		_ -> failwith("non functional def")) |
+  FunCall_evT(f, eArg) ->
+    let fClosure = (eval f r) in
+      (match fClosure with
+        FunVal(arg, fBody, fDecEnv) ->
+          eval fBody (bind fDecEnv arg eArg) |
+        RecFunVal(g, (arg, fBody, fDecEnv)) ->
+          let aVal = eArg in
+            let rEnv = (bind fDecEnv g fClosure) in
+              let aEnv = (bind rEnv arg aVal) in
+                eval fBody aEnv |
+        _ -> failwith("non functional value")) |
 	Edict(d) -> Dict(evalDict d r "undefined" []) |
-  Has_key(i, d) -> match eval d r with
-      Dict(lst) -> has_key i lst
-    | _ -> failwith("Wrong type in Has_key(ide, exp) where exp ~ Dict at " ^ string_of_int __LINE__) |
-  Insert(i, e, d) -> match eval d r with
-      Dict(lst) -> (
-        match has_key i lst with
-            Bool false -> let value = eval e r in (
-              Dict(evalDict d r (dict_type ) [(i, value)])
-              (* match typecheck (dict_type d) val with
-                  Bool true ->
-                | _ -> failwith("Wrong type in Insert")  *)
-            )
-          | _ -> failwith("Key already present")
-      )
-    | _ -> failwith("Wrong type in Insert(ide, exp) where exp ~ Dict at " ^ string_of_int __LINE__)
+  Insert(i, e, d) -> let value = eval e r in (
+    match eval d r with
+      | Dict(dt) -> Dict(insert i e dt r)
+      | _ -> failwith("Not a dict in Insert")
+    ) |
+  Delete(i, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(delete i dt)
+      | _ -> failwith("Not a dict in Delete")
+    ) |
+  Has_key(i, d) -> (
+    match eval d r with
+      | Dict(dt) -> (has_key i dt)
+      | _ -> failwith("Wrong type in Has_key")
+    ) |
+  Iterate(f, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(iterate f dt r)
+      | _ -> failwith("Not a dict in Iterate")
+    ) |
+  Fold(f, d) -> (
+    match eval d r with
+      | Dict(dt) -> (fold f dt r)
+      | _ -> failwith("Not a dict in Iterate")
+    ) |
+  Filter(is, d) -> (
+    match eval d r with
+      | Dict(dt) -> Dict(filter is dt)
+      | _ -> failwith("Not a dict in Filter")
+    )
 
 	and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
 		match d with
@@ -187,23 +213,60 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
           else has_key i xs
       | _ -> failwith("Impossible pattern")
 
-  and evT_type (e : evT) : string = (
-    if typecheck "int" e
-      then "int"
-      else "bool"
-  )
-
-  and dict_type (d : dict) : string =
+  and dict_type (d : (ide * evT) list) : string =
     match d with
-        Empty -> "undefined"
-      | Val(i, e, ls) ->
-          let value = eval e r in
-          if typecheck "int" value
-            then "int"
-            else "bool"
-;;
+      | [] -> "undefined"
+      | (i,e)::xs -> (
+        if typecheck "int" e
+          then "int"
+          else "bool"
+      )
+      | _ -> failwith("Impossible pattern")
 
-(*#use "minica.ml";;*)
+  and insert (i : ide) (e : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
+    match (has_key i d) with
+      | Bool false -> let value = eval e r in (
+        if typecheck (dict_type d) value
+          then (i,value)::d
+          else failwith("Incompatible types for insert")
+      )
+      | _ -> failwith("Key already present")
+
+  and delete (i : ide) (d : (ide * evT) list) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (x, v)::ls ->
+        if i = x
+          then ls
+          else (x, v) :: (delete i ls)
+
+  and iterate (f : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (i, v)::xs ->
+        (i, (eval (FunCall_evT f v) r))::(iterate f xs r)
+      | _ -> failwith("Impossible pattern")
+
+  and filter (is : ide list) (d : (ide * evT) list) : (ide * evT) list =
+    match d with
+      | [] -> []
+      | (i, v)::xs ->
+        if (contains i is)
+          then (i, v)::(filter is xs)
+          else filter is xs
+
+
+  and contains (i : ide) (is : ide list) : bool =
+    match is with
+      | [] -> false
+      | x::xs ->
+        if x = i
+          then true
+          else (contains i xs)
+      | _ -> failwith("Impossible pattern")
+
+  and fun_call ()
+;;
 
 (* =============================  TESTS  ================= *)
 
@@ -212,20 +275,33 @@ let env0 = emptyenv Unbound;;
 
 let e1 = FunCall(Fun("y", Sum(Den "y", Eint 1)), Eint 3);;
 
-eval e1 env0;;
+(* eval e1 env0;; *)
 
-let e2 = FunCall(Let("x", Eint 2, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
+let e2 = FunCall(Let("x", Eint 9, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
 
 eval e2 env0;;
 
 let x = Eint 2;;
 
-eval x env0;;
+(* eval x env0;; *)
 
-let y = Edict(Val("a", Eint(10), Val("a", Eint(3), Empty)));;
+let y = Edict(Val("a", Eint(10), Val("b", Eint(3), Empty)));;
 
-eval y env0;;
+(* eval y env0;; *)
 
-let z = Has_key("b", x);;
+let yy = Insert("c", Eint(3), y);;
 
-eval z env0;;
+eval yy env0;;
+
+let zz = Delete("c", yy);;
+
+(* eval zz env0;; *)
+
+let myf = Fun("x", Sum(Den("x"), Eint(10)));;
+
+let it = Iterate(myf, yy);;
+eval it env0;;
+
+let fil = Filter(["a";"c"], yy);;
+
+eval fil env0;;
