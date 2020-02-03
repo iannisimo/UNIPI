@@ -18,6 +18,7 @@ type exp =
 | FunCall of exp * exp
 |	Letrec of ide * exp * exp
 (*MOD*)
+| FFun of ide * ide * exp
 | Edict of dict
 | Insert of ide * exp * exp
 | Delete of ide * exp
@@ -107,6 +108,15 @@ let non x = if (typecheck "bool" x)
 		Bool(false) -> Bool(true))
 	else failwith("Type error");;
 
+let rec check (e: exp) : string = match e with
+  |  Eint n -> "int"
+  |  Ebool b -> "bool"
+  |  IsZero a ->
+    if "int" = (check a) 
+      then "bool"
+      else failwith "static type error"
+ ;;
+
 (*interprete*)
 let rec eval (e : exp) (r : evT env) : evT = match e with
 	Eint n -> Int n |
@@ -144,6 +154,9 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
       		Fun(i, fBody) -> let r1 = (bind r f (RecFunVal(f, (i, fBody, r)))) in
                    			                eval letBody r1 |
       		_ -> failwith("non functional def")) |
+  (* MOD *)
+  FFun(i1, i2, a) -> FunVal(i2, Fun(i1, a), r) |
+
 	Edict(d) -> Dict(evalDict d r "undefined" []) |
   Insert(i, e, d) -> let value = eval e r in (
     match eval d r with
@@ -162,12 +175,12 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
     ) |
   Iterate(f, d) -> (
     match eval d r with
-      | Dict(dt) -> Dict(iterate f dt r)
+      | Dict(dt) -> Dict(iterate (eval f r) dt r)
       | _ -> failwith("Not a dict in Iterate")
     ) |
   Fold(f, d) -> (
     match eval d r with
-      | Dict(dt) -> (fold f dt (Int(0)) r)
+      | Dict(dt) -> (fold (eval f r) dt (Int(0)) r)
       | _ -> failwith("Not a dict in Fold")
     ) |
   Filter(is, d) -> (
@@ -241,16 +254,20 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
           then ls
           else (x, v) :: (delete i ls)
 
-  and iterate (f : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
+  and iterate (f : evT) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
     match d with
       | [] -> []
       | (i, v)::xs ->
-        (i, (fun_call (eval f r) v r))::(iterate f xs r)
+        (i, (fun_call f v r))::(iterate f xs r)
       | _ -> failwith("Impossible pattern")
-  and fold (f : exp) (d : (ide * evT) list) (acc : evT) (r : evT env) : evT =
+  and fold (f : evT) (d : (ide * evT) list) (acc : evT) (r : evT env) : evT =
     match d with
       | [] -> acc
-      | (i, v)::xs -> (fold f xs (fun_call (fun_call (eval f r) acc r) v r) r)
+      | (i, v)::xs ->
+        let temp = (fold f xs (fun_call (fun_call f acc r) v r) r) in
+        if typecheck "int" temp
+          then temp
+          else failwith("Non-int Fold partial result")
   and filter (is : ide list) (d : (ide * evT) list) : (ide * evT) list =
     match d with
       | [] -> []
@@ -283,6 +300,9 @@ let e2 = FunCall(Let("x", Eint 9, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
 
 eval e2 env0;;
 
+let x = Ifthenelse(Ebool true, Sum(Eint 2, Eint 1), Prod(Eint 1, Eint 2));;
+eval x env0;;
+
 let e3 = Fun("y", Fun("x", Sum(Den "y", Den "x")));;
 eval e3 env0;;
 let e3_bis = FunCall(FunCall(e3, Eint 4), Eint 3);;
@@ -302,8 +322,6 @@ eval yy env0;;
 
 let zz = Delete("c", yy);;
 
-(* eval zz env0;; *)
-
 let myf = Fun("x", Sum(Den("x"), Eint(10)));;
 
 let it = Iterate(myf, yy);;
@@ -313,5 +331,11 @@ let fil = Filter(["a";"c"], yy);;
 
 eval fil env0;;
 
-let fol = Fold(e3, yy);;
+let ff = FFun("x", "y", Sum(Den "y", Den "x"))
+let fol = Fold(ff, yy);;
 eval fol env0;;
+
+let bf = FFun("a", "b", Ifthenelse(Den "a", Sum(Den "b", Eint 1), Den "b"));;
+let dick = Edict(Val("a", Ebool true, Val("b", Ebool false, Val("c", Ebool true, Empty))));;
+let dickFold = Fold(bf, dick);;
+eval dickFold env0;;
