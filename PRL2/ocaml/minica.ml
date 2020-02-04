@@ -24,7 +24,7 @@ type exp =
 | Delete of ide * exp
 | Has_key of ide * exp
 | Iterate of exp * exp
-| Fold of exp * exp
+| Fold of exp * exp * exp
 | Filter of (ide list) * exp
 and dict =
 	Empty
@@ -36,6 +36,11 @@ type 't env = ide -> 't;;
 let emptyenv (v : 't) = function x -> v;;
 let applyenv (r : 't env) (i : ide) = r i;;
 let bind (r : 't env) (i : ide) (v : 't) = function x -> if x = i then v else applyenv r x;;
+(*ambiente typi*)
+type envt = ide -> string;;
+let emptyenvtype (v : string) = function x -> v;;
+let applyenvtype (r : envt) (i : ide) = r i;;
+let bindtype (r : envt) (i : ide) (v : string) = function x -> if x = i then v else applyenvtype r x;;
 
 (*tipi esprimibili*)
 type evT =
@@ -108,17 +113,117 @@ let non x = if (typecheck "bool" x)
 		Bool(false) -> Bool(true))
 	else failwith("Type error");;
 
-let rec check (e: exp) : string = match e with
-  |  Eint n -> "int"
-  |  Ebool b -> "bool"
-  |  IsZero a ->
-    if "int" = (check a) 
+
+let rec check (e : exp) (r : envt) : string = match e with
+  | Eint n -> "int"
+  | Ebool b -> "bool"
+  | IsZero a ->
+    if stCheck (check a r) "int"
       then "bool"
       else failwith "static type error"
- ;;
+  | Den i ->  r i
+  | Eq(a, b) ->
+      if stCheck (check a r) (check b r)
+      then "bool"
+        else failwith "static type error"
+  | Prod(a, b) ->
+    if stCheck (check a r) "int" && stCheck (check b r) "int"
+      then "int"
+      else failwith "static type error"
+  | Sum(a, b) ->
+    if stCheck (check a r) "int" && stCheck (check b r) "int"
+      then "int"
+      else failwith "static type error"
+  | Diff(a, b) ->
+    if stCheck (check a r) "int" && stCheck (check b r) "int"
+      then "int"
+      else failwith "static type error"
+  | Minus a ->
+    if stCheck (check a r) "int"
+      then "int"
+      else failwith "static type error"
+  | And(a, b) ->
+    if stCheck (check a r) "bool" && stCheck (check b r) "bool"
+      then "bool"
+      else failwith "static type error"
+  | Or(a, b) ->
+    if stCheck (check a r) "bool" && stCheck (check b r) "bool"
+      then "bool"
+      else failwith "static type error"
+  | Not a ->
+    if stCheck (check a r) "bool"
+      then "bool"
+      else failwith "static type error"
+  | Ifthenelse(a, b, c) ->
+    if stCheck (check a r) "bool"
+      then if stCheck (check b r) (check c r)
+        then check b r
+        else failwith "static type error"
+      else failwith "static type error"
+  | Let(i, e1, e2) -> check e2 (bindtype r i (check e1 r))
+  | Fun(i, a) -> check a r
+  | FunCall(f, eArg) -> (
+    match f with
+      | Fun(i, a) -> check f (bindtype r i (check eArg r))
+      | _ -> failwith "static type error"
+    )
+  | FFun(i1, i2, a) -> check a r
+  | Edict d -> dictCheck d "unbound" r
+  | Insert(i, e, d) -> let dType = (check d r) in (
+    match (String.split_on_char '_' dType) with
+      | x::y::ys ->
+        if stCheck x (check e r)
+          then dType
+          else failwith "static type error"
+      | _ -> failwith "static type error"
+    )
+  | Delete(i, d) -> check d r
+  | Has_key(i, d) -> check d r
+  | Iterate(f, d) -> let dType = (check d r) in (
+    match (String.split_on_char '_' dType) with
+      | x::y::ys ->
+        if stCheck (check f r) x
+          then dType
+          else  failwith "static type error"
+      | _ -> failwith "static type error"
+    )
+    | Fold(f, d, a) -> let aType = check a r in
+      if stCheck (check f r) aType
+        then aType
+        else failwith "static type error"
+    | Filter(is, d) -> check d r
+
+
+
+  and dictCheck (d : dict) (t : string) (r : envt): string =
+    match d with
+      | Val(i, e, ls) -> let eType = (check e r) in
+        if stCheck t eType
+          then (dictCheck ls eType r)
+          else failwith "static type error"
+      | Empty -> t ^ "_dict"
+      | _ -> failwith "static type error"
+  and stCheck (a : string) (b : string) : bool =
+    (a = "unbound" || a = b || b = "unbound")
+  (*
+  | Edict d -> match d with
+    | Empty -> "unbound-dict"
+    | Val(i, e, ls) -> check e r ^ "-dict"
+    | _ -> "static type error"
+  | Insert(i, e, d) -> match check d r with
+    | x ^ "-dict" -> x
+    | _ -> "static type error"
+  *)
+  (* and bindtype (r : 't env) (i : ide) (v : string) = function x ->
+    if i = x
+      then v
+      else applyenvtype r x *)
+
+
+ (*  eval e2 (bind r i (eval e1 r)) | *)
 
 (*interprete*)
-let rec eval (e : exp) (r : evT env) : evT = match e with
+  and eval (e : exp) (r : evT env) : evT = match e with
 	Eint n -> Int n |
 	Ebool b -> Bool b |
 	IsZero a -> iszero (eval a r) |
@@ -178,9 +283,9 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
       | Dict(dt) -> Dict(iterate (eval f r) dt r)
       | _ -> failwith("Not a dict in Iterate")
     ) |
-  Fold(f, d) -> (
+  Fold(f, d, a) -> (
     match eval d r with
-      | Dict(dt) -> (fold (eval f r) dt (Int(0)) r)
+      | Dict(dt) -> (fold (eval f r) dt (eval a r) r)
       | _ -> failwith("Not a dict in Fold")
     ) |
   Filter(is, d) -> (
@@ -264,10 +369,7 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
     match d with
       | [] -> acc
       | (i, v)::xs ->
-        let temp = (fold f xs (fun_call (fun_call f acc r) v r) r) in
-        if typecheck "int" temp
-          then temp
-          else failwith("Non-int Fold partial result")
+        fold f xs (fun_call (fun_call f acc r) v r) r
   and filter (is : ide list) (d : (ide * evT) list) : (ide * evT) list =
     match d with
       | [] -> []
@@ -289,53 +391,26 @@ let rec eval (e : exp) (r : evT env) : evT = match e with
 
 (* =============================  TESTS  ================= *)
 
-(* basico: no let *)
-let env0 = emptyenv Unbound;;
-
-let e1 = FunCall(Fun("y", Sum(Den "y", Eint 1)), Eint 3);;
-
-(* eval e1 env0;; *)
-
-let e2 = FunCall(Let("x", Eint 9, Fun("y", Sum(Den "y", Den "x"))), Eint 3);;
-
-eval e2 env0;;
-
-let x = Ifthenelse(Ebool true, Sum(Eint 2, Eint 1), Prod(Eint 1, Eint 2));;
-eval x env0;;
-
-let e3 = Fun("y", Fun("x", Sum(Den "y", Den "x")));;
-eval e3 env0;;
-let e3_bis = FunCall(FunCall(e3, Eint 4), Eint 3);;
-eval e3_bis env0;;
-
-let x = Eint 2;;
-
-(* eval x env0;; *)
-
-let y = Edict(Val("a", Eint(10), Val("b", Eint(3), Empty)));;
-
-(* eval y env0;; *)
-
-let yy = Insert("c", Eint(3), y);;
-
-eval yy env0;;
-
-let zz = Delete("c", yy);;
-
-let myf = Fun("x", Sum(Den("x"), Eint(10)));;
-
-let it = Iterate(myf, yy);;
-eval it env0;;
-
-let fil = Filter(["a";"c"], yy);;
-
-eval fil env0;;
-
-let ff = FFun("x", "y", Sum(Den "y", Den "x"))
-let fol = Fold(ff, yy);;
-eval fol env0;;
-
+let typeEnv = emptyenvtype "unbound";;
+let a = Den("x");;
+check a typeEnv;;
+let f = Fun("y", Sum(Den "y", Eint 10));;
+check f typeEnv;;
+let ff = FFun("x", "y", Sum(Den "y", Den "x"));;
+check ff typeEnv;;
+let e1 = FunCall(Fun("y", Den "y"), Eint 3);;
+check e1 typeEnv;;
+let dctInt = Edict(Val("i1", Eint 1, Val("i2", Eint 2, Val("i3", Eint 3, Empty))));;
+check dctInt typeEnv;;
+let dctBool = Edict(Val("b1", Ebool false, Val("b2", Ebool true, Val("b3", Ebool true, Empty))));;
+check dctBool typeEnv;;
+let dctInsert = Insert("i4", Eint 4, dctInt);;
+check dctInsert typeEnv;;
+let it = Iterate(f, dctInt);;
+check it typeEnv;;
 let bf = FFun("a", "b", Ifthenelse(Den "a", Sum(Den "b", Eint 1), Den "b"));;
-let dick = Edict(Val("a", Ebool true, Val("b", Ebool false, Val("c", Ebool true, Empty))));;
-let dickFold = Fold(bf, dick);;
-eval dickFold env0;;
+check bf typeEnv;;
+let fol = Fold(bf, dctBool, Eint 0);;
+check fol typeEnv;;
+let fil = Filter(["i1"; "i3"], dctInsert);;
+check fil typeEnv;;
