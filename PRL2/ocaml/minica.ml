@@ -177,8 +177,22 @@ let rec check (e : exp) (r : envt) : string = match e with
           else failwith "static type error"
       | _ -> failwith "static type error"
     )
-  | Delete(i, d) -> check d r
-  | Has_key(i, d) -> check d r
+  | Delete(i, d) -> let dType = (check d r) in (
+    match (String.split_on_char '_' dType) with
+      | x::y::ys ->
+        if y = "dict"
+          then dType
+          else failwith "static type error"
+      | _ -> failwith "static type error"
+    )
+  | Has_key(i, d) -> let dType = (check d r) in (
+    match (String.split_on_char '_' dType) with
+      | x::y::ys ->
+        if y = "dict"
+          then dType
+          else failwith "static type error"
+      | _ -> failwith "static type error"
+    )
   | Iterate(f, d) -> let dType = (check d r) in (
     match (String.split_on_char '_' dType) with
       | x::y::ys ->
@@ -191,8 +205,14 @@ let rec check (e : exp) (r : envt) : string = match e with
       if stCheck (check f r) aType
         then aType
         else failwith "static type error"
-    | Filter(is, d) -> check d r
-
+    | Filter(is, d) -> let dType = (check d r) in (
+      match (String.split_on_char '_' dType) with
+        | x::y::ys ->
+          if y = "dict"
+            then dType
+            else failwith "static type error"
+        | _ -> failwith "static type error"
+      )
 
 
   and dictCheck (d : dict) (t : string) (r : envt): string =
@@ -394,7 +414,7 @@ let rec check (e : exp) (r : envt) : string = match e with
 let typeEnv = emptyenvtype "unbound";;
 let a = Den("x");;
 check a typeEnv;;
-let f = Fun("y", Sum(Den "y", Eint 10));;
+let f = Fun("y", Den "y");;
 check f typeEnv;;
 let ff = FFun("x", "y", Sum(Den "y", Den "x"));;
 check ff typeEnv;;
