@@ -1,3 +1,54 @@
+type exp =
+  Eint of int
+| Fun of ide * exp
+| FunCall of exp * exp
+| Edict of dict
+and dict = Empty | Val of ide * exp * dict;;
+type 't env = ide -> 't;;
+let emptyenv (v : 't) = function x -> v;;
+let applyenv (r : 't env) (i : ide) = r i;;
+let bind (r : 't env) (i : ide) (v : 't) = function x -> if x = i then v else applyenv r x;;
+type evT =
+  Int of int
+| FunVal of evFun
+| Dict of (ide * evT) list
+and evFun = ide * exp * evT env
+and eval (e : exp) (r : evT env) : evT = match e with
+  | Eint n -> Int n
+  | Fun(i, a) -> FunVal(i, a, r)
+  | FunCall(f, eArg) ->
+    let fClosure = (eval f r) in
+    (
+    match fClosure with
+      | FunVal(arg, fBody, fDecEnv) ->
+        eval fBody (bind fDecEnv arg (eval eArg r))
+    )
+  | Edict(d) -> Dict(evalDict d r "undefined" [])
+  | Insert(i, e, d) -> let value = eval e r in (
+    match eval d r with
+      | Dict(dt) -> Dict(insert i e dt r)
+      | _ -> failwith("Not a dict in Insert")
+
+and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
+  match d with
+      Empty -> acc
+    | Val(i, e, ls) -> match (has_key i acc) with
+        Bool false -> let value = (eval e r) in (
+          match tpe with
+              "undefined" -> (evalDict ls r (if (typecheck "int" value) then "int" else "bool") ((i, value)::acc))
+            | "int" -> if(typecheck "int" value)
+              then (evalDict ls r "int" ((i, value)::acc))
+              else failwith("Type error")
+            | "bool" -> if(typecheck "bool" value)
+              then (evalDict ls r "bool" ((i, value)::acc))
+              else failwith("Type error")
+        )
+      | _ ->
+          failwith("Key already present")
+
+
+
+
 echo "#use \"test.ml\";;" | ocaml -init minica.ml -w -a
 
 

@@ -18,17 +18,9 @@ type exp =
 | FunCall of exp * exp
 |	Letrec of ide * exp * exp
 (*MOD*)
-| FFun of ide * ide * exp
-| Edict of dict
-| Insert of ide * exp * exp
-| Delete of ide * exp
-| Has_key of ide * exp
-| Iterate of exp * exp
-| Fold of exp * exp * exp
-| Filter of (ide list) * exp
-and dict =
-	Empty
-| Val of ide * exp * dict
+| Empty
+| Node of exp * int * exp
+| Filter of exp * (int -> int) * int * int
 ;;
 
 (*ambiente polimorfo*)
@@ -50,6 +42,8 @@ type evT =
 | FunVal of evFun
 | RecFunVal of ide * evFun
 | Dict of (ide * evT) list
+| NodeVal of evT * int * evT
+| EmptyNode
 and evFun = ide * exp * evT env
 
 (*rts*)
@@ -167,80 +161,8 @@ let rec check (e : exp) (r : envt) : string = match e with
       | Fun(i, a) -> check f (bindtype r i (check eArg r))
       | _ -> failwith "static type error"
     )
-  | FFun(i1, i2, a) -> check a r
-  | Edict d -> dictCheck d "unbound" r
-  | Insert(i, e, d) -> let dType = (check d r) in (
-    match (String.split_on_char '_' dType) with
-      | x::y::ys ->
-        if stCheck x (check e r)
-          then dType
-          else failwith "static type error"
-      | _ -> failwith "static type error"
-    )
-  | Delete(i, d) -> let dType = (check d r) in (
-    match (String.split_on_char '_' dType) with
-      | x::y::ys ->
-        if y = "dict"
-          then dType
-          else failwith "static type error"
-      | _ -> failwith "static type error"
-    )
-  | Has_key(i, d) -> let dType = (check d r) in (
-    match (String.split_on_char '_' dType) with
-      | x::y::ys ->
-        if y = "dict"
-          then dType
-          else failwith "static type error"
-      | _ -> failwith "static type error"
-    )
-  | Iterate(f, d) -> let dType = (check d r) in (
-    match (String.split_on_char '_' dType) with
-      | x::y::ys ->
-        if stCheck (check f r) x
-          then dType
-          else  failwith "static type error"
-      | _ -> failwith "static type error"
-    )
-    | Fold(f, d, a) -> let aType = check a r in
-      if stCheck (check f r) aType
-        then aType
-        else failwith "static type error"
-    | Filter(is, d) -> let dType = (check d r) in (
-      match (String.split_on_char '_' dType) with
-        | x::y::ys ->
-          if y = "dict"
-            then dType
-            else failwith "static type error"
-        | _ -> failwith "static type error"
-      )
-
-
-  and dictCheck (d : dict) (t : string) (r : envt): string =
-    match d with
-      | Val(i, e, ls) -> let eType = (check e r) in
-        if stCheck t eType
-          then (dictCheck ls eType r)
-          else failwith "static type error"
-      | Empty -> t ^ "_dict"
-      | _ -> failwith "static type error"
   and stCheck (a : string) (b : string) : bool =
     (a = "unbound" || a = b || b = "unbound")
-  (*
-  | Edict d -> match d with
-    | Empty -> "unbound-dict"
-    | Val(i, e, ls) -> check e r ^ "-dict"
-    | _ -> "static type error"
-  | Insert(i, e, d) -> match check d r with
-    | x ^ "-dict" -> x
-    | _ -> "static type error"
-  *)
-  (* and bindtype (r : 't env) (i : ide) (v : string) = function x ->
-    if i = x
-      then v
-      else applyenvtype r x *)
-
-
- (*  eval e2 (bind r i (eval e1 r)) | *)
 
 (*interprete*)
   and eval (e : exp) (r : evT env) : evT = match e with
@@ -280,75 +202,22 @@ let rec check (e : exp) (r : envt) : string = match e with
                    			                eval letBody r1 |
       		_ -> failwith("non functional def")) |
   (* MOD *)
-  FFun(i1, i2, a) -> FunVal(i2, Fun(i1, a), r) |
+  Node(ln, v, rn) -> NodeVal((eval ln r), v, (eval rn r)) |
+  Empty -> EmptyNode |
+  Filter(t, f, x, y) ->
+    match t with
+      | Node(ln, v, rn) -> NodeVal(
+          eval (Filter(ln, f, x, y)) r, (
+            if (v >= x) && (v <= y)
+              then f v
+              else v
+          ), eval (Filter(rn, f, x, y)) r)
+      | Empty -> EmptyNode
+      | _ -> failwith("Filter not applied to a tree")
 
-	Edict(d) -> Dict(evalDict d r "undefined" []) |
-  Insert(i, e, d) -> let value = eval e r in (
-    match eval d r with
-      | Dict(dt) -> Dict(insert i e dt r)
-      | _ -> failwith("Not a dict in Insert")
-    ) |
-  Delete(i, d) -> (
-    match eval d r with
-      | Dict(dt) -> Dict(delete i dt)
-      | _ -> failwith("Not a dict in Delete")
-    ) |
-  Has_key(i, d) -> (
-    match eval d r with
-      | Dict(dt) -> (has_key i dt)
-      | _ -> failwith("Wrong type in Has_key")
-    ) |
-  Iterate(f, d) -> (
-    match eval d r with
-      | Dict(dt) -> Dict(iterate (eval f r) dt r)
-      | _ -> failwith("Not a dict in Iterate")
-    ) |
-  Fold(f, d, a) -> (
-    match eval d r with
-      | Dict(dt) -> (fold (eval f r) dt (eval a r) r)
-      | _ -> failwith("Not a dict in Fold")
-    ) |
-  Filter(is, d) -> (
-    match eval d r with
-      | Dict(dt) -> Dict(filter is dt)
-      | _ -> failwith("Not a dict in Filter")
-    )
 
-	and evalDict (d : dict) (r : evT env) (tpe : string) (acc : (ide * evT) list) : (ide * evT) list =
-		match d with
-				Empty -> acc
-			| Val(i, e, ls) -> match (has_key i acc) with
-          Bool false -> let value = (eval e r) in (
-            match tpe with
-			       		"undefined" -> (evalDict ls r (if (typecheck "int" value) then "int" else "bool") ((i, value)::acc))
-			       	| "int" -> if(typecheck "int" value)
-			       		then (evalDict ls r "int" ((i, value)::acc))
-			       		else failwith("Type error")
-			       	| "bool" -> if(typecheck "bool" value)
-			       		then (evalDict ls r "bool" ((i, value)::acc))
-			       		else failwith("Type error")
-          )
-        | _ ->
-            failwith("Key already present")
 
-  and has_key (i : ide) (lst : (ide * evT) list) : evT =
-    match lst with
-        [] -> Bool false
-      | (x,v)::xs ->
-        if x = i
-          then Bool true
-          else has_key i xs
-      | _ -> failwith("Impossible pattern")
 
-  and dict_type (d : (ide * evT) list) : string =
-    match d with
-      | [] -> "undefined"
-      | (i,e)::xs -> (
-        if typecheck "int" e
-          then "int"
-          else "bool"
-      )
-      | _ -> failwith("Impossible pattern")
 
 
   and fun_call (fClosure : evT) (v : evT) (r : evT env) : evT =
@@ -362,75 +231,17 @@ let rec check (e : exp) (r : envt) : string = match e with
               eval fBody aEnv
       | _ -> failwith("Non functional value")
 
-  and insert (i : ide) (e : exp) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
-    match (has_key i d) with
-      | Bool false -> let value = eval e r in (
-        if typecheck (dict_type d) value
-          then (i,value)::d
-          else failwith("Incompatible types for insert")
-      )
-      | _ -> failwith("Key already present")
 
-  and delete (i : ide) (d : (ide * evT) list) : (ide * evT) list =
-    match d with
-      | [] -> []
-      | (x, v)::ls ->
-        if i = x
-          then ls
-          else (x, v) :: (delete i ls)
-
-  and iterate (f : evT) (d : (ide * evT) list) (r : evT env) : (ide * evT) list =
-    match d with
-      | [] -> []
-      | (i, v)::xs ->
-        (i, (fun_call f v r))::(iterate f xs r)
-      | _ -> failwith("Impossible pattern")
-  and fold (f : evT) (d : (ide * evT) list) (acc : evT) (r : evT env) : evT =
-    match d with
-      | [] -> acc
-      | (i, v)::xs ->
-        fold f xs (fun_call (fun_call f acc r) v r) r
-  and filter (is : ide list) (d : (ide * evT) list) : (ide * evT) list =
-    match d with
-      | [] -> []
-      | (i, v)::xs ->
-        if (contains i is)
-          then (i, v)::(filter is xs)
-          else filter is xs
-
-
-  and contains (i : ide) (is : ide list) : bool =
-    match is with
-      | [] -> false
-      | x::xs ->
-        if x = i
-          then true
-          else (contains i xs)
-      | _ -> failwith("Impossible pattern")
-;;
 
 (* =============================  TESTS  ================= *)
 
-let typeEnv = emptyenvtype "unbound";;
-let a = Den("x");;
-check a typeEnv;;
-let f = Fun("y", Den "y");;
-check f typeEnv;;
-let ff = FFun("x", "y", Sum(Den "y", Den "x"));;
-check ff typeEnv;;
-let e1 = FunCall(Fun("y", Den "y"), Eint 3);;
-check e1 typeEnv;;
-let dctInt = Edict(Val("i1", Eint 1, Val("i2", Eint 2, Val("i3", Eint 3, Empty))));;
-check dctInt typeEnv;;
-let dctBool = Edict(Val("b1", Ebool false, Val("b2", Ebool true, Val("b3", Ebool true, Empty))));;
-check dctBool typeEnv;;
-let dctInsert = Insert("i4", Eint 4, dctInt);;
-check dctInsert typeEnv;;
-let it = Iterate(f, dctInt);;
-check it typeEnv;;
-let bf = FFun("a", "b", Ifthenelse(Den "a", Sum(Den "b", Eint 1), Den "b"));;
-check bf typeEnv;;
-let fol = Fold(bf, dctBool, Eint 0);;
-check fol typeEnv;;
-let fil = Filter(["i1"; "i3"], dctInsert);;
-check fil typeEnv;;
+let env0 = emptyenv Unbound;;
+let t1 = Node(Node(Empty, 1, Empty), 10, Empty);;
+eval t1 env0;;
+let func = fun x -> x + 1;;
+let filtered = Filter(t1, func, 0, 5);;
+let dio = 3;;
+if (dio >= 0) && (dio <= 5)
+  then func dio
+  else dio;;
+eval filtered env0;;
