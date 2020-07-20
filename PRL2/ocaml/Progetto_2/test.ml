@@ -1,13 +1,5 @@
-let notify_user f =
-  try f()
-  with e ->
-    let msg = Printexc.to_string e
-    and stack = Printexc.get_backtrace () in
-    Printf.eprintf "there was an error: %s%s\n" msg stack;
-    raise e
-
 (* Static typechecking env *)
-let envS = emptyenvtype "unbound";;
+let envS = emptysenv Sunbound;;
 (* Dynamic env *)
 let envD = emptyenv Unbound;;
 
@@ -56,40 +48,40 @@ let iterErr = Iterate(itFun, dctInt);;
 
 
 "Static typechecking";;
-check cInt envS;;
-check cBool envS;;
-check sum envS;;
-check prod envS;;
-check eq envS;;
-check lAnd envS;;
-check ifttt envS;;
-check myfun envS;;
-check call envS;;
+staticCheck cInt envS;;
+staticCheck cBool envS;;
+staticCheck sum envS;;
+staticCheck prod envS;;
+staticCheck eq envS;;
+staticCheck lAnd envS;;
+staticCheck ifttt envS;;
+staticCheck myfun envS;;
+staticCheck call envS;;
 
-try (check eSum envS) with e -> Printexc.to_string e;;
-try (check eEq envS) with e -> Printexc.to_string e;;
-try (check eIfttt envS) with e -> Printexc.to_string e;;
-try (check eIftttt envS) with e -> Printexc.to_string e;;
-try (check eFuncall envS) with e -> Printexc.to_string e;;
+try (staticCheck eSum envS) with e -> Sunbound;;
+try (staticCheck eEq envS) with e -> Sunbound;;
+try (staticCheck eIfttt envS) with e -> Sunbound;;
+try (staticCheck eIftttt envS) with e -> Sunbound;;
+try (staticCheck eFuncall envS) with e -> Sunbound;;
 
-check dctInt envS;;
-check dctBool envS;;
-check intInInt envS;;
-check delBool envS;;
-check hasInt envS;;
-check hasBool envS;;
-check itFun envS;;
-check iter envS;;
-check foldFun envS;;
-check fol envS;;
-check fil envS;;
-check fil2 envS;;
+staticCheck dctInt envS;;
+staticCheck dctBool envS;;
+staticCheck intInInt envS;;
+staticCheck delBool envS;;
+staticCheck hasInt envS;;
+staticCheck hasBool envS;;
+staticCheck itFun envS;;
+staticCheck iter envS;;
+staticCheck foldFun envS;;
+staticCheck fol envS;;
+staticCheck fil envS;;
+staticCheck fil2 envS;;
 
-try (check dctErr envS) with e -> Printexc.to_string e;;
-try (check boolInInt envS) with e -> Printexc.to_string e;;
-try (check reuseKey envS) with e -> Printexc.to_string e;;
-try (check notDict envS) with e -> Printexc.to_string e;;
-try (check iterErr envS) with e -> Printexc.to_string e;;
+try (staticCheck dctErr envS) with e -> Sunbound;;
+try (staticCheck boolInInt envS) with e -> Sunbound;;
+try (staticCheck reuseKey envS) with e -> Sunbound;;
+try (staticCheck notDict envS) with e -> Sunbound;;
+try (staticCheck iterErr envS) with e -> Sunbound;;
 
 "Evaluation";;
 "Base operations";;
