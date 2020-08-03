@@ -1,0 +1,42 @@
+Una cerveita fresca
+Obbiettivi:
+	Mantenere un elenco di ricette
+	Lista ingredienti disponibili
+	Aggiornamento ingredienti dopo prodizione
+	Aggiornamento dopo acquisti
+	Creare lista della spesa
+	Guida nella preparazione
+
+Ricette:
+	Creazione
+	Archiviazione
+	Modifica
+	Eliminazione
+
+L'attrezzatura disponibile al birrificio ne determina il massimo numero di litri producibili per ogni ciclo di produzione
+
+Ingredienti:
+	Acqua
+	Malti
+	Luppolo
+	Lieviti
+	Zuccheri
+	Additivi
+
+Le quantita' vanno memorizzate in valore assoluto (percentuale del totale per il malto, grammi per litro per il luppolo)
+
+Mantenere una "cronologia" delle produzioni con la possibilita' di aggiungerci note
+
+Possibilita di interrogare il programma per avere una lista di ingredienti mancanti per la prox produzione
+
+L'applicazione offre anche una interfaccia web per la prenotazione e la vendita dei lotti gia pronti o in produzione (o parte di essi)
+	Una volta che il lotto e' stato prodotto il birraio puo' procedere con la vendita o cancellare la prenotazione (se non soddisfatto del prodotto finito)
+
+Scopi:
+
+Durante la produzione il programma deve indicare i tempi e le temperature consigiate per ogni fase
+Se l'applicazione e' in modalita' enhanced e il birrificio dispone di attrezzature con sensori di temp, il programma deve mandare un alert al birraio se la temperatura registrata discosta da quella indicata
+
+Passi del progetto:
+Diagrama UML dei casi d'uso
+Fornire i diagrammi di sequenza

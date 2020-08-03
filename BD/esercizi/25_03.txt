@@ -1,0 +1,21 @@
+Aule(IdA, Nome, Edificio, Capienza)
+AuleCorsi(IdA*, IdC*, Ora, Giorno)
+Corsi(IdC, NomeC, AnnoAccademico, NumStudenti, IdD*)
+Docenti(IdD, Nome, Cognome, Dipartimento)
+
+
+1) Per ogni corso tale che tutte le sue aula hanno capienza > 100 restituire id e nome
+2) Per ogni docente che insegna solo corsi in cui almeno una lezione si tiene di giovedì,
+restituire id e nome
+
+1)
+SELECT c.IdC, c.NomeC
+  FROM Aule a, Corsi c, AuleCorsi ac
+  WHERE c.IdC = ac.IdC AND a.IdA = ac.IdA AND a.Capienza > 100
+2)
+SELECT d.IdD, d.Nome
+  FROM Docenti d, Corsi c
+  WHERE d.IdD = c.IdD AND (
+    SELECT *
+      FROM AuleCorsi ac
+      WHERE ac.Giorno = 'Giovedi' AND ac.IdC = c.IdC)
