@@ -1,5 +1,5 @@
 Nome: Prenotazione Posto Auto
-Descrizione:
+Descrizione: Processo di prenotazione posto auto
 Attori Primari: Cliente
 Attori Secondari: Nessuno
 Precondizioni: Cliente non bandito
