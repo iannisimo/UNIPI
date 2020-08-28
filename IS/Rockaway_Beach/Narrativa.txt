@@ -1,0 +1,16 @@
+Nome: Prenotazione Posto Auto
+Descrizione:
+Attori Primari: Cliente
+Attori Secondari: Nessuno
+Precondizioni: Cliente non bandito
+Sequenza degli eventi:
+  1. Il cliente richiede un posto Auto
+  2. Include "Verifica Abbonamento"
+  3. If (cliente abbonato)
+    3.1 Riserva posto auto
+  4. Else
+    4.1 Extend "Aggiungi in Lista"
+
+Postcondizione: Posto riservato o cliente in lista di attesa
+Sequenza alternativa degli eventi:
+  Cliente bandito, Impossibile prenotare il posto auto

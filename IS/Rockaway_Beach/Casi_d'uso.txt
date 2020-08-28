@@ -1,0 +1,34 @@
+Attori:
+  Utente non registrato
+  Clienti
+  <<system>> timerS
+Casi d'uso:
+Utente non registrato:
+  Registrazione
+Clienti:
+  Compra Abbonamento
+  Prenota Giornaliero
+  Extend
+    Richiesta ombrellone
+    Richiesta Gazebo
+    Extend
+      Richiesta cabina
+      Extend
+        Richiesta doccia
+      Richiesta attrezzatura aggiuntiva
+  Include
+    Pagamento
+  Entra in spiaggia
+  Include
+    Verifica prenotazione
+  Prenota Posto auto
+  Extend
+    Pagamento
+    Verifica Abbonamento
+    Aggiunta in Queue
+  Rinuncia a prenotazione
+  Include
+    Blacklist counter
+<<system>> timer:
+  Assegna posti a Queue
+  Invia SMS
