@@ -3,9 +3,7 @@
 // .
 // .
 // .
-// dicembre: 11
-
-#include <stdio.h>
+// dicembre: 11\
 
 int dbQuery(int mese, int ombrelloni, int gazebi, int sdraio, int lettini, int sedie, int cabine, int docce, int pAuto) {
   int obrPrice[] = {0, 0, 0, 0, 5, 10, 10, 13, 7, 5, 0, 0};
@@ -43,8 +41,4 @@ int calcolaPrezzo(int mese, int ombrelloni, int gazebi, int sdraio, int lettini,
   sdraio -= ombrelloni*2;
   lettini -= gazebi*2;
   return dbQuery(mese, ombrelloni, gazebi, sdraio, lettini, sedie, cabine, docce, pAuto);
-}
-
-int main() {
-  printf("%d\n", calcolaPrezzo(5, 1, 1, 3, 2, 2, 2, 0, 0));
 }
