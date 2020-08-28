@@ -195,7 +195,7 @@ let rec staticCheck (e : exp) (r : senv) : static = match e with
     if isDict dType
       then Sbool
       else failwith "static type error"
-  (* Cannot check if <f> accepts the values in <d> *)
+  (* Cannot check if <f> accepts the values in <d>*)
   | Iterate(f, d) ->
     if isDict (staticCheck d r)
       then (typeToDict (staticCheck f r))

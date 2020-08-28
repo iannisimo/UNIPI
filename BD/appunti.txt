@@ -1,0 +1,28 @@
+Entity:
+  Libro, utente
+  Descrizione di un Libro
+  Eventi, prestito
+Proprieta:
+  descrive un Entity
+  autore, titolo di un Libro
+Tipo:
+  Descrizione astratta che accomuna un insieme di Entity
+  Persona: Tipo di Giovanna, Mario...
+
+  Atomica: non scomponibile
+  Strutturata: Indirizzo -> Via, Citta, CAP...
+
+  univoca: valore unico (nome utente)
+  multivalore: Recapito.. (se si suppone che un utente puo' essere raggiunto tramite piu numeri)
+
+  totale: Obbligatoria
+  parziale: Opzionale
+
+Collezione:
+  Insieme variabile di Entity
+    i libri posseduti da una biblioteca
+Gerarchie di specializzazione:
+  generalizzazioni
+  Utenti -> Generalizzazione di Studenti, Docenti...
+Istanza di associazione:
+  Correla piu Entity stabilendo un legame logico tra di loro

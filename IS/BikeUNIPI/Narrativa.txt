@@ -1,0 +1,19 @@
+Nome: Prenotazione
+Descrizione:
+Attori Primari: Utente Registrato
+Attori Secondari: Nessuno
+Precondizioni: Bici disponibile
+Sequenza degli eventi:
+  1. Utente sceglie gli orari di prelievo, riconsegna e la rastrelliera
+  2. Sistema accetta la prenotazione
+  3. Il sistema invia il QR code all'Utente
+  4. while (tempo_attuale < orario_ritardo)
+    if (qr_code presentato)
+      include sblocco
+  5. if (tempo_attuale >= orario_ritardo)
+    extend mancato_prelievo
+
+Sequenze alternativa degli eventi:
+  Bici non disponibile:
+    Annulla Prenotazione
+    Notifica Utente

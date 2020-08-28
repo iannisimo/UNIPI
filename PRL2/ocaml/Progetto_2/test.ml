@@ -48,6 +48,7 @@ let iterErr = Iterate(itFun, dctInt);;
 
 
 "Static typechecking";;
+"Standard objects";;
 staticCheck cInt envS;;
 staticCheck cBool envS;;
 staticCheck sum envS;;
@@ -58,12 +59,15 @@ staticCheck ifttt envS;;
 staticCheck myfun envS;;
 staticCheck call envS;;
 
+
+"Errors (Should display Sunbound)";;
 try (staticCheck eSum envS) with e -> Sunbound;;
 try (staticCheck eEq envS) with e -> Sunbound;;
 try (staticCheck eIfttt envS) with e -> Sunbound;;
 try (staticCheck eIftttt envS) with e -> Sunbound;;
 try (staticCheck eFuncall envS) with e -> Sunbound;;
 
+"Dictionary";;
 staticCheck dctInt envS;;
 staticCheck dctBool envS;;
 staticCheck intInInt envS;;
@@ -77,11 +81,10 @@ staticCheck fol envS;;
 staticCheck fil envS;;
 staticCheck fil2 envS;;
 
+"Dictionary errors (Should display Sunbound)";;
 try (staticCheck dctErr envS) with e -> Sunbound;;
 try (staticCheck boolInInt envS) with e -> Sunbound;;
-try (staticCheck reuseKey envS) with e -> Sunbound;;
 try (staticCheck notDict envS) with e -> Sunbound;;
-try (staticCheck iterErr envS) with e -> Sunbound;;
 
 "Evaluation";;
 "Base operations";;
