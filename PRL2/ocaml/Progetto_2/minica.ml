@@ -318,7 +318,7 @@ and staticDict (d : dict) (t : static) (r : senv) : static =
 			       	| SdictBool -> if(typecheck Sbool value)
 			       		then (evalDict ls r SdictBool ((i, value)::acc))
 			       		else failwith("Type error")
-          )
+              )
         | _ ->
             failwith("Key already present")
 

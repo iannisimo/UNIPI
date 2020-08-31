@@ -26,7 +26,7 @@ let eFuncall = FunCall(Fun("b", And(Den("b"), Ebool true)), Eint 10);;
 (* Dict operations *)
 
 let dctInt = Edict(Val("i1", Eint 1, Val("i2", Eint 2, Val("i3", Eint 3, Empty))));;
-let dctBool = Edict(Val("b1", Ebool false, Val("b2", Ebool true, Val("b3", Ebool true, Empty))));;
+let dctBool = Edict(Val("b1", Ebool false, Val("b2", Ebool true, Val("b3", Ebool true, Empty))));;  
 let intInInt = Insert("i4", Eint 4, dctInt);;
 let delBool = Delete("b3", dctBool);;
 let hasInt = Has_key("i1", dctInt);;
