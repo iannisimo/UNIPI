@@ -19,6 +19,8 @@ type exp =
 (* Dict *)
 | Edict of (ide * exp) list
 | Insert of ide * exp * exp
+| Delete of ide * exp
+| Has_key of ide * exp
 ;;
 type static =
 | Sunbound
@@ -55,12 +57,12 @@ and typeofexp (e : exp) : static =
   match e with
   | Eint(_) -> Sint
   | Ebool(_) -> Sbool
-  | _ -> failwith("Cannot find type without anc enviroment")
+  | _ -> failwith("Cannot find type without an enviroment")
 and typeofevT (v : evT) : static =
   match v with
   | Int(_) -> Sint
   | Bool(_) -> Sbool
-  | _ -> failwith("Cannot find type without anc enviroment")
+  | _ -> failwith("Cannot find type without an enviroment")
 ;;
 
 let typecheck (s : static) (v : evT) : bool =
@@ -245,8 +247,14 @@ let rec eval (e : exp) (r : evT env) : evT =
   | Delete(i, d) -> (
     match d with
     | Edict(dt) ->
-      Dict(deleteInDict dt r (Sdict(typeofexp e)) [(i, eval e r)])
+      Dict(deleteFromDict i dt r (Sdict(Sunbound)) [])
     | _ -> failwith("Not a dict in Insert")
+    )
+  | Has_key(i, d) -> (
+    match d with
+    | Edict(dt) ->
+      has_key i (evalDict dt r (Sdict(Sunbound)) [])
+    | _ -> failwith("Wrong type in Has_key")
     )
 and evalDict (d : (ide * exp) list) (r : evT env) (t : static) (acc : (ide * evT) list) : ((ide * evT) list) =
   match d with
@@ -263,6 +271,27 @@ and evalDict (d : (ide * exp) list) (r : evT env) (t : static) (acc : (ide * evT
       )
     | _ -> failwith("Key already present")
     )
+  | [] ->
+    acc
+and deleteFromDict (id : ide) (d : (ide * exp) list) (r : evT env) (t : static) (acc : (ide * evT) list) : ((ide * evT) list) =
+  match d with
+  | (i, e) :: xs ->
+    let () = Printf.printf "tipi i, id: %s, %s\n" i id in
+    if i = id
+      then deleteFromDict id xs r t acc
+      else (
+      match has_key i acc with
+      | Bool false ->
+        let te = typeofexp e in (
+        match t with
+        | Sdict(td) ->
+          if td = Sunbound || td = te
+            then deleteFromDict id xs r (Sdict(te)) ((i, (eval e r)) :: acc)
+            else failwith("Non-homogeneous type in dict")
+        | _ -> failwith("Something went very very... very wrong here")
+        )
+      | _ -> failwith("Key already present")
+      )
   | [] ->
     acc
 ;;
