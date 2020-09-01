@@ -1,0 +1,5 @@
+Utenti(IdU*, Nome, Cognome, Birthdate)
+Giornalieri(IdP*, IdU_)
+GiornalieriServizi(IdP*, IdS*)
+Servizi(IdS*, Tipo, );
+Prezzi(Data_inizio*, Data_fine*, Tipo*, Prezzo)

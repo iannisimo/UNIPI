@@ -10,19 +10,16 @@ e valore di default B0
 
 La classe Abbonamento mantiene uno storico degli ultimi 5 anni quindi ci interessano la data di inizio e fine oltre ai servizi collegati ad esso
 
-
 La classe Giornaliero mantiene uno storico delle prenotazioni della stagione attuale quindi ci interessano la data di prenotazione e i servizi collegati
 
 Ogni abbonamento e prenotazione giornaliera e' intestata a uno o piu' clienti fino a un massimo pari al numero di posti a sedere richiesti (sdraio, lettini, sedie)
 
 Un cliente abbonato non e' precluso dall'effetuare una prenotazione giornaliera
 
-Della classe Prezzi ci interessano, per ogni periodo compreso tra una data di inizio e una di fine, i prezzi di ogni servizio; se una data non si trova nella tabella significa che lo stabilimento e' chiuso
+Della classe Prezzi ci interessano, per ogni periodo compreso tra una data di inizio e una di fine e ogni tipo di servizio, il prezzo fissato
 
 Il pagamento viene effettuato tramite carta di credito alle ore 16 del giorno precedente alla prenotazione o alla data di inizio dell'abbonamento
 
 Nella classe servizi viene specificato il tipo di servizio (ombrellone, gazebo, sdraio aggiuntive...)
-
-In base alla durata di un abbonamento viene calcolata una riduzione percentuale dalla tariffa base
 
 La classe 'Prenotazioni Parcheggio' mantiene uno storico delle prenotazioni dei parcheggi dell'ultima settimana e contiene il numero del posto assegnato
