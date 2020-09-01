@@ -1,0 +1,14 @@
+Dei clienti ci interessa il nome completo e la data di nascita
+
+La classe Abbonamento mantiene uno storico degli ultimi 5 anni quindi ci interessano la data di inizio e fine oltre ai servizi collegati ad esso
+Ogni abbonamento e' intestato a uno o piu' clienti
+
+Come la classe Abbonamento, la classe Giornaliero mantiene uno storico delle prenotazioni degli ultimi 5 anni quindi ci interessano la data di prenotazione e i servizi collegati
+
+Della classe Prezzi ci interessano, per ogni periodo compreso tra una data di inizio e una di fine, i prezzi di ogni servizio; se una data non si trova nella tabella significa che lo stabilimento e' chiuso
+
+Il pagamento viene effettuato tramite carta di credito alle ore 16 del giorno precedente alla prenotazione o alla data di inizio dell'abbonamento
+
+Nella classe servizi viene specificato il tipo di servizio (ombrellone, gazebo, sdraio aggiuntive...)
+
+Per ogni prenotazione si ha una lista di servizi associati
