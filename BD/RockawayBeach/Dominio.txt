@@ -1,12 +1,12 @@
 Dei clienti ci interessa il nome completo e la data di nascita e lo stato di blacklist
-Lo stato della blacklist e' un enum con valori
+Lo stato della blacklist e' un intero con valori
 (
-B0: nessuna infazione effettuata o due prenotazione consecutive andate a buon fine
-B1: prenotazione non andata a buon fine
-B2: prima prenotazione andata a a buon fine dopo inserimento in BlackList
-X:  cliente bandito dopo la seconda infrazione
+0: nessuna infazione effettuata o due prenotazione consecutive andate a buon fine
+1: prenotazione non andata a buon fine
+2: prima prenotazione andata a a buon fine dopo inserimento in BlackList
+3:  cliente bandito dopo la seconda infrazione
 )
-e valore di default B0
+e valore di default e' 0
 
 La classe Abbonamento mantiene uno storico degli ultimi 5 anni quindi ci interessano la data di inizio e fine oltre ai servizi collegati ad esso
 
@@ -16,10 +16,10 @@ Ogni abbonamento e prenotazione giornaliera e' intestata a uno o piu' clienti fi
 
 Un cliente abbonato non e' precluso dall'effetuare una prenotazione giornaliera
 
-Della classe Prezzi ci interessano, per ogni periodo compreso tra una data di inizio e una di fine e ogni tipo di servizio, il prezzo fissato
+Della classe Prezzo ci interessano, per ogni periodo compreso tra una data di inizio e una di fine e ogni tipo di servizio, il prezzo fissato
 
 Il pagamento viene effettuato tramite carta di credito alle ore 16 del giorno precedente alla prenotazione o alla data di inizio dell'abbonamento
 
-Nella classe servizi viene specificato il tipo di servizio (ombrellone, gazebo, sdraio aggiuntive...)
+Nella classe Servizio viene specificato il tipo di servizio (ombrellone, gazebo, sdraio aggiuntive...)
 
-La classe 'Prenotazioni Parcheggio' mantiene uno storico delle prenotazioni dei parcheggi dell'ultima settimana e contiene il numero del posto assegnato
+La classe 'Parcheggio' mantiene uno storico delle prenotazioni dei parcheggi dell'ultima settimana e contiene il numero del posto assegnato
