@@ -1,9 +1,54 @@
-Utenti(IdU, Nome, Cognome, BDate, BState)
-UtentiGiornalieri(IdU, IdP)
-Giornalieri(IdP, IdSRi, Data)
-UtentiAbbonamenti(IdU, IdA)
-Abbonamenti(idA, IdSRi, D_inizio, D_fine)
-ServiziRichiesti(IdSRi, IdS)
-Servizi(IdS, Tipo)
-Prezzi(Data_inizio, Data_fine, Tipo, Prezzo)
-PParcheggio(Posto, IdU, Data)
+Cliente(IdU, Nome, Cognome, BDate, BLState)
+ClienteGiornaliero(IdU, IdP)
+Giornaliero(IdP, IdSRi, Data)
+UtenteAbbonamento(IdU, IdA)
+Abbonamento(idA, IdSRi, D_inizio, D_fine)
+ServizioRichiesto(IdSRi, IdS)
+Servizio(IdS, Tipo)
+Prezzo(Inizio_periodo, Fine_periodo, Tipo, Prezzo)
+Parcheggio(Posto, IdU, Data)
+PrezzoParcheggio(Inizio_periodo, Fine_periodo, Prezzo)
+
+
+SELECT c.Nome, c.Cognome, c.BLState
+FROM CLIENTE c NATURAL JOIN UtenteAbbonamento ua
+WHERE ua.IdA = 123
+
+SELECT p.Costo, p.Tipo
+FROM Prezzo p
+WHERE p.Inizio_periodo >= 01/07
+GROUP BY p.Tipo
+HAVING p.Costo > 15
+ORDER BY p.Costo
+
+SELECT c.Nome, c.Cognome
+FROM Cliente c NATURAL JOIN Parcheggio p
+WHERE c.IdU = 123
+GROUP BY p.Data
+HAVING p.Data >= 01/07
+
+SELECT a.IdA
+FROM Abbonamento a
+WHERE EXISTS (
+  SELECT *
+  FROM ServizioRichiesto sr
+    NATURAL JOIN Servizio s
+  WHERE s.Tipo = 4 AND a.IdA = sr.IdA
+)
+
+SELECT a.IdG
+FROM Giornaliero g
+WHERE NOT EXISTS (
+  SELECT *
+  FROM ServizioRichiesto sr
+    NATURAL JOIN Servizio s
+  WHERE g.IdG = s.IdG AND s.Tipo = 2
+)
+
+SELECT a.IdA
+FROM Abbonamento a
+WHERE 5 <= (
+  SELECT COUNT(*)
+  FROM ServizioRichiesto sr
+  WHERE a.IdA = sr.IdA
+)
