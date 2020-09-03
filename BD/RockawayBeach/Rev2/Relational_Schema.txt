@@ -1,0 +1,94 @@
+Cliente(IdC, Nome, Cognome, BLState)
+ClientePrenotazione(IdC, IdPrn)
+Prenotazione(IdPrn)
+Abbonamento(IdPrn, Data_inizio, Data_fine)
+Giornaliero(IdPrn, Data)
+PrenotazioneServizio(IdPrn, IdS)
+Servizio(IdS, Tipo)
+Prezzo(Tipo, Inizio_periodo, Fine_periodo, Costo)
+Parcheggio(IdPst, Data, IdC, IdPrezzo)
+PrezzoParcheggio(IdPrezzo, Inizio_periodo, Fine_periodo, Costo)
+
+Cliente
+  IdC -> Nome, Cognome, BLState
+    Rispetta la BCNF perche' IdC e' chiave
+Abbonamento
+  IdPrn -> Data_inizio, Data_fine
+    Rispetta la BCNF perche' IdPrn e' chiave
+Giornaliero
+  IdPrn -> Data
+    Rispetta la BCNF perche' IdPrn e' chiave
+Servizio
+  IdS -> Tipo
+    Rispetta la BCNF perche' IdS e' chiave
+Prezzo
+  Tipo, Inizio_periodo -> Fine_periodo, Costo
+    Rispetta la BCNF perche' {Tipo, Inizio_periodo} e' chiave
+Parcheggio
+  IdPst, Data -> IdC, IdPrezzo
+    Rispetta la BCNF perche' {IdPst, Data} e' chiave
+  IdC, Data -> IdPst, Prezzo
+    Rispetta la BCNF perche' {IdC, Data} e' chiave
+PrezzoParcheggio
+  IdPrezzo -> Inizio_periodo, Fine_periodo, Costo
+    Rispetta la BCNF perche' IdPrezzo e' chiave
+  Inizio_periodo -> IdCosto
+    Rispetta la BCNF perche' Inizio_periodo e' chiave
+
+
+a. uso di proiezione, join e restrizione;
+
+SELECT Nome, Cognome, BLState
+FROM Cliente
+  NATURAL JOIN ClientePrenotazione
+WHERE IdPrn = 123
+
+b. uso di group by con having, where e sort;
+
+SELECT *
+FROM Prezzo
+WHERE Inizio_periodo > 01/06
+GROUP BY Inizio_periodo
+HAVING SUM(Costo) > 40
+SORT BY Tipo
+
+c. uso di join, group by con having e where;
+
+SELECT IdC
+FROM Cliente
+  NATURAL JOIN ClientePrenotazione
+WHERE BLState = 1
+GROUP BY IdPrn
+HAVING COUNT(IdPrn) > 10
+
+d. uso di select annidata con quantificazione esistenziale;
+
+SELECT a.IdPrn
+FROM Abbonamento a
+WHERE EXISTS (
+  SELECT *
+  FROM PrenotazioneServizio ps
+    NATURAL JOIN Servizio s
+  WHERE a.IdPrn = ps.IdPrn AND s.Tipo = 4
+)
+
+e. uso di select annidata con quantificazione universale;
+
+SELECT g.IdPrn
+FROM Giornaliero g
+WHERE NOT EXISTS (
+  SELECT *
+  FROM PrenotazioneServizio ps
+    NATURAL JOIN Servizio s
+  WHERE g.IdPrn = ps.IdPrn AND s.Tipo = 2
+)
+
+f. uso di subquery di confronto quantificato usando una subquery.
+
+SELECT a.IdPrn
+FROM Abbonamento a
+WHERE 5 <= (
+  SELECT COUNT(*)
+  FROM PrenotazioneServizio ps
+  WHERE a.IdPrn = ps.IdPrn
+)
