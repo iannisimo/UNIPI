@@ -1,0 +1,37 @@
+Intrarelazionali
+
+Cliente
+  BLState puo' essere nel range (
+    0 = "Default";
+    1 = "Ingresso in BL";
+    2 = "Buona condotta";
+    3 = "Bandito";
+  )
+Parcheggio
+  IdPst e Data formano la chiave della relazione
+PrezzoParcheggio
+  Inizio_periodo < Fine_periodo
+Abbonamento
+  Data_inizio < Data_fine
+Servizio
+  Tipo puo' essere nel range (
+    0: "Ombrellone";
+    1: "Gazebo";
+    2: "Sdraio";
+    3: "Lettino";
+    4: "Sedia";
+    5: "Cabina senza doccia";
+    6: "Cabina con doccia";
+  )
+Prezzo
+  Inizio_periodo e Tipo formano una chiave
+  Inizio_periodo < Fine_periodo
+
+Interrelazionali
+
+Il numero di servizi richiesti in un abbonamento o un giornaliero devemessere >= 3 (ombrellone/gazebo + due sdraio/lettini inclusi)
+Se il valore di BLState di un cliente e' pari a 3, il cliente non deve essere piu' in grado effetuare una prenotazione
+Data_inizio associato a Abbonamento deve essere >= al minimo Inizio_periodo nella classe Prezzi
+Data associato a Giornaliero deve essere >= al minimo Inizio_periodo nella classe Prezzi
+Data_fine associato a Abbonamento deve essere <= al massimo Fine_periodo nella classe Prezzi
+Data associato a Giornaliero deve essere <= al massimo Fine_periodo nella classe Prezzi

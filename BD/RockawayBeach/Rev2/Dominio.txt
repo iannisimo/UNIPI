@@ -1,0 +1,32 @@
+Dei clienti ci interessa il nome completo e lo stato di blacklist
+
+Lo stato della blacklist e' un intero con valori
+(
+0: nessuna infazione effettuata o due prenotazione consecutive andate a buon fine
+1: prenotazione non andata a buon fine
+2: prima prenotazione andata a a buon fine dopo inserimento in BlackList
+3: cliente bandito dopo la seconda infrazione
+)
+e valore di default e' 0
+Se lo stato della blacklist di un cliente e' pari a 3, esso non e' piu' in grado di effetuare prenotazioni
+
+La classe Prenotazione mantiene uno storico delle prenotazioni effettuate negli ultimi 5 anni
+
+La classe Abbonamento e' una sottoclasse di Prenotazione e mantiene la data di inizio e la data di fine di un abbonamento
+
+La classe Giornaliero e' una sottoclasse di Prenotazione e mantiene la data riferita alla prenotazione
+
+Ogni prenotazione e' intestata a uno o piu' clienti.
+
+Un cliente abbonato non e' precluso dall'effettuare un'altra prenotazione
+
+Della classe Prezzo ci interessano, per ogni periodo compreso tra una data di inizio e una di fine e ogni tipo di servizio, il prezzo fissato
+Si assume che non ci possano essere periodi di chiusura intermedi dall'inizio alla fine della stagione
+
+Il pagamento viene effettuato tramite carta di credito alle ore 16 del giorno precedente alla prenotazione giornaliera o alla data di inizio dell'abbonamento
+
+Nella classe Servizio viene specificato il tipo di servizio (ombrellone, gazebo, sdraio aggiuntive...)
+
+La classe 'Parcheggio' mantiene uno storico delle prenotazioni dei parcheggi dell'ultima settimana e contiene il numero del posto assegnato e l'eventuale prezzo da pagare
+
+La classe PrezzoParcheggio definisce il costo del parcheggio, da tenere in conto solo nei WeekEnd, differenziato per periodi
