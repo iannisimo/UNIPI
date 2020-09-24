@@ -1,4 +1,4 @@
-Cliente(IdC, Nome, Cognome, BLState)
+Cliente(IdC, Nome, Cognome, BLState, CCNumber)
 ClientePrenotazione(IdC, IdPrn)
 Prenotazione(IdPrn)
 Abbonamento(IdPrn, Data_inizio, Data_fine)
@@ -74,13 +74,15 @@ WHERE EXISTS (
 
 e. uso di select annidata con quantificazione universale;
 
-SELECT g.IdPrn
-FROM Giornaliero g
+SELECT u.IdU
+FROM Utente u
 WHERE NOT EXISTS (
   SELECT *
-  FROM PrenotazioneServizio ps
+  FROM ClientePrenotazione cp
+    NATURAL JOIN Prenotazione p
+    NATURAL JOIN PrenotazioneServizio ps
     NATURAL JOIN Servizio s
-  WHERE g.IdPrn = ps.IdPrn AND s.Tipo = 2
+  WHERE u.IdU = cp.IdU AND s.Tipo != 2
 )
 
 f. uso di subquery di confronto quantificato usando una subquery.
