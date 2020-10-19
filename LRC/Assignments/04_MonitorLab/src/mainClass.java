@@ -9,7 +9,7 @@ public class mainClass {
     */
     public static void main(String[] args) {
         if(args.length != Const.ARGS) {
-            System.out.println("Usage: pName nStud, nTes, nProf");
+            System.err.println("Usage: pName nStud, nTes, nProf");
             System.exit(1);
         }
         final int nUndergrad = Integer.parseInt(args[0]);

@@ -23,30 +23,6 @@ public class Tutor {
         return Utils.random(1, numPC);
     }
 
-    /**
-     * Lock a pc or the entire lab
-     * 
-     * @param pcId 0 -> numPC: lock the requested pc; -1: lock the entire lab
-     * @throws IndexOutOfBoundsException
-     */
-    public synchronized void lockPC(int pcId) throws IndexOutOfBoundsException {
-        if(pcId == -1)          for (int i = 0; i < numPC; i++) pcInUse[i] = true;
-        else if(pcId > numPC)   throw new IndexOutOfBoundsException();
-        else                    pcInUse[pcId] = true;
-    }
-
-    /**
-     * Unlock a pc or the entire lab
-     * 
-     * @param pcId 0 -> numPC: unlock the requested pc; -1: unlock the entire lab
-     * @throws IndexOutOfBoundsException
-     */
-    public synchronized void unlockPC(int pcId) throws IndexOutOfBoundsException {
-        if(pcId == -1)          for (int i = 0; i < numPC; i++) pcInUse[i] = false;
-        else if(pcId > numPC)   throw new IndexOutOfBoundsException();
-        else                    pcInUse[pcId] = false;
-    }
-
     public synchronized int requestPC(int userID, Utils.UserType userType, int pc) {
         switch (userType) {
             case Undergrad:
@@ -108,6 +84,30 @@ public class Tutor {
             if(!pcInUse[i] && gradWaiting[i] <= 0) return i;
         }
         return -1;
+    }
+
+    /**
+     * Lock a pc or the entire lab
+     * 
+     * @param pcId 0 -> numPC: lock the requested pc; -1: lock the entire lab
+     * @throws IndexOutOfBoundsException
+     */
+    private synchronized void lockPC(int pcId) throws IndexOutOfBoundsException {
+        if(pcId == -1)          for (int i = 0; i < numPC; i++) pcInUse[i] = true;
+        else if(pcId > numPC)   throw new IndexOutOfBoundsException();
+        else                    pcInUse[pcId] = true;
+    }
+
+    /**
+     * Unlock a pc or the entire lab
+     * 
+     * @param pcId 0 -> numPC: unlock the requested pc; -1: unlock the entire lab
+     * @throws IndexOutOfBoundsException
+     */
+    private synchronized void unlockPC(int pcId) throws IndexOutOfBoundsException {
+        if(pcId == -1)          for (int i = 0; i < numPC; i++) pcInUse[i] = false;
+        else if(pcId > numPC)   throw new IndexOutOfBoundsException();
+        else                    pcInUse[pcId] = false;
     }
 }
 
