@@ -1,0 +1,119 @@
+\chapter{Lezione 01: Introduzione alle Reti}
+
+\section{Introduzione}
+
+\paragraph{Rete}
+
+Con rete si intende un'interconnessione di dispositivi in grado di scambiarsi informazioni.
+Le reti sono commposte da elementi quali:
+\begin{itemize}
+    \item Sistemi terminali \textit{(Host)}
+    \subitem Macchine degli utenti finali
+    \subitem Server \textit{Fornitori di servizi}
+    \item Switch: Dispositivi adibiti all'interconnessione locale di Host
+    \item Router: Dispositivi di interconnessione di reti diverse
+    \item Collegamenti: I mezzi tramite i quali vengono trasferite le informazioni
+    \subitem Cavi in rame
+    \subitem Fibra ottica
+    \subitem Onde radio \textit{(WiFi)}
+\end{itemize}
+
+\section{Tipi di rete}
+\paragraph{LAN}
+Con \textit{LocalAreaNetwork} o \textit{Rete Locale} si intende un insieme di Host appartenenti allo stesso ente \textit{(Organizzazione, Casa, Scuola)} in grado di comunicare.\newline
+Le LAN possono essere:
+\begin{itemize}
+    \item a cavo condiviso: Tutti gli host condividono lo stesso cavo per comunicare.
+    Questo sistema non e' piu' usato perche' poco efficente.
+    \item con switch: Tutti gli host sono collegati a uno switch che instrada le informazioni nella direzione desiderata.
+    Questo sistema e' molto piu' efficiente perche' le macchine non hanno bisogno di monopolizzare la rete.
+\end{itemize}
+\paragraph{WAN}
+Per \textit{WideAreaNetwork} o \textit{Rete Geografica} si intende una rete formata da piu' LAN e/o singoli host separati da grandi distanze.
+Essa viene gestita da da un operatore che fornisce il servizio di interconnessione ai clienti.\newline
+Le WAN si distinguono in: 
+\begin{itemize}
+    \item WAN punto-punto
+    \item WAN a commutazione
+\end{itemize}
+Una applicazione tipica sono reti locali appartenenti ad un'azienda interconnesse tramite WAN p-p
+\section{Tecniche di commutazione}
+I due sistemi principali per determinare il percorso tra due host e dedicargli le risorse sono:
+\begin{itemize}
+    \item Circuit-switched network \textit{(Commutazione di circuto)}
+    \item Packet-switched network \textit{(Commutazione di pacchetto)}
+\end{itemize}
+\paragraph{Commutazione di circuito}
+Per la commutazione di circuito si procede instaurando un cammino dedicato tra i due host: vengono assegnate le risorse necessarie alla comunicazione e sono garantite per l'intera durata della connessione.
+Cio' significa che una volta instaurata la connessione, essa non verra' disturbata in alcun modo.\newline
+I principali problemi di questa tecnica sono pero' il tempo di instaurazione della connessione \textit{(risorse non disponibili)}, e il non sfruttamento delle risiorse disponibili durante i \textit{silenzi} nella comunicazione.
+\paragraph{Commutazione di pacchetto}
+Nelle connessioni a commutazione di pacchetto il flusso di dati viene diviso in pacchetti ed essi vengono \textit{spediti sulla rete} sul percorso prescelto.
+Le risorse vengono quindi utilizzate solo se necessarie e possono essere condivise da pacchetti provenienti da host differenti.
+
+Ogni nodo della rete si occupa di ricevere e riservire i pacchetti che gli arrivano. Per fare cio' il commutatore, dopo aver ricevuto un pacchetto, lo mette in una coda di tipo FIFO; quando e' pronto a ritrasmettere preleva il primo pacchetto dalla coda.
+Cio' porta a dei ritardi (Il commutatore deve ricevere l'intero pacchetto per reinviarlo, i pacchetti potrebbero dover \textit{aspettare} in coda) e a delle perdite di pacchetti (coda piena).\newline
+Questo metodo si chiama \textbf{Store and Forward}.
+\section{Internet}
+Con \textbf{i}nternet si intende un sistema formato da due o piu' reti comunicanti.
+L'\textbf{I}nternet e' l'insieme di reti piu' comune. Ogni rete che intende aggiungersi ad essa deve seguire L'Internet Protocol (IP) e rispettare certe convenzioni.
+
+L'infrastruttura di Internet fornisce servizi di comunicazione alle applicazioni
+\begin{itemize}
+    \item Senza connesione \textbf{(UDP)}
+    \item Orientati alla connessione \textbf{(TCP)}
+\end{itemize}
+
+Sono stati definiti dei \textbf{protocolli} di comunicazione per le applicazioni piu' comuni di Internet \textit{(TCP, IP, HTTP, FTP...)}
+
+Ci sono delle organizzazioni adibite alla definizione degli standard di internet:
+\begin{itemize}
+    \item \textbf{IETF} Internet Engineering Task Force
+    \begin{itemize}
+        \item Studia e sviluppa i protocolli in uso su internet.
+        \item Pubblica i documenti ufficiali che li descrivono sotto forma di RFC/STD \textit{(Request For Comments, STanDards)}
+    \end{itemize}
+    \item \textbf{ICANN} Internet Corporation for Assigned Names and Numbers
+    \begin{itemize}
+        \item Coordina i DNS
+        \item Assegna i gruppi di indirizzi di rete
+        \item Ha funzioni di controllo semplice dello sviluppo di Internet
+    \end{itemize}
+    \item \textbf{W3C} World Wide Web Consortium
+    \begin{itemize}
+        \item Sviluppa di standard aperti \textit{(HTML, XML...)}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Strati della rete}
+Le reti degli host si collegano a Internet tramite gli ISPs \textit{Internet Service Provider}.
+I livelli della rete sono:
+\begin{description}
+    \item[Livello 3] ISP di accesso: Sono quelli a cui si connettono comunemente le reti locali.
+    \item[Livello 2] ISP regionali: Sono dei collegamenti intermedi che uniscono tutti gli ISP di livello 2 in una zona geografica
+    \item[Livello 1] Dorsali: Esse sono la parte piu' \textit{alta} di Internet, tutti gli altri ISP si connettono ad esse. \textit{(ne esistono circa 11)}
+\end{description}
+
+\subsection{Peering point}
+Sono accordi tra due ISP che gli permettono di ricevere e riinoltrare il traffico da uno all'altro:
+per fare cio' esistono gli IXP \textit{(Internet eXchange Point)} ovvero sistemi, anche gestiti da aziende di terzi, che effettuano il peering.
+\subsection{Reti di acesso}
+Il collegamento tra l'utente e Internet e' detto \textbf{rete di accesso}.
+\begin{itemize}
+    \item Accesso via rete telefonica
+    \begin{itemize}
+        \item dial-up
+        \item Digital Subscriber Line \textbf{(DSL)}
+        \item Fibra ottica
+    \end{itemize}
+    \item Accesso tramite reti wireless
+    \begin{itemize}
+        \item 3G, 4G, 5G
+    \end{itemize}
+    \item Collegamento diretto
+    \begin{itemize}
+        \item Collegamenti WAN dedicati per aziende, universita'...
+    \end{itemize}
+\end{itemize}
+
+\section{Metriche di riferimento}
