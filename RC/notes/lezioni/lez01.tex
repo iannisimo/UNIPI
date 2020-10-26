@@ -1,4 +1,4 @@
-\chapter{Lezione 01: Introduzione alle Reti}
+\chapter{Introduzione alle Reti}
 
 \section{Introduzione}
 
@@ -115,5 +115,74 @@ Il collegamento tra l'utente e Internet e' detto \textbf{rete di accesso}.
         \item Collegamenti WAN dedicati per aziende, universita'...
     \end{itemize}
 \end{itemize}
-
+\newpage
 \section{Metriche di riferimento}
+
+\paragraph{Larghezza di banda (Bandwidth)}
+Larghezza in Hertz dell'intervallo di frequenze utilizzato per la trasmissione.
+\paragraph{Velocita' di trasmissione (bitrate)}
+Quantita' di dati trasmissibili nell'unita' di tempo (bps).
+\paragraph{Troughput}
+Quantita' di dati trasmissibili da un nodo A ad un nodo B in una unita' di tempo.
+Tiene di conto anche di perdite sulla rete, protocolli, ecc\dots
+\paragraph{Latenza}
+Tempo che intercorre tra l'invio e la ricezione del primo bit di un messaggio.
+\begin{quote}
+    \small Latenza = elaborazione + accodamento + trasmissione + propagazione
+\end{quote}
+\subsection{Ritardi}
+\paragraph{Ritardo di elaborazione}
+Causato dal sistema di controllo degli errori e dal sistema che determina il canale di uscita.
+\paragraph{Ritardo di accodamento}
+Tempo tra l'inserimento nella coda di trasmissione e la ritrasmissione del pacchetto.
+\paragraph{Ritardo di trasmissione}
+Tempo impiegato per trasmettere un pacchetto sul mezzo di trasmissione.
+\begin{quote}
+    Misurato in PacketLenght / BitRate
+\end{quote}
+\paragraph{Ritardo di propagazione}
+Tempo che inpiega un bit ad essere propagato da un nodo all'altro.
+\begin{quote}
+    Misurato in LinkLenght / PropSpeed $(3-2*10^-8)$
+\end{quote}
+\paragraph{Ritardo end-to-end}
+Ritardo cumulato tra tutti i nodi in una trasmissione. E' pari alla sommatoria dei ritardi tra i vari nodi del collegamento.
+\subsection{Prodotto rate-ritardo}
+Numero massimo di bit che possono \textit{essere contenuti} nel mezzo trasmissivo.
+\newpage 
+\section{Modelli stratificati}
+Il modello statificato permette di scomporre un sistema complesso in piu' sistemi piu' facili da implementare e comprendere.
+La modularizzazione dei livelli permette di dividere l'interfaccia dall'implementazione di un servizio.
+Percio' dall'esterno ogni modulo e' visto come un'interfaccia che: accetta determinati parametri in ingresso, esegue le sue mansioni, e ritorna una risposta.
+Quindi l'implementazione puo' essere cambiata senza che il resto del sistema \textit{ne venga a conoscenza}
+\section{OSI RM \small(Open System Interconnection Reference Model)}
+Nel 1976 sono iniziati i lavori per definire uno standard aperto per i protocolli di Internet.
+La ISO ha da prima pubblicato questi standard sotto forma del OSI-RM, che poi e' diventato uno standar internazionale nel 1983 (ISO 7498).
+
+Il modello ISO/OSI prevede la statificazione del protocollo di telecomunicazione.
+
+\paragraph{Gli strati OSI sono:}
+\begin{description}
+    \item[7] Applicazione - elaborazione dati
+    \item[6] Presentazione - unificazione dati 
+    \item[5] Sessione - controllo del dialogo
+    \item[4] Trasporto - trasferimento dati tra hosts
+    \item[3] Rete - instradamento del traffico
+    \item[2] Datalink - consegne trame sul link
+    \item[1] Fisico - trasmette un flusso di bit
+\end{description}
+Le informazioni si propagano dal livello piu' alto (applicazione) fino al piu' basso per poi passare sul mezzo trasmissivo e risalire i livelli fino alla destinazione.
+
+Ogni livello aggiunge all'informazione del livello superione una propria sezione informativa (header / trailer)
+Questo processo di incapsulamento delle informazioni e' reversibile percio' ogni livello e' in grado di estrarre i dati degli strati superiori.
+
+\section{Stack Protocollare TCP-IP}
+E' la famiglia di protocolli attualmente utilizzata in Internet.
+E' definita attualmente da cinque livelli:
+\begin{description}
+    \item[Applicazione] Applicazioni di rete, collegamento logico end-to-end, scambio di messaggi tra processi. \textit{\tiny ftp, smtp, http}
+    \item[Trasporto] Trasferimento dati end-to-end. \textit{\tiny tcp, udp}
+    \item[rete] Instradamento dei datagrammi. \textit{\tiny IP, ICMP}
+    \item[Link] Trasferimento dei dati in frame tra elementi vicini. \textit{\tiny ppp, ethernet, \dots} 
+    \item[Fisico] Trasferimento di bit di un frame sul mezzo trasmissivo. 
+\end{description}

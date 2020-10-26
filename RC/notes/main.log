@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.10.21)  26 OCT 2020 10:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.10.21)  26 OCT 2020 12:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -69,23 +69,23 @@ File: lstlang1.sty 2019/09/10 1.8c listings language file
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count184
 \l__pdf_internal_box=\box47
-) (/home/simone/projects/UNIPI/RC/notes/main.aux (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.aux) (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.2.aux))
+) (/home/simone/projects/UNIPI/RC/notes/main.aux (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 \c@lstlisting=\count185
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -107,11 +107,11 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 24.
+(Font)              <12> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 24.
+(Font)              <8> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 24.
+(Font)              <6> on input line 25.
  [1
 
 
@@ -132,29 +132,20 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 Chapter 1.
-[5] [6] [7]) [8]
-\openout2 = `lezioni/lez01.2.aux'.
-
- (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.2.tex
-Chapter 2.
-) [9
-
-
-
-] (/home/simone/projects/UNIPI/RC/notes/main.aux (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.aux) (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.2.aux)) ) 
+[5] [6] [7] [8] [9] [10]) [11] (/home/simone/projects/UNIPI/RC/notes/main.aux (/home/simone/projects/UNIPI/RC/notes/lezioni/lez01.aux)) ) 
 Here is how much of TeX's memory you used:
- 2582 strings out of 483183
- 37973 string characters out of 5966291
+ 2575 strings out of 483183
+ 37608 string characters out of 5966291
  458581 words of memory out of 5000000
- 17597 multiletter control sequences out of 15000+600000
- 539761 words of font info for 48 fonts, out of 8000000 for 9000
+ 17596 multiletter control sequences out of 15000+600000
+ 540418 words of font info for 50 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  30i,6n,40p,326b,217s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/simone/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on /home/simone/projects/UNIPI/RC/notes/main.pdf (9 pages, 110726 bytes).
+ </home/simone/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
+Output written on /home/simone/projects/UNIPI/RC/notes/main.pdf (11 pages, 144912 bytes).
 PDF statistics:
- 67 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 85 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

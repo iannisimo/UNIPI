@@ -1,4 +1,4 @@
-\contentsline {chapter}{\numberline {1}Lezione 01: Introduzione alle Reti}{5}%
+\contentsline {chapter}{\numberline {1}Introduzione alle Reti}{5}%
 \contentsline {section}{\numberline {1.1}Introduzione}{5}%
 \contentsline {paragraph}{Rete}{5}%
 \contentsline {section}{\numberline {1.2}Tipi di rete}{5}%
@@ -11,5 +11,19 @@
 \contentsline {subsection}{\numberline {1.4.1}Strati della rete}{7}%
 \contentsline {subsection}{\numberline {1.4.2}Peering point}{8}%
 \contentsline {subsection}{\numberline {1.4.3}Reti di acesso}{8}%
-\contentsline {section}{\numberline {1.5}Metriche di riferimento}{8}%
-\contentsline {chapter}{\numberline {2}Lezione 01.2: Metriche di riferimento}{9}%
+\contentsline {section}{\numberline {1.5}Metriche di riferimento}{9}%
+\contentsline {paragraph}{Larghezza di banda (Bandwidth)}{9}%
+\contentsline {paragraph}{Velocita' di trasmissione (bitrate)}{9}%
+\contentsline {paragraph}{Troughput}{9}%
+\contentsline {paragraph}{Latenza}{9}%
+\contentsline {subsection}{\numberline {1.5.1}Ritardi}{9}%
+\contentsline {paragraph}{Ritardo di elaborazione}{9}%
+\contentsline {paragraph}{Ritardo di accodamento}{9}%
+\contentsline {paragraph}{Ritardo di trasmissione}{9}%
+\contentsline {paragraph}{Ritardo di propagazione}{9}%
+\contentsline {paragraph}{Ritardo end-to-end}{9}%
+\contentsline {subsection}{\numberline {1.5.2}Prodotto rate-ritardo}{9}%
+\contentsline {section}{\numberline {1.6}Modelli stratificati}{10}%
+\contentsline {section}{\numberline {1.7}OSI RM \small (Open System Interconnection Reference Model)}{10}%
+\contentsline {paragraph}{Gli strati OSI sono:}{10}%
+\contentsline {section}{\numberline {1.8}Stack Protocollare TCP-IP}{11}%
