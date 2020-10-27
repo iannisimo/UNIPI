@@ -1,0 +1,151 @@
+\chapter{Lo Strato Applicativo: URI-HTTP}
+\section{Applicazioni di rete}
+Sono applicazioni formate da processi distibuiti comunicanti; Cio' significa che i processi possono essere eseguiti su host diversi sulla rete.
+Sullo stesso host piu' processi possono comunicare anche attraverso la {\color{blue}comunicazione inter-processo} definita dal sistema operativo (quindi esterna alla rete).
+Due processi su macchine diverse comunicano tramite la rete con dei \textbf{\color{blue} messaggi}.
+Grazie alla statificazione dei livelli, i livelli applicazione comunicano tra loro come se esistesse un collegamento diretto tra i due.
+\section{Protocollo dello Strato di Applicazione}
+Esso definisce:
+\begin{itemize}
+    \item i tipi di messaggi scambiati
+    \item la sintassi dei messaggi \textit{(i campi)}
+    \item la semantica dei campi \textit{(il significato)}
+    \item le regole per l'invio dei messaggi \textit{(quando e come)}
+\end{itemize}
+\newpage
+\section{Paradigmi}
+\begin{description}
+    \item[Client-Server] I server \textit{(pochi ma potenti)} offrono un servizio e sono sempre in attesa di richieste.
+    \item[Peer-tp-Peer (p2p)]  I peer offrono e richiedono servizi contemporaneamente.
+    \item[Misto] Programmi che utilizzano entrambi i paradigmi per utilizzi diversi \textit{(Skype, \dots)} 
+\end{description}
+\section{Application Programming Interface (API)}
+E' un insieme di regole da rispettare per utilizzare le risorse di un servizio.
+Per esempio, se un processo vuole inviare un messaggio sulla rete, utilizza delle chiamate al sistema operativo che comunica con gli strati inferiori dello stack TCP-IP attraverso l'{\color{blue}Interfaccia Socket}.
+\paragraph{L'Interfaccia Socket} E' un'API che collega gli strati applicazione e trasporto.
+Grazie ad essa un programmatore che intende sviluppare un'applicazione con accesso a Internet non deve preoccuparsi di tutte le \textit{formalita'} per la connessione.
+Per identificare un processo sulla rete si utilizza una coppia:
+\begin{center}
+    \textbf{\color{blue} $<$Indirizzo IP (32b) + numero di porta (16b)$>$}
+\end{center}
+\section{Uso dei servizi di trasporto}
+Nel livello di trasporto sono previsti dule protocolli principali:
+\begin{description}
+    \item[TCP] connection-oriented: client e server devono \textit{salutarsi} prima di iniziare a comunicare; c'e' controllo degli errori sui messaggi.
+    \item[UDP] connection-less: \textbf{\huge\color{red}CHAOS!} Non c'e' nessun controllo, il mittente tira i messaggi sulla rete e suppone che il destinatario lo riceva.
+\end{description}
+UDP e' utile se si ha bisogno di un alto troughput e/o un basso ritardo, ma solo se non ci interessa un trasferimento affidabile al 100\% dei dati \textit{(streaming, videogiochi, \dots)}.
+\newpage
+\section{Web e HTTP}
+\subsection{Il Web}
+Una pagina Web consiste di:
+\begin{itemize}
+    \item Un file HTML
+    \item Diversi oggetti referenziati indirizzabili tramite una URL (Uniform Reference Locator)
+\end{itemize}
+\subsection{Uniform Resource Identifier}
+E' una forma generale per identificare una risorsa sulla rete.
+Ci sono due tipi di URI:
+\begin{description}
+    \item[Uniform Resource Locator (URL)] Risorse identificate tramite il meccanismo di accesso \textit{(HTTP, FTP, \dots)}
+    \item[Uniform Resource Name (URN)] Identificatore globalmente unico, anche se la risorsa diventa non disponibile.
+\end{description}
+\subsection{Sintassi URL}
+\begin{center}
+    \color{blue}\textit{scheme://host:port/path}
+\end{center}
+\begin{itemize}
+    \item scheme: protocollo di accesso
+    \item host: nome di dominio o indirizzo IP
+    \item port: numero di porta del servizio richiesto
+    \item path: identifica la risorsa nel contesto sopra-descritto
+\end{itemize}
+Nelle URL HTTP si aggiunge anche un parametro \textit{\color{blue}?query} dopo \textit{\color{blue}path}.
+Questa stringa viene interpretata dal server e serve a passare informazioni aggiuntive nella richiesta.
+\subsection{URI Assolute e Relative}
+\begin{description}
+    \item[URI assoluta] identifica una risorsa indipendendentemente dal contesto.
+    \item[URI relativa] identifica una risorsa in relazione ad un'altra URL e viene interpretata dal client prima di mandare la richiesta. 
+\end{description}
+\section{HyperText Transfer Protocol (HTTP)}
+Protocollo {\color{blue} stateless} pubblicato nel 1990 e utilizzato fino ad ora nel World Wide Web.
+Una caratteristica fondamentale dell'HTTP e' la tipizzazione e negoziazione della rappresentazione dei dati percio' non e' limitato all'ipertesto.
+
+Il client stabilisce una connessione e invia richieste ({\color{blue}request}) tramite HTTP al server, il quale invia messaggi di risposta ({\color{blue}response})
+Usa TCP dato che il trasferimento deve essere senza perdite e che i ritardi non sono \textit{un problema}
+
+Dalla versione 1.1 la connessione client-server, a meno che diversamente espresso dal client, e' persistente; percio' il client puo' assumere che il server manterra' la connessione aperta.
+Cio' porta a minor utilizzo di CPU e ritardi minori dato che non c'e' bisogno di riaprire una nuova connessione per ogni richiesta.
+Inoltre si ha un mignor controllo di congestione.
+
+La connessione viene chiusa dal server solo quando esplicitamente richiesto dal client nell'header del messaggio, o se non riceve piu' richieste (time out)
+
+\subsection{Pipelining e HeadOfLineBlocking}
+
+Per migliorare le le prestazioni il client puo' inviare contemporaneamente piu' richieste al server, il quale \textbf{DEVE} rispondere nello stesso ordine in cui sono state ricevute.
+
+Se pero' una richiesta richiede piu' tempo al server per essere processata blocca tutte le risposte successive e porta all'HOLB. In questi casi non si ha un miglioramento delle performance.
+
+\newpage
+\subsection{HTTP Request}
+
+La richesta e' formata da:
+\begin{quote}
+    Request-Line \\
+    *( general-header \\
+    $\vert$ request-header \\
+    $\vert$ entity-header ) \\
+    CRLF \\
+    $[$ message-body $]$
+\end{quote}
+
+\subsection{HTTP Response}
+
+La risposta e' formata da:
+\begin{quote}
+    Status-Line \\
+    *( general-header \\
+    $\vert$ response-header \\
+    $\vert$ entity-header ) \\
+    CRLF \\
+    $[$ message-body $]$
+\end{quote}
+
+\paragraph{Request-Line}
+\begin{quote}
+    Method SP \\
+    Request-URI SP \\
+    HTTP-Version CRLF
+\end{quote}
+\paragraph{Status-Line}
+\begin{quote}
+    HTTP-Version SP \\
+    Status-Code SP \\
+    Reason-Phrase CRLF
+\end{quote}
+\paragraph{General-header} Relativi alla connessione.
+\paragraph{Entity-header} Relativi all'entita' trasmessa.
+\paragraph{Request-header} Relativi alla richiesta.
+\paragraph{Response-header} Nel messaggio di risposta.
+\subsection{Content Negotiation}
+Le risorse possono essere disponibili in piu' rappresentazioni; Il client puo' richiederne una in particolare tramite richieste su Request e Entity headers.
+\subsection{Request methods}
+\paragraph{OPTIONS} Il server ritorna solo le opzioni di comunicazione associate ad una URL (capacita', metodi esposti, \dots).
+\paragraph{GET} Richiede il trasferimento della risorsa indicata. Sono possibili i \textbf{conditional-get} (If-Mofidied-Since, If-Match, \dots).
+\paragraph{HEAD} Simile alla GET ma il server non trasferisce il message-body. Utile per controllare lo stato dei documenti (validita', modifiche, \dots).
+\paragraph{POST} Serve per inviare al server informazioni inserite nel body del messaggio.
+\paragraph{PUT} Chiede al server di creare/modificare una risorsa (Recuperabile poi tramite GET).
+\paragraph{DELETE} Il client chiede di eliminare una risorsa identidficata dalla Request-URI.
+\subsection{Caching}
+E' possibile memorizzare copie temporanee di risorse Web e ri-servirle al client senza contattare il server.
+Si possono avere:
+\begin{description}
+    \item[User-Agent Cache] Risorsa mantenuta dal browser.
+    \item[Proxy Cache] Il proxy mantiene una copia delle risorse richieste. Quando un browser richiede una risorsa cached essa gli viene riservita dal proxy senza interrogare nuovamente il server.
+\end{description}
+\subsection{Cookies}
+Essendo stateless, non e' mantenere una memora su un'applicazione web (come ad esempio l'identita' di un client).
+Una soluzione e' utilizzare i cookies, cioe' id unici che il client presenta al server ogni volta che esso effettua una richiesta.
+
+Alla prima connessione, il server invia la normale risposta HTTP + una line \textbf{Set-cookie: id}.
+Il client si salva il cookie e lo associa al server. Ogni successiva richiesta a quel server conterra' quel cookie.
