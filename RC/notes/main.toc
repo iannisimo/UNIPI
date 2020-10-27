@@ -59,3 +59,32 @@
 \contentsline {paragraph}{DELETE}{18}%
 \contentsline {subsection}{\numberline {2.7.6}Caching}{18}%
 \contentsline {subsection}{\numberline {2.7.7}Cookies}{18}%
+\contentsline {chapter}{\numberline {3}Lo Strato Applicativo: Telnet, EMAIL-SMTP}{19}%
+\contentsline {section}{\numberline {3.1}Telnet}{19}%
+\contentsline {subsection}{\numberline {3.1.1}Network Virtual Terminal: NVT}{19}%
+\contentsline {subsection}{\numberline {3.1.2}NVT Character Set}{20}%
+\contentsline {section}{\numberline {3.2}E-Mail}{20}%
+\contentsline {subsection}{\numberline {3.2.1}Principio di funzionamento}{20}%
+\contentsline {subsection}{\numberline {3.2.2}Indirizzi email}{20}%
+\contentsline {paragraph}{local-part}{20}%
+\contentsline {paragraph}{domain-name}{20}%
+\contentsline {subsection}{\numberline {3.2.3}Simple Mail Transfer Protocol (SMTP)}{21}%
+\contentsline {paragraph}{Modello: }{21}%
+\contentsline {paragraph}{Protocollo: }{21}%
+\contentsline {paragraph}{Handshaking}{21}%
+\contentsline {paragraph}{Comandi SMTP:}{21}%
+\contentsline {paragraph}{Formato dei messaggi}{22}%
+\contentsline {paragraph}{Content-Type:}{22}%
+\contentsline {subsection}{\numberline {3.2.4}Sistemi pull per le mail POP3, IMAP e HTML}{23}%
+\contentsline {paragraph}{Post Office Protocol}{23}%
+\contentsline {paragraph}{Internet Mail Access Protocol}{23}%
+\contentsline {paragraph}{HTTP}{23}%
+\contentsline {chapter}{\numberline {4}Lo Strato Applicativo: DNS}{25}%
+\contentsline {section}{\numberline {4.1}Introduzione}{25}%
+\contentsline {section}{\numberline {4.2}Servizi DNS}{25}%
+\contentsline {paragraph}{Risoluzione}{25}%
+\contentsline {paragraph}{Host aliasing}{25}%
+\contentsline {paragraph}{Mail server aliasing}{25}%
+\contentsline {paragraph}{Distribuzione di carico}{25}%
+\contentsline {section}{\numberline {4.3}Spazio dei nomi}{26}%
+\contentsline {chapter}{\numberline {5}Lo Strato Trasporto: Introduzione}{27}%
