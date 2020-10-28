@@ -1,0 +1,50 @@
+\chapter{Lo Strato Trasporto: Introduzione}
+\section{Obbiettivo}
+Realizza una comunicazione logica tra processi su terminali diversi.
+Cio' significa che essi comunicano come se ci fosse un collegamento diretto tra i due.
+Lo strato applicazione trasmette dati allo strato di trasporto, il quale poi comunica con gli strati inferiori per trasmetterli all'host di destinazione.
+\section{Servizi offerti}
+Lo strato di trasporto si occupa principalmente di multiplexing/demultiplexing e del controllo degli errori.
+\subsection{Protocolli}
+In base al protocollo utilizzato per la connessione, lo strato di trasporto si occupa anche di altri fattori.
+I due protocolli {\tiny(principali?)} sono:
+\begin{description}
+    \item[TCP] (RFC 793) Si occupa della gestione della connessione, dei controlli di flusso e congestione, e assicura una consegna affidabile.
+    \item[UDP] (RFC 768) Protocollo connection-less, non affidabile ma piu' veloce. 
+\end{description}
+\subsection{Multiplexing/Demultiplexing}
+\paragraph{Multiplexing} Lo strato di trasporto si occupa di \textit{accorpare} i flussi di dati e spedirli verso la loro destinazione insieme ad una \textit{busta} di trasporto.
+\paragraph{Demultiplexing} Lo strato di trasporto si occupa di ricevere i dati dalla rete e instradarli verso i processi desiderati.
+\paragraph{} Entrambi si basano sul socket addres (IP + porta) per identificare i processi.
+In base al protocollo usato, lo strato di trasporto si occupa anche del 
+\paragraph{Demultiplexing connectionless - UDP}
+La \textit{busta} contiene solamente la socket address del destinatario. I datagrammi provenienti da host differenti vengono consegnati tutti alla stessa socket di destinazione.
+\paragraph{Demultiplexing orientato alla connessione - TCP}
+La \textit{busta} contiene le socket address di mittente e destinatario. Un host puo' supportare piu' socket contemporaneamente (p.e. server Web). Lo strato di trasporto puo' quindi inviare i dati alla socket appropriata in base al mittente.
+\subsection{Le porte}
+Ogni processo che intende comunicare con la rete (punto di demultiplexing) e' identificato tramite un socket address.
+La {\color{blue}porta} e' un valore u-int16(0-65535). 
+I range standard sono:
+\begin{description}
+    \item[System ports] (0-1023) Assegnate da IANA, identificano i processi server.
+    \item[User ports] (1024-49151) Assegnate da IANA, non e' possibile la duplicazione.
+    \item[Dynamic ports] (49152-65535), Non assegnate da IANA, muoiono al momento della chiusura della connessione.
+\end{description}
+\subsection{Well known ports}
+\begin{tabular}{c c}
+        20/tcp & ftp-data \\
+        21/tcp & ftp \\
+        22/tcp & ssh \\
+        23/tcp & telnet \\
+        25/tcp & smtp \\
+        53/udp & dns \\
+        53/tcp & dns \\
+        69/udp & tftp \\
+        80/tcp & www-http \\
+        110/tcp & pop3 \\
+        119/tcp & nntp \\
+        161/udp & sntp \\
+        220/tcp & imap3 \\
+        510/udp & RIP \\
+        3306/tcp & mysql
+\end{tabular}

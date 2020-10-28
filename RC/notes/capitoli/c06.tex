@@ -1,0 +1,147 @@
+\chapter{Lo Strato di Trasporto: TCP}
+\section{Proprietà del servizio}
+I processi effettuano un handshake {\tiny\color{red}COVID!1!}.
+Lo strato della connessione risiede sui puni terminali e non sui nodi della rete.
+% Il cazzo di full duplex non ci capisco una sega pornodivo - TODO
+
+Permette di trasferire un flusso continuo di dati in formato bidirezionale (full-duplex).
+Inoltre consente di assegnare una connessione diretta processo - processo.
+Offre anche controllo di connessione tramite meccanismi di inizio e fine trasmissione.
+Tramite alcuni bit di controllo, permette di correggere alcuni tipi di errore.
+Con il controllo di flusso si evita di spedire piu' dati di quanti il destinatario sia in grado di trattare.
+Nel caso di sovraccarico della rete, tramite il controllo di congestione, si hanno sistemi di recupero della connessione.
+\paragraph{Trasferimento bufferizzato}
+Il protocollo TCP puo' suddividere il flusso di byte in segmenti. Per farlo e' necessario un buffer dove immagazzinare i dati finché non ce n'e' un numero sufficiente da essere spediti.
+Cio' consente un minor numero di messaggi scambiati per trasferire una sequenza di byte.
+\section{Formato dei segmenti}
+\subsection{Numeri di sequenza e di riscontro}
+\paragraph{Numero di sequenza} e' il numero del primo byte di un segmento.
+Generalmente si parte da un Initial Sequence Number (ISN) casuale.
+\paragraph{Numero di riscontro} e' il +1 del numero dell'ultimo byte ricevuto correttamente.
+
+\textit{ACK=x} = significa: ho ricevuto tutti i byte fino a \textit{x-1}, aspetto \textit{x}.
+\subsection{Forma dei segmenti}
+L'header aggiunto al messaggio contiene:
+\begin{description}
+    \item[Porta sorgente] 16bit
+    \item[Porta destinazione] 16bit
+    \item[n-SEQ] Numero di sequenza, 32 bit
+    \item[n-ACK] Numero di riscontro, 32 bit
+    \item[HLEN] Lunghezza dell'header espressa in parole da 4Byte, 4bit
+    \item[Reserved] 6bit
+    \item[URG] Il campo puntatore contiene i dati da trasferire in via prioritaria, 1bit
+    \item[ACK] Considerare n-ACK, 1bit
+    \item[PSH] Trasferimento immediato da trasporto a applicazione
+    \item[RST] Reset della connessione
+    \item[SYN] Sincronizza n-SEQ
+    \item[FIN] Chiusura della connessione   
+    \item[Dimensione finestra] Numero di byte {\tiny a partire da n-ACK}, elaborabili, 16bit
+    \item[Checksum] Considera l'intero pacchetto; serve a rilevare gli errori, 16bit
+    \item[Puntatore urgente] {\small Punta al primo Byte non URG partendo da n-SEQ}, 16bit
+    \item[Opzioni e riempimento] {\small Negoziazione di vari parametri opzionali}, 0-40Byte
+\end{description}
+\newpage
+\section{Gestione della connessione}
+\subsection{Handshake a tre vie}
+\begin{description}
+    \item[Richiesta di connessione] Il client invia una richiesta al server con:
+    \begin{description}
+        \item[SYN] 1
+        \item[n-SEQ] \#rand {\tiny = x}
+    \end{description}
+    Il server inizializza due buffer e le variabili di connessione per il controllo di flusso e congestione.
+    \item[Autorizzazzione connessione (SYNACK)] Il server risponde con:
+    \begin{description}
+        \item[SYN] 1
+        \item[ACK] 1 
+        \item[n-SEQ] \#rand {\tiny = y}
+        \item[n-ACK] x+1
+    \end{description}
+    Il client inizializza gli stessi buffer e variabili.
+    \item[ACK] Riscontro positivo dell'avvenuta connessione, contiene:
+    \begin{description}
+        \item[SYN] 0
+        \item[ACK] 1
+        \item[n-SEQ] x+1
+        \item[n-ACK] y+1 
+    \end{description}
+    Connessione stabilita.
+\end{description}
+\subsection{Chiusura della connessione}
+\setlength{\columnseprule}{0.4pt}
+\setlength{\columnsep}{5em}
+\begin{multicols}{2}
+    \begin{description}
+        \item[C$\implies$S] Chiusura da parte\\del client:
+        \begin{description}
+            \item[FIN] 1
+            \item[n-SEQ] x  
+        \end{description} 
+        Il client non puo'\\piu' inviare dati.
+        \item[S$\implies$C] ACK di chiusura:
+        \begin{description}
+            \item[ACK] 1
+            \item[n-ACK] x+1  
+        \end{description}  
+        Il server puo' ancora\\inviare dati, il client no.
+        \item[S$\implies$C] Chiusura da parte\\del server:
+        \begin{description}
+            \item[FIN] 1
+            \item[n-SEQ] y  
+        \end{description} 
+        Il server aspetta la\\ricevuta di chiusura.
+        \item[C$\implies$S] ACK di chiusura.
+        \begin{description}
+            \item[ACK] 1
+            \item[n-ACK] y+1  
+        \end{description} 
+        Connessione terminata.
+    \end{description}
+\end{multicols}
+\setlength{\columnseprule}{0pt}
+\setlength{\columnsep}{1em}
+Quando il client riceve FIN dal server entra nello stato {\color{blue} TIME\_WAIT} e ci resta per un tempo dettato da MSL (diverso su macchine differenti) prima di poter chiudere totalmente la connessione. Questo serve nel caso l'ultimo ACK venga perso perché a un certo punto uno dei due host richiederà la chiusura passiva e l'altro dovrà rispondere con un ACK.
+Allo stesso modo dell'handshake di apertura, si puo' avere un three-way handshake di chiusura.
+\section{Stati TCP}
+% Da fare copia incolla con la lez05.2 - TODO
+\section{Trasferimento di dati affidabile}
+\subsection{Esempio Telnet su TCP}
+\begin{description}
+    \item[C$\implies$S] L'utente digita C
+    \begin{description}
+        \item[n-SEQ] 42
+        \item[n-ACK] 79
+        \item[data] "C"   
+    \end{description}
+    \item[S$\implies$C] ACK per ricevuta di C
+    \begin{description}
+        \item[n-SEQ] 79
+        \item[n-ACK] 43
+        \item[data] "C"   
+    \end{description}
+    \item[S$\implies$C] ACK dell'ACK
+    \begin{description}
+        \item[n-SEQ] 43
+        \item[n-ACK] 80
+    \end{description}
+\end{description}
+Il mittente puo' anche inviare piu' segmenti senza attendere il riscontro (pipelining).
+\subsection{Eventi lato mittente}
+Lo strato di trasporto riceve i dati dall'applicazione, li incapsula, gia assegna un numero di sequenza, ed avvia un timer di ritrasmissione (RTO).
+
+La ritrasmissione avviene in caso di:
+\begin{description}
+    \item[Timeout] Non si riceve un ACK prima della scadenza del RTO.
+    \item[ACK duplicato] Il mittente riceve tre ACK uguali significa che il segmento successivo a quello e' andato perso. Si ha quindi la {\color{blue}fast retransmission}.  
+\end{description}
+\subsection{Segmenti fuori sequenza}
+Se i dati arrivano fuori sequenza (ordinamento sparso), l'entita' TCP destinataria puo' memorizzarli temporaneamente ma il protocollo non specifica che utilizzo farne.
+
+Nelle versioni piu' recenti si implementa SACK, che manda l'ACK dei pacchetti fuori sequenza in OPTIONS.
+\subsection{Eventi lato destinatario}
+Tutti i segmenti inviati per trasmettere dati includono ACK.
+% Segmento in ordine - TODO
+Se il destinatario riceve un segmento fuori sequenza, un duplicato, o un capisce che c'e' un segmento mancante, risponde subito con un ACK indicando il segmento da cui ripartire.
+\subsection{Calcolo del timeout}
+Il RTO deve essere maggiore del Round Trip Time (RTT), cioè del tempo tra l'invio di un messaggio e la ricevuta dell'ACK.
+% Aggiungere il calcolo di RTO e RTT, non ho un cazzo voglia - TODO
