@@ -1,0 +1,45 @@
+\documentclass[a4paper,11pt,twoside]{book}
+\usepackage{listings}		
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\emergencystretch}{10pt}
+\graphicspath{ {./img/} }	
+% \pagecolor{Periwinkle}
+% \color{purple}				
+
+\lstset{language=Java,						
+	showspaces=false,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	commentstyle=\color{ForestGreen},
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	identifierstyle=\color{Gray},
+	basicstyle=\small\ttfamily
+}
+
+\begin{document}
+
+\title{Appunti di Crittografia}
+\author{Simone Ianniciello}
+\date{A.A. 2020/2021}
+\maketitle
+
+\tableofcontents
+
+\include{chp/01}
+
+\end{document}
