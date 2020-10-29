@@ -1,145 +1,145 @@
-\contentsline {chapter}{\numberline {1}Introduzione alle Reti}{7}%
-\contentsline {section}{\numberline {1.1}Introduzione}{7}%
-\contentsline {paragraph}{Rete}{7}%
-\contentsline {section}{\numberline {1.2}Tipi di rete}{7}%
-\contentsline {paragraph}{LAN}{7}%
-\contentsline {paragraph}{WAN}{8}%
-\contentsline {section}{\numberline {1.3}Tecniche di commutazione}{8}%
-\contentsline {paragraph}{Commutazione di circuito}{8}%
-\contentsline {paragraph}{Commutazione di pacchetto}{8}%
-\contentsline {section}{\numberline {1.4}Internet}{9}%
-\contentsline {subsection}{\numberline {1.4.1}Strati della rete}{9}%
-\contentsline {subsection}{\numberline {1.4.2}Peering point}{10}%
-\contentsline {subsection}{\numberline {1.4.3}Reti di acesso}{10}%
-\contentsline {section}{\numberline {1.5}Metriche di riferimento}{11}%
-\contentsline {paragraph}{Larghezza di banda (Bandwidth)}{11}%
-\contentsline {paragraph}{Velocita' di trasmissione (bitrate)}{11}%
-\contentsline {paragraph}{Troughput}{11}%
-\contentsline {paragraph}{Latenza}{11}%
-\contentsline {subsection}{\numberline {1.5.1}Ritardi}{11}%
-\contentsline {paragraph}{Ritardo di elaborazione}{11}%
-\contentsline {paragraph}{Ritardo di accodamento}{11}%
-\contentsline {paragraph}{Ritardo di trasmissione}{11}%
-\contentsline {paragraph}{Ritardo di propagazione}{11}%
-\contentsline {paragraph}{Ritardo end-to-end}{11}%
-\contentsline {subsection}{\numberline {1.5.2}Prodotto rate-ritardo}{11}%
-\contentsline {section}{\numberline {1.6}Modelli stratificati}{12}%
-\contentsline {section}{\numberline {1.7}OSI RM \small (Open System Interconnection Reference Model)}{12}%
-\contentsline {paragraph}{Gli strati OSI sono:}{12}%
-\contentsline {section}{\numberline {1.8}Stack Protocollare TCP-IP}{13}%
-\contentsline {chapter}{\numberline {2}Lo Strato Applicativo: URI-HTTP}{15}%
-\contentsline {section}{\numberline {2.1}Applicazioni di rete}{15}%
-\contentsline {section}{\numberline {2.2}Protocollo dello Strato di Applicazione}{15}%
-\contentsline {section}{\numberline {2.3}Paradigmi}{16}%
-\contentsline {section}{\numberline {2.4}Application Programming Interface (API)}{16}%
-\contentsline {paragraph}{L'Interfaccia Socket}{16}%
-\contentsline {section}{\numberline {2.5}Uso dei servizi di trasporto}{16}%
-\contentsline {section}{\numberline {2.6}Web e HTTP}{17}%
-\contentsline {subsection}{\numberline {2.6.1}Il Web}{17}%
-\contentsline {subsection}{\numberline {2.6.2}Uniform Resource Identifier}{17}%
-\contentsline {subsection}{\numberline {2.6.3}Sintassi URL}{17}%
-\contentsline {subsection}{\numberline {2.6.4}URI Assolute e Relative}{17}%
-\contentsline {section}{\numberline {2.7}HyperText Transfer Protocol (HTTP)}{18}%
-\contentsline {subsection}{\numberline {2.7.1}Pipelining e HeadOfLineBlocking}{18}%
-\contentsline {subsection}{\numberline {2.7.2}HTTP Request}{19}%
-\contentsline {subsection}{\numberline {2.7.3}HTTP Response}{19}%
-\contentsline {paragraph}{Request-Line}{19}%
-\contentsline {paragraph}{Status-Line}{19}%
-\contentsline {paragraph}{General-header}{19}%
-\contentsline {paragraph}{Entity-header}{19}%
-\contentsline {paragraph}{Request-header}{19}%
-\contentsline {paragraph}{Response-header}{19}%
-\contentsline {subsection}{\numberline {2.7.4}Content Negotiation}{19}%
-\contentsline {subsection}{\numberline {2.7.5}Request methods}{20}%
-\contentsline {paragraph}{OPTIONS}{20}%
-\contentsline {paragraph}{GET}{20}%
-\contentsline {paragraph}{HEAD}{20}%
-\contentsline {paragraph}{POST}{20}%
-\contentsline {paragraph}{PUT}{20}%
-\contentsline {paragraph}{DELETE}{20}%
-\contentsline {subsection}{\numberline {2.7.6}Caching}{20}%
-\contentsline {subsection}{\numberline {2.7.7}Cookies}{20}%
-\contentsline {chapter}{\numberline {3}Lo Strato Applicativo: Telnet, EMAIL-SMTP}{21}%
-\contentsline {section}{\numberline {3.1}Telnet}{21}%
-\contentsline {subsection}{\numberline {3.1.1}Network Virtual Terminal: NVT}{21}%
-\contentsline {subsection}{\numberline {3.1.2}NVT Character Set}{22}%
-\contentsline {section}{\numberline {3.2}E-Mail}{22}%
-\contentsline {subsection}{\numberline {3.2.1}Principio di funzionamento}{22}%
-\contentsline {subsection}{\numberline {3.2.2}Indirizzi email}{22}%
-\contentsline {paragraph}{local-part}{22}%
-\contentsline {paragraph}{domain-name}{22}%
-\contentsline {subsection}{\numberline {3.2.3}Simple Mail Transfer Protocol (SMTP)}{23}%
-\contentsline {paragraph}{Modello: }{23}%
-\contentsline {paragraph}{Protocollo: }{23}%
-\contentsline {paragraph}{Handshaking}{23}%
-\contentsline {paragraph}{Comandi SMTP:}{23}%
-\contentsline {paragraph}{Formato dei messaggi}{24}%
-\contentsline {paragraph}{Content-Type:}{24}%
-\contentsline {subsection}{\numberline {3.2.4}Sistemi pull per le mail POP3, IMAP e HTML}{25}%
-\contentsline {paragraph}{Post Office Protocol}{25}%
-\contentsline {paragraph}{Internet Mail Access Protocol}{25}%
-\contentsline {paragraph}{HTTP}{25}%
-\contentsline {chapter}{\numberline {4}Lo Strato Applicativo: DNS}{27}%
-\contentsline {section}{\numberline {4.1}Introduzione}{27}%
-\contentsline {section}{\numberline {4.2}Servizi DNS}{27}%
-\contentsline {paragraph}{Risoluzione}{27}%
-\contentsline {paragraph}{Host aliasing}{27}%
-\contentsline {paragraph}{Mail server aliasing}{27}%
-\contentsline {paragraph}{Distribuzione di carico}{27}%
-\contentsline {section}{\numberline {4.3}Spazio dei nomi}{28}%
-\contentsline {paragraph}{Struttura "flat"}{28}%
-\contentsline {paragraph}{Struttura gerarchica}{28}%
-\contentsline {subsection}{\numberline {4.3.1}Nomi di dominio}{28}%
-\contentsline {subsection}{\numberline {4.3.2}Esempi di Top Level Domain (TLD)}{28}%
-\contentsline {section}{\numberline {4.4}Gerarchia dei Name Server}{29}%
-\contentsline {paragraph}{DNS}{29}%
-\contentsline {paragraph}{Name Server}{29}%
-\contentsline {subsection}{\numberline {4.4.1}Root Name Server}{29}%
-\contentsline {subsection}{\numberline {4.4.2}TLD Server}{29}%
-\contentsline {subsection}{\numberline {4.4.3}Authoritative Name Server}{29}%
-\contentsline {subsection}{\numberline {4.4.4}Local Name Server}{29}%
-\contentsline {subsection}{\numberline {4.4.5}Query DNS}{29}%
-\contentsline {subsection}{\numberline {4.4.6}DNS Caching}{29}%
-\contentsline {section}{\numberline {4.5}Resource Records}{30}%
-\contentsline {chapter}{\numberline {5}Lo Strato Trasporto: Introduzione}{31}%
-\contentsline {section}{\numberline {5.1}Obbiettivo}{31}%
-\contentsline {section}{\numberline {5.2}Servizi offerti}{31}%
-\contentsline {subsection}{\numberline {5.2.1}Protocolli}{31}%
-\contentsline {subsection}{\numberline {5.2.2}Multiplexing/Demultiplexing}{31}%
-\contentsline {paragraph}{Multiplexing}{31}%
-\contentsline {paragraph}{Demultiplexing}{31}%
-\contentsline {paragraph}{}{32}%
-\contentsline {paragraph}{Demultiplexing connectionless - UDP}{32}%
-\contentsline {paragraph}{Demultiplexing orientato alla connessione - TCP}{32}%
-\contentsline {subsection}{\numberline {5.2.3}Le porte}{32}%
-\contentsline {subsection}{\numberline {5.2.4}Well known ports}{32}%
-\contentsline {chapter}{\numberline {6}Lo Strato di Trasporto: TCP}{33}%
-\contentsline {section}{\numberline {6.1}Proprietà del servizio}{33}%
-\contentsline {paragraph}{Trasferimento bufferizzato}{33}%
-\contentsline {section}{\numberline {6.2}Formato dei segmenti}{33}%
-\contentsline {subsection}{\numberline {6.2.1}Numeri di sequenza e di riscontro}{33}%
-\contentsline {paragraph}{Numero di sequenza}{33}%
-\contentsline {paragraph}{Numero di riscontro}{33}%
-\contentsline {subsection}{\numberline {6.2.2}Forma dei segmenti}{34}%
-\contentsline {section}{\numberline {6.3}Gestione della connessione}{35}%
-\contentsline {subsection}{\numberline {6.3.1}Handshake a tre vie}{35}%
-\contentsline {subsection}{\numberline {6.3.2}Chiusura della connessione}{35}%
-\contentsline {section}{\numberline {6.4}Stati TCP}{36}%
-\contentsline {subsection}{\numberline {6.4.1}Stati client}{36}%
-\contentsline {subsection}{\numberline {6.4.2}Stati server}{36}%
-\contentsline {section}{\numberline {6.5}Trasferimento di dati affidabile}{37}%
-\contentsline {subsection}{\numberline {6.5.1}Esempio Telnet su TCP}{37}%
-\contentsline {subsection}{\numberline {6.5.2}Eventi lato mittente}{37}%
-\contentsline {subsection}{\numberline {6.5.3}Segmenti fuori sequenza}{37}%
-\contentsline {subsection}{\numberline {6.5.4}Eventi lato destinatario}{37}%
-\contentsline {paragraph}{Delayed ACK}{38}%
-\contentsline {paragraph}{Fast retrasmission request}{38}%
-\contentsline {subsection}{\numberline {6.5.5}Calcolo del timeout}{38}%
-\contentsline {subsection}{\numberline {6.5.6}Finestra di trasmissione}{38}%
-\contentsline {section}{\numberline {6.6}Controllo di flusso}{38}%
-\contentsline {section}{\numberline {6.7}Controllo di congestione}{39}%
-\contentsline {subsection}{\numberline {6.7.1}Algoritmo di controllo}{39}%
-\contentsline {subsection}{\numberline {6.7.2}Finestra di congestione (Congestion Window)}{39}%
-\contentsline {subsection}{\numberline {6.7.3}Slow start}{39}%
-\contentsline {subsection}{\numberline {6.7.4}Additive Increase Multiplicative Decrease}{39}%
-\contentsline {subsection}{\numberline {6.7.5}TCP RENO}{40}%
+\contentsline {chapter}{\numberline {1}Introduzione alle Reti}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduzione}{7}{section.1.1}%
+\contentsline {paragraph}{Rete}{7}{section*.2}%
+\contentsline {section}{\numberline {1.2}Tipi di rete}{7}{section.1.2}%
+\contentsline {paragraph}{LAN}{7}{section*.3}%
+\contentsline {paragraph}{WAN}{8}{section*.4}%
+\contentsline {section}{\numberline {1.3}Tecniche di commutazione}{8}{section.1.3}%
+\contentsline {paragraph}{Commutazione di circuito}{8}{section*.5}%
+\contentsline {paragraph}{Commutazione di pacchetto}{8}{section*.6}%
+\contentsline {section}{\numberline {1.4}Internet}{9}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Strati della rete}{9}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Peering point}{10}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Reti di acesso}{10}{subsection.1.4.3}%
+\contentsline {section}{\numberline {1.5}Metriche di riferimento}{11}{section.1.5}%
+\contentsline {paragraph}{Larghezza di banda (Bandwidth)}{11}{section*.7}%
+\contentsline {paragraph}{Velocita' di trasmissione (bitrate)}{11}{section*.8}%
+\contentsline {paragraph}{Troughput}{11}{section*.9}%
+\contentsline {paragraph}{Latenza}{11}{section*.10}%
+\contentsline {subsection}{\numberline {1.5.1}Ritardi}{11}{subsection.1.5.1}%
+\contentsline {paragraph}{Ritardo di elaborazione}{11}{section*.11}%
+\contentsline {paragraph}{Ritardo di accodamento}{11}{section*.12}%
+\contentsline {paragraph}{Ritardo di trasmissione}{11}{section*.13}%
+\contentsline {paragraph}{Ritardo di propagazione}{11}{section*.14}%
+\contentsline {paragraph}{Ritardo end-to-end}{11}{section*.15}%
+\contentsline {subsection}{\numberline {1.5.2}Prodotto rate-ritardo}{11}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Modelli stratificati}{12}{section.1.6}%
+\contentsline {section}{\numberline {1.7}OSI RM \small (Open System Interconnection Reference Model)}{12}{section.1.7}%
+\contentsline {paragraph}{Gli strati OSI sono:}{12}{section*.16}%
+\contentsline {section}{\numberline {1.8}Stack Protocollare TCP-IP}{13}{section.1.8}%
+\contentsline {chapter}{\numberline {2}Lo Strato Applicativo: URI-HTTP}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Applicazioni di rete}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Protocollo dello Strato di Applicazione}{15}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Paradigmi}{16}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Application Programming Interface (API)}{16}{section.2.4}%
+\contentsline {paragraph}{L'Interfaccia Socket}{16}{section*.17}%
+\contentsline {section}{\numberline {2.5}Uso dei servizi di trasporto}{16}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Web e HTTP}{17}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Il Web}{17}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Uniform Resource Identifier}{17}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Sintassi URL}{17}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}URI Assolute e Relative}{17}{subsection.2.6.4}%
+\contentsline {section}{\numberline {2.7}HyperText Transfer Protocol (HTTP)}{18}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Pipelining e HeadOfLineBlocking}{18}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}HTTP Request}{19}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}HTTP Response}{19}{subsection.2.7.3}%
+\contentsline {paragraph}{Request-Line}{19}{section*.18}%
+\contentsline {paragraph}{Status-Line}{19}{section*.19}%
+\contentsline {paragraph}{General-header}{19}{section*.20}%
+\contentsline {paragraph}{Entity-header}{19}{section*.21}%
+\contentsline {paragraph}{Request-header}{19}{section*.22}%
+\contentsline {paragraph}{Response-header}{19}{section*.23}%
+\contentsline {subsection}{\numberline {2.7.4}Content Negotiation}{19}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}Request methods}{20}{subsection.2.7.5}%
+\contentsline {paragraph}{OPTIONS}{20}{section*.24}%
+\contentsline {paragraph}{GET}{20}{section*.25}%
+\contentsline {paragraph}{HEAD}{20}{section*.26}%
+\contentsline {paragraph}{POST}{20}{section*.27}%
+\contentsline {paragraph}{PUT}{20}{section*.28}%
+\contentsline {paragraph}{DELETE}{20}{section*.29}%
+\contentsline {subsection}{\numberline {2.7.6}Caching}{20}{subsection.2.7.6}%
+\contentsline {subsection}{\numberline {2.7.7}Cookies}{20}{subsection.2.7.7}%
+\contentsline {chapter}{\numberline {3}Lo Strato Applicativo: Telnet, EMAIL-SMTP}{21}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Telnet}{21}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Network Virtual Terminal: NVT}{21}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}NVT Character Set}{22}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}E-Mail}{22}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Principio di funzionamento}{22}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Indirizzi email}{22}{subsection.3.2.2}%
+\contentsline {paragraph}{local-part}{22}{section*.30}%
+\contentsline {paragraph}{domain-name}{22}{section*.31}%
+\contentsline {subsection}{\numberline {3.2.3}Simple Mail Transfer Protocol (SMTP)}{23}{subsection.3.2.3}%
+\contentsline {paragraph}{Modello: }{23}{section*.32}%
+\contentsline {paragraph}{Protocollo: }{23}{section*.33}%
+\contentsline {paragraph}{Handshaking}{23}{section*.34}%
+\contentsline {paragraph}{Comandi SMTP:}{23}{section*.35}%
+\contentsline {paragraph}{Formato dei messaggi}{24}{section*.36}%
+\contentsline {paragraph}{Content-Type:}{24}{section*.37}%
+\contentsline {subsection}{\numberline {3.2.4}Sistemi pull per le mail POP3, IMAP e HTML}{25}{subsection.3.2.4}%
+\contentsline {paragraph}{Post Office Protocol}{25}{section*.38}%
+\contentsline {paragraph}{Internet Mail Access Protocol}{25}{section*.39}%
+\contentsline {paragraph}{HTTP}{25}{section*.40}%
+\contentsline {chapter}{\numberline {4}Lo Strato Applicativo: DNS}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduzione}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Servizi DNS}{27}{section.4.2}%
+\contentsline {paragraph}{Risoluzione}{27}{section*.41}%
+\contentsline {paragraph}{Host aliasing}{27}{section*.42}%
+\contentsline {paragraph}{Mail server aliasing}{27}{section*.43}%
+\contentsline {paragraph}{Distribuzione di carico}{27}{section*.44}%
+\contentsline {section}{\numberline {4.3}Spazio dei nomi}{28}{section.4.3}%
+\contentsline {paragraph}{Struttura "flat"}{28}{section*.45}%
+\contentsline {paragraph}{Struttura gerarchica}{28}{section*.46}%
+\contentsline {subsection}{\numberline {4.3.1}Nomi di dominio}{28}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Esempi di Top Level Domain (TLD)}{28}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Gerarchia dei Name Server}{29}{section.4.4}%
+\contentsline {paragraph}{DNS}{29}{section*.47}%
+\contentsline {paragraph}{Name Server}{29}{section*.48}%
+\contentsline {subsection}{\numberline {4.4.1}Root Name Server}{29}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}TLD Server}{29}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Authoritative Name Server}{29}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Local Name Server}{29}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Query DNS}{29}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}DNS Caching}{29}{subsection.4.4.6}%
+\contentsline {section}{\numberline {4.5}Resource Records}{30}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Lo Strato Trasporto: Introduzione}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Obbiettivo}{31}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Servizi offerti}{31}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Protocolli}{31}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Multiplexing/Demultiplexing}{31}{subsection.5.2.2}%
+\contentsline {paragraph}{Multiplexing}{31}{section*.49}%
+\contentsline {paragraph}{Demultiplexing}{31}{section*.50}%
+\contentsline {paragraph}{}{32}{section*.51}%
+\contentsline {paragraph}{Demultiplexing connectionless - UDP}{32}{section*.52}%
+\contentsline {paragraph}{Demultiplexing orientato alla connessione - TCP}{32}{section*.53}%
+\contentsline {subsection}{\numberline {5.2.3}Le porte}{32}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Well known ports}{32}{subsection.5.2.4}%
+\contentsline {chapter}{\numberline {6}Lo Strato di Trasporto: TCP}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Proprietà del servizio}{33}{section.6.1}%
+\contentsline {paragraph}{Trasferimento bufferizzato}{33}{section*.54}%
+\contentsline {section}{\numberline {6.2}Formato dei segmenti}{33}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Numeri di sequenza e di riscontro}{33}{subsection.6.2.1}%
+\contentsline {paragraph}{Numero di sequenza}{33}{section*.55}%
+\contentsline {paragraph}{Numero di riscontro}{33}{section*.56}%
+\contentsline {subsection}{\numberline {6.2.2}Forma dei segmenti}{34}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Gestione della connessione}{35}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Handshake a tre vie}{35}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Chiusura della connessione}{35}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Stati TCP}{36}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Stati client}{36}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Stati server}{36}{subsection.6.4.2}%
+\contentsline {section}{\numberline {6.5}Trasferimento di dati affidabile}{37}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Esempio Telnet su TCP}{37}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Eventi lato mittente}{37}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Segmenti fuori sequenza}{37}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Eventi lato destinatario}{37}{subsection.6.5.4}%
+\contentsline {paragraph}{Delayed ACK}{38}{section*.57}%
+\contentsline {paragraph}{Fast retrasmission request}{38}{section*.58}%
+\contentsline {subsection}{\numberline {6.5.5}Calcolo del timeout}{38}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Finestra di trasmissione}{38}{subsection.6.5.6}%
+\contentsline {section}{\numberline {6.6}Controllo di flusso}{38}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Controllo di congestione}{39}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Algoritmo di controllo}{39}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Finestra di congestione (Congestion Window)}{39}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}Slow start}{39}{subsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.7.4}Additive Increase Multiplicative Decrease}{39}{subsection.6.7.4}%
+\contentsline {subsection}{\numberline {6.7.5}TCP RENO}{40}{subsection.6.7.5}%
