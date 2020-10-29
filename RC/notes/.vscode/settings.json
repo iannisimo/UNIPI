@@ -1,6 +1,7 @@
 {
     "cSpell.language": "en,it,it-IT",
     "cSpell.words": [
+        "AIMD",
         "CNAME",
         "Gmail",
         "Hotmail",
@@ -8,6 +9,7 @@
         "L'header",
         "SYNACK",
         "all'host",
+        "cwnd",
         "datagrammi",
         "delegabile",
         "dell'ACK",
@@ -19,8 +21,11 @@
         "imap",
         "kadpcm",
         "l'ACK",
+        "l'acknowledgment",
         "msword",
+        "nell'header",
         "nntp",
-        "ocet"
+        "ocet",
+        "textsubscript"
     ]
 }

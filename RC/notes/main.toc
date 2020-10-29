@@ -125,9 +125,21 @@
 \contentsline {subsection}{\numberline {6.3.1}Handshake a tre vie}{35}%
 \contentsline {subsection}{\numberline {6.3.2}Chiusura della connessione}{35}%
 \contentsline {section}{\numberline {6.4}Stati TCP}{36}%
-\contentsline {section}{\numberline {6.5}Trasferimento di dati affidabile}{36}%
-\contentsline {subsection}{\numberline {6.5.1}Esempio Telnet su TCP}{36}%
-\contentsline {subsection}{\numberline {6.5.2}Eventi lato mittente}{36}%
+\contentsline {subsection}{\numberline {6.4.1}Stati client}{36}%
+\contentsline {subsection}{\numberline {6.4.2}Stati server}{36}%
+\contentsline {section}{\numberline {6.5}Trasferimento di dati affidabile}{37}%
+\contentsline {subsection}{\numberline {6.5.1}Esempio Telnet su TCP}{37}%
+\contentsline {subsection}{\numberline {6.5.2}Eventi lato mittente}{37}%
 \contentsline {subsection}{\numberline {6.5.3}Segmenti fuori sequenza}{37}%
 \contentsline {subsection}{\numberline {6.5.4}Eventi lato destinatario}{37}%
-\contentsline {subsection}{\numberline {6.5.5}Calcolo del timeout}{37}%
+\contentsline {paragraph}{Delayed ACK}{38}%
+\contentsline {paragraph}{Fast retrasmission request}{38}%
+\contentsline {subsection}{\numberline {6.5.5}Calcolo del timeout}{38}%
+\contentsline {subsection}{\numberline {6.5.6}Finestra di trasmissione}{38}%
+\contentsline {section}{\numberline {6.6}Controllo di flusso}{38}%
+\contentsline {section}{\numberline {6.7}Controllo di congestione}{39}%
+\contentsline {subsection}{\numberline {6.7.1}Algoritmo di controllo}{39}%
+\contentsline {subsection}{\numberline {6.7.2}Finestra di congestione (Congestion Window)}{39}%
+\contentsline {subsection}{\numberline {6.7.3}Slow start}{39}%
+\contentsline {subsection}{\numberline {6.7.4}Additive Increase Multiplicative Decrease}{39}%
+\contentsline {subsection}{\numberline {6.7.5}TCP RENO}{40}%

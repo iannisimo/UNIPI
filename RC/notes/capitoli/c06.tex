@@ -2,7 +2,6 @@
 \section{Proprietà del servizio}
 I processi effettuano un handshake {\tiny\color{red}COVID!1!}.
 Lo strato della connessione risiede sui puni terminali e non sui nodi della rete.
-% Il cazzo di full duplex non ci capisco una sega pornodivo - TODO
 
 Permette di trasferire un flusso continuo di dati in formato bidirezionale (full-duplex).
 Inoltre consente di assegnare una connessione diretta processo - processo.
@@ -103,7 +102,25 @@ L'header aggiunto al messaggio contiene:
 Quando il client riceve FIN dal server entra nello stato {\color{blue} TIME\_WAIT} e ci resta per un tempo dettato da MSL (diverso su macchine differenti) prima di poter chiudere totalmente la connessione. Questo serve nel caso l'ultimo ACK venga perso perché a un certo punto uno dei due host richiederà la chiusura passiva e l'altro dovrà rispondere con un ACK.
 Allo stesso modo dell'handshake di apertura, si puo' avere un three-way handshake di chiusura.
 \section{Stati TCP}
-% Da fare copia incolla con la lez05.2 - TODO
+\subsection{Stati client}
+\begin{description}
+    \item[SYN-SENT] Dopo aver inviato una richiesta di connessione, si aspetta la conferma.
+    \item[ESTABLISHED] La connessione e' pienamente stabilita, e' possibile trasferire dati.
+    \item[FIN-WAIT-1] Il client aspetta una richiesta di chiusura o l'ack di una sua richiesta di terminazione.
+    \item[FIN-WAIT-2] Aspetta la richiesta di terminazione di connessione da un host remoto. 
+    \item[TIME-WAIT] Vedi sopra.
+    \item[CLOSED] Connessione chiusa. Non e' piu' possibile comunicare.
+\end{description}
+\subsection{Stati server}
+\begin{description}
+    \item[LISTEN] In attesa di una connessione TCP qualunque.
+    \item[SYN-RECEIVED] Si entra in questo stato appena si riceve una richiesta di connessione.
+    \item[ESTABLISHED] Vedi sopra.
+    \item[CLOSE-WAIT] Si aspetta la richiesta di chiusura dal client.
+    \item[LAST-ACK] Si aspetta l'ack di chiusura.
+    \item[CLOSED] Vedi sopra.
+\end{description}
+\newpage
 \section{Trasferimento di dati affidabile}
 \subsection{Esempio Telnet su TCP}
 \begin{description}
@@ -135,13 +152,81 @@ La ritrasmissione avviene in caso di:
     \item[ACK duplicato] Il mittente riceve tre ACK uguali significa che il segmento successivo a quello e' andato perso. Si ha quindi la {\color{blue}fast retransmission}.  
 \end{description}
 \subsection{Segmenti fuori sequenza}
-Se i dati arrivano fuori sequenza (ordinamento sparso), l'entita' TCP destinataria puo' memorizzarli temporaneamente ma il protocollo non specifica che utilizzo farne.
+Se i dati arrivano fuori sequenza (ordinamento sparso), l'entità TCP destinataria puo' memorizzarli temporaneamente ma il protocollo non specifica che utilizzo farne.
 
 Nelle versioni piu' recenti si implementa SACK, che manda l'ACK dei pacchetti fuori sequenza in OPTIONS.
 \subsection{Eventi lato destinatario}
 Tutti i segmenti inviati per trasmettere dati includono ACK.
-% Segmento in ordine - TODO
-Se il destinatario riceve un segmento fuori sequenza, un duplicato, o un capisce che c'e' un segmento mancante, risponde subito con un ACK indicando il segmento da cui ripartire.
+\paragraph{Delayed ACK} Se il destinatario riceve un segmento atteso, puo' ritardare l'invio di ACK di 500ms a meno che non riceva un altro segmento.
+\paragraph{Fast retrasmission request}Se il destinatario riceve un segmento fuori sequenza, un duplicato, o un capisce che c'e' un segmento mancante, risponde subito con un ACK indicando il segmento da cui ripartire.
 \subsection{Calcolo del timeout}
-Il RTO deve essere maggiore del Round Trip Time (RTT), cioè del tempo tra l'invio di un messaggio e la ricevuta dell'ACK.
-% Aggiungere il calcolo di RTO e RTT, non ho un cazzo voglia - TODO
+Il RTO deve essere maggiore del Round Trip Time (RTT) (tempo tra l'invio di un messaggio e la ricevuta dell'ACK).
+\begin{quote}
+    $eRTT = (1 - \alpha) * eRTT + \alpha * sRTT$
+\end{quote}
+\begin{description}
+    \item[eRTT] RTT stimato, cumulativo su piu' misure.
+    \item[sRTT] RTT di un segmento trasmesso con successo.
+    \item[\textit{alpha}] $1/8$ (RFC2988)
+\end{description}
+\begin{quote}
+    \small$dRTT = (1 - \beta) * dRTT + \beta * (sRTT - eRTT)$
+\end{quote}
+\begin{description}
+    \item[dRTT] Deviazione di eRTT da sRTT
+    \item[\textit{beta}] $1/4$ (RFC2988)
+\end{description}
+\begin{quote}
+    {\boldmath$RTO$} $ = eRTT + 4*dRTT$
+\end{quote}
+In molte implementazioni dopo un errore si raddoppia RTO
+\subsection{Finestra di trasmissione}
+Il buffer di invio, si dividono i byte in {\color{blue}finestre}.
+La finestra di trasmissione e' la sottosezione del buffer di invio che deve essere spedita con il prossimo messaggio.
+Ha dimensione variabile (modificata in base alla condizione della rete) per permettere i controlli di flusso e congestione.
+Viene fatta avanzare non appena si riceve l'ACK dell'ultima trasmissione.
+\section{Controllo di flusso}
+Il destinatario di un messaggio mantiene un buffer di ricezione.
+il processo sullo strato applicazione legge i dati da una finestra di ricezione (non necessariamente quando arrivano).
+Si intende con {\color{blue}controllo di flusso} la capacità del mittente di evitare di saturare il buffer del destinatario.
+Il mittente mantiene una variabile detta {\color{blue}finestra di ricezione} (rwnd) che detta lo spazio disponibile nel buffer ricevente; essa e' passata dal destinatario al mittente tramite il campo window nell'header TCP.
+\begin{quote}
+    $rwnd = RcvBuffer - (LastByteReceived - LastByteRead)$
+\end{quote}
+\newpage
+Il mittente si assicura che:
+\begin{quote}
+    $LastByteSent - LastByteAcked < rwnd$
+\end{quote}
+\begin{quote}
+    Se $rwnd = 0$ il mittente lo \textit{richiede} con un segmento sonda da un byte
+\end{quote}
+\section{Controllo di congestione}
+Se si provano a spedire troppi dati su una rete che non puo' supportarli avviene il fenomeno della congestione; cio' puo' provocare:
+\begin{itemize}
+    \item Lunghi ritardi (accodamenti nei buffer)
+    \item Perdita di pacchetti (overflow dei buffer)
+\end{itemize}
+TCP permette il {\color{blue}controllo di congestione}: se si percepisce uno scarso traffico, viene aumentata la frequenza di invio; altrimenti diminuisce.
+\subsection{Algoritmo di controllo}
+L'algoritmo utilizzato per regolare la frequenza di invio in funzione della congestione e' costituito da tre fasi:
+\begin{itemize}
+    \item Slow start
+    \item AIMD 
+    \item Fast recovery
+\end{itemize}
+\subsection{Finestra di congestione (Congestion Window)}
+Misurata in Max Segment Size (MSS); E' il numero di segmenti che si possono inviare insieme, senza bisogno di aspettarne l'ACK. %TODO: Ricontrolla sta roba cretino, tanto non hai capito sicuramente un cazzo
+\subsection{Slow start}
+All'inizio la congestion window (CW) e' posta a 1MSS.
+Per ogni ACK, CW viene aumentata di 1MSS. Cio' significa che essa raddoppia per ogni RTT.
+\subsection{Additive Increase Multiplicative Decrease}
+La CW viene aumentata in modo da avere un incremento pari a 1MSS per ogni RTT;
+Cio' significa che per ogni ACK, cwnd = cwnd+1/cwnd.
+
+Ad ogni evento di perdita di ACK la CWND viene dimezzata.
+\subsection{TCP RENO}
+Viene definita una variabile di threshold alla quale viene assegnato un valore alto;
+Finché $cwnd < threshold$, siamo in slow start (cwnd aumenta esponenzialmente).\newline
+Non appena $cwnd > theshold$, si entra in AI.
+%TODO: Rileggiti perdita e fast recovery di tcp reno che non hai voglia di capirli finche stai scrivendo questa merda di TODO; BRUTTO SVOGLIATO DI MERDA! P36 L05.3
