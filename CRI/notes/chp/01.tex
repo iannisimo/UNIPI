@@ -1,1 +1,81 @@
 \chapter{Introduzione}
+\section{La crittologia}
+La crittografia e' lo studio delle tecniche matematiche per:
+\begin{description}
+    \item[Crittografia] Metodi di cifratura.
+    \item[Crittoanalisi] Metodi di interpretazione. 
+\end{description}
+\begin{center}
+    Crittografia + Crittoanalisi = \textbf{Crittologia}
+\end{center}
+\subsection{Scenario}
+A vuole spedire un messaggio a B, ma E sta' ascoltando il messaggio.
+Per proteggere la comunicazione, A e B utilizzano dei metodi di cifratura.
+\subsection{Cifratura}
+\begin{tabular}{l | l}
+    MSG & Insieme dei messaggi in chiaro\\
+    CRITTO & Insieme dei crittogrammi\\
+    C: MSG $\rightarrow$ CRITTO & Funzione di crittazione.\\
+    D: CRITTO $\rightarrow$ MSG & Funzione di decrittazione.
+\end{tabular}
+C e D sono una l'inversa dell'altra: $D(c) = D(C(m)) = m$\newline
+C e' iniettiva (messaggi diversi corrispondono a crittogrammi diversi).
+% \section{Cifrari storici}
+% Scitale:
+% \includegraphics[width=20em]{scitale}\newline
+% Cifrario di cesare:
+% Ogni lettera del messaggio e' sostituita con quella 3 posizioni piu' avanti nell'alfabeto.
+% \includegraphics[width=20em]{cesare}\newline
+\section{Classificazione dei cifrari}
+I cifrari si dividono in:
+\begin{description}
+    \item[Cifrari per uso ristretto] Le funzioni C e D devono essere {\color{red}segrete}; Poco pratici per la crittografia \textit{di massa}.
+    \item[Cifrari per uso generale] Si basano su un metodo a {\color{blue}chiave}. C e D sono pubbliche ma la chiave deve essere nota ai soli interessati del messaggio.
+\end{description}
+\subsection{Cifrari per uso generale}
+Le definizioni di C e D diventano:
+
+\begin{tabular}{l}
+    C: MSG * KEYS $\rightarrow$ CRITTO\\
+    D: CRITTO * KEYS $\rightarrow$ MSG\\
+\end{tabular}
+
+Se un crittoanalista entra in possesso di una chiave, basta cambiarla.
+Esempi di cifrari a chiave segreta: 3DES, RC5, IDEA, AES.
+
+\paragraph{Attacco esauriente (bruteforce)} Il crittoanalista dovrebbe provare tutte le chiavi finché non trova quella giusta per decrittare il messaggio.
+Quasi impossibile da effettuare su chiavi abbastanza grandi ($>$20chars).
+\section{Attacchi}
+Gli attacchi possono avere successo completo (Si scopre la funzione D, compresa di chiave), oppure possono avere successo limitato (Si scopre solo qualche informazione su un messaggio).
+\subsection{Attacchi al sistema crittografico}
+\begin{tabular}{l | p{17em}}
+    Cypher Text Attack & Il crittoanalista rileva una serie di crittogrammi $c_1, \dots, c_r$.\\
+    Known Plain-Text Attack & Il crittoanalista conosce una serie di coppie $(c_1, m_1), \dots, (c_r, m_r)$.\\
+    Chosen Plain-Text Attack & Il crittoanalista sceglie una serie di $m_1, \dots, m_r$ e si procura i relativi $c_1, \dots, c_m$.
+\end{tabular}
+\subsection{Attacchi Man-In-The-Middle MITM}
+Il crittoanalista si inserisce nel canale di comunicazione e blocca tutti i messaggi diretti.
+Puo' anche sostituire i messaggi originali con dei messaggi propri.
+\begin{center}
+    \begin{tabular}{c | c}
+        Condizione normale & Attacco MITM\\
+        $A \rightleftarrows B$ & $A \rightleftarrows E \rightleftarrows B$
+    \end{tabular}
+\end{center}
+
+\section{Cifrari perfetti}
+I cifrari perfetti sono totalmente sicuri, ma richiedono operazioni molto complesse perciò sono usati solo in condizioni estreme.
+In essi $m$ e $c$ sono totalmente scorrelati tra loro.
+\subsection{One-Time Pad}
+E un cifrario perfetto ma ha svantaggi enormi che lo rendono quasi inutilizzabile:
+\begin{itemize}
+    \item Richiedono una chiave segreta nuova e perfettamente casuale per ogni messaggio.
+    \item La chiave deve essere lunga quanto il messaggio.
+\end{itemize}
+\subsection{Cifrari sicuri}
+I cifrari che vengono utilizzati ad ora non sono cifrari perfetti ma sono dichiarati sicuri. Cio' significa che non sono mai stati violati prima d'ora perché richiedono la risoluzione di problemi matematicamente difficili (Non essendo mai stato dimostrato $P \not\equiv NP$ non siamo \textit{certi} che siano inviolabili).
+\section{Cifrari in uso}
+\subsection{AES}
+E' un \bluetext{cifrario simmetrico} (la stessa chiave viene utilizzata per crittare e decrittare), \bluetext{a blocchi} (il messaggio e' diviso in blocchi lunghi come il messaggio).
+E' pubblicamente noto e utilizzato per comunicazioni \textit{non classificate}.
+Si utilizzano chiavi brevi (128 o 256 bit).
