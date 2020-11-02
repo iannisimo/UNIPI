@@ -9,7 +9,7 @@ public class Consumer implements Runnable {
     }
 
     public void run() {
-        while(!queue.isEmpty()) {
+        while(!queue.isEmpty()){
             File dir = new File(queue.get());
             StringBuilder sb = new StringBuilder();
             sb.append(dir.getAbsolutePath() + "\n");

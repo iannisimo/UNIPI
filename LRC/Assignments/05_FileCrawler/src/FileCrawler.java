@@ -19,7 +19,6 @@ public class FileCrawler {
         }
         consumer = new Thread[Const.N_CONSUMERS];
         producer.start();
-        Thread.sleep(10);
         for(int i = 0; i < consumer.length; i++) {
             consumer[i] = new Thread(new Consumer(queue));
             consumer[i].start();
