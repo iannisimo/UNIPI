@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MakeTestJson",
+            "request": "launch",
+            "mainClass": "MakeTestJson",
+            "projectName": "06_Gestione-Conti_4a5fada8"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GestioneConti<06_Gestione-Conti_4a5fada8>",
+            "request": "launch",
+            "args": "res/bank_records.json",
+            "mainClass": "GestioneConti",
+            "projectName": "06_Gestione-Conti_4a5fada8"
+        }
+    ]
+}
