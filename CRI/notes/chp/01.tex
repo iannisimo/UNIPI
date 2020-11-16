@@ -12,20 +12,16 @@ La crittografia e' lo studio delle tecniche matematiche per:
 A vuole spedire un messaggio a B, ma E sta' ascoltando il messaggio.
 Per proteggere la comunicazione, A e B utilizzano dei metodi di cifratura.
 \subsection{Cifratura}
+
 \begin{tabular}{l | l}
     MSG & Insieme dei messaggi in chiaro\\
     CRITTO & Insieme dei crittogrammi\\
     C: MSG $\rightarrow$ CRITTO & Funzione di crittazione.\\
     D: CRITTO $\rightarrow$ MSG & Funzione di decrittazione.
 \end{tabular}
+
 C e D sono una l'inversa dell'altra: $D(c) = D(C(m)) = m$\newline
 C e' iniettiva (messaggi diversi corrispondono a crittogrammi diversi).
-% \section{Cifrari storici}
-% Scitale:
-% \includegraphics[width=20em]{scitale}\newline
-% Cifrario di cesare:
-% Ogni lettera del messaggio e' sostituita con quella 3 posizioni piu' avanti nell'alfabeto.
-% \includegraphics[width=20em]{cesare}\newline
 \section{Classificazione dei cifrari}
 I cifrari si dividono in:
 \begin{description}
@@ -79,3 +75,38 @@ I cifrari che vengono utilizzati ad ora non sono cifrari perfetti ma sono dichia
 E' un \bluetext{cifrario simmetrico} (la stessa chiave viene utilizzata per crittare e decrittare), \bluetext{a blocchi} (il messaggio e' diviso in blocchi lunghi come il messaggio).
 E' pubblicamente noto e utilizzato per comunicazioni \textit{non classificate}.
 Si utilizzano chiavi brevi (128 o 256 bit).
+\paragraph{Distribuzione delle chiavi}
+Le chiavi non sono stabilite direttamente da chi le deve usare ma da sistemi sicuri in Internet.
+Nel 1976 viene proposto un sistema per lo scambio di chiavi su un canale insicuro.
+\subsection{Cifrari a chiave pubblica (asimmetrici)}
+Viene generata una coppia di chiavi diverse:
+\begin{description}
+    \item[k\subtext{pub}] Usata per cifrare, nota a tutti.
+    \item[k\subtext{priv}] Usata per decifrare, nota solo a chi deve ricevere il messaggio
+\end{description}
+Le funzioni diventano quindi:
+\begin{center}
+    $c = C(m, k_{pub})$\\
+    $m = D(c, k_{priv})$
+\end{center}
+E' quindi possibile distribuire k\subtext{pub} pubblicamente sulla rete, e sono chi la ha generata puo' decrittare i messaggi crittati con essa.
+$C$ e' una funzione one-way, trap-door.
+Un crittoanalista non puo' ricavare informazioni sui messaggi pur conoscendo $C$, $D$, e $k_{pub}$.
+Una prima implementazione di questo metodo e' l'RSA.
+
+\begin{tabular}{l | p{20em}}
+    Vantaggi & Non e' richiesto lo scambio segreto di chiavi \newline Il numero di chiavi necessarie per $n$ utenti e' $2n$.\\
+    Svantaggi & Sono molto piu' lenti del cifrari simmetrici \newline Sono esposti ad attacchi di tipo Chosen Plain-Text.
+\end{tabular}
+\subsection{Cifrari ibridi}
+Si utilizza un cifrario a chiave pubblica per lo scambio delle chiavi segrete da utilizzare per i cifrari simmetrici.
+Si risolve così  il problema della lentezza (Il sistema a chiave pubblica viene utilizzato solo per cifrare poche decine di byte della chiave) e il problema dell'attacco CPT (Se la chiave secreta risulta come una sequenza casuale, il crittoanalista non la sa distinguere da un qualunque altro output della cifratura a chiave pubblica).
+\subsection{Applicazioni sulla rete}
+I sistemi crittografici attuali devono garantire altri tre aspetti oltre alla segretezza delle comunicazioni:
+\newline
+\newline
+\begin{tabular}{l | p{24em}}
+    Identificazione & Il sistema deve accertare l'identità di chi richiede l'accesso ai suoi servizi.\\
+    Autenticazione & Il destinatario di un messaggio deve potersi accertare che esso non sia stato manomesso o sostituito dam terzi\\
+    Firma digitale & Una volta apposta la \textit{firma} sul messaggio, il mittente non puo' piu' ricusarne la paternità.  
+\end{tabular}

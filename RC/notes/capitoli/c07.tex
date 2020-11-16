@@ -1,0 +1,28 @@
+\chapter{Lo Strato di Trasporto: UDP}
+I datagrammi UDP possono essere perduti o consegnati fuori sequenza, perciò i processi devono inviare messaggi di dimensione limitate, e devono essere contenuti in un solo datagramma.
+\subsection{Differenze tra TCP e UDP}
+\begin{tabular}{|c|c|}
+    \hline
+    TCP & UDP\\
+    \hline
+    Connection-oriented & Connection-less\\
+    Mandatory checksum & Optional checksum\\
+    Introduce ritardi & Nessun ritardo aggiunto\\
+    Aggiunge informazioni & Datagramma minimale\\
+    \hline
+\end{tabular}
+\subsection{Formato dei datagrammi}
+\begin{description}
+    \item[Porta sorgente] 16bit
+    \item[Porta destinazione] 16bit
+    \item[Lunghezza] Lunghezza totale del segmento, 16bit
+    \item[Checksum] Controllo errore end-to-end, opzionale, 16bit
+    \item[Data] max 65535Byte - 8Byte intestazione
+\end{description}
+\subsection{Utilizzi UDP}
+\begin{itemize}
+    \item Processi che richiedono scambio di dati con volume limitato e senza controlli di flusso/errori.
+    \item Processi con meccanismi interni di controllo di flusso/errore.
+    \item Trasmissioni multicast (piu' destinatari).
+    \item Applicazioni interattive che non tollerano ritardi variabili.
+\end{itemize}

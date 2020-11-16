@@ -1,0 +1,38 @@
+\chapter{Esempi di algoritmi numerici}
+\section{Euclide}
+\[ a,b \in \mathbb{Z}, a \geq b, a > 0 \]
+\begin{equation*}
+    MCD(a,b) =
+    \begin{cases}
+        a &\text{ se } b=0\\
+        MCD(b, a\Mod{b} &\text{ se } b\neq0)
+    \end{cases}
+\end{equation*}
+Numero di passi: $O(log(a))$
+\subsection{Dimostrazione}
+\[ a\Mod{b} \leq \dfrac{a}{2} \]
+Questo perché
+\begin{equation*}
+    \begin{split}
+        a &\\
+        & =\\
+        & qb + a\Mod{b}\\
+        (q = \dfrac{a}{b} \wedge a \geq b) & \geq\\
+        & b + a\Mod{b}\\
+        b > a\Mod{b} & >\\
+        & 2a\Mod{b}
+    \end{split}
+\end{equation*}
+Costo di MCD: $O(n^3)$
+% TODO: Che cazzo e' sta roba?? ALGO di nuovo?!?
+\newpage
+\section{Test di primalità (inefficiente)}
+\begin{algorithm*}
+    \For($\sqrt{N}$: Max divisore se N non e' primo){$i=2$; $i < \sqrt{N}$; $i$++} {
+        \If{$N \% i == 0$} {
+            return false;
+        }
+    }
+    return true;
+    \caption{Primo(N)}
+\end{algorithm*}

@@ -1,0 +1,111 @@
+\chapter{Lo Strato di Rete: IP}
+\section{Concetti generali}
+Lo strato di rete si occupa dello scambio dei datagrammi tra gli hosts.
+Offre servizi allo strato superiore \textit{(trasporto)} e utilizza i servizi di quello inferiore \textit{(collegamento)}.
+Offre un'astrazione che consente a host e reti diverse di funzionare, dal punto di vista logico, come una singola rete.
+\subsection{Passaggi della comunicazione}
+\paragraph{Mittente}
+L'entità a livello di rete riceve i segmenti e li incapsula in datagrammi prima di essere spediti verso il prossimo nodo della connessione (host o router).
+\paragraph{Nodo intermedio}
+Il router esamina i campi intestazione dei datagrammi che riceve da un collegamento in ingresso, e li inoltra al collegamento in uscita.
+\paragraph{Destinatario}
+I datagrammi arrivano allo strato di rete del destinatario, che li consegna al rispettivo strato di trasporto (demux TCP o UDP).
+\section{Internet Protocol (IP)}
+Descritto dalla RFC-791, e' un protocollo di tipo connection-less (Send-and-Pray, QoS non garantito, \dots).
+\subsection{Protocol Data Unit (PDU)}
+\begin{center}
+    \begin{tabular}{|m{12mm}|m{12mm}|m{12mm}|c|}
+        \hline
+        Frame\newline header&IP\newline header&TCP\newline header&\hspace{10mm}User data\hspace{10mm}\space\\
+        \hline
+    \end{tabular}
+\end{center}
+\subsection{Servizi offerti}
+\paragraph{Inoltro (forwarding)}
+Permette di instradare verso il corretto collegamento di uscita.
+Per fare cio' il router legge l'indirizzo di destinazione dal campo di intestazione e lo confronta con una \bluetext{tabella di inoltro}, la quale indica la giusta interfaccia di uscita per quell'indirizzo.
+\paragraph{Instradamento (routing)}
+E' il processo decisionale che sceglie il percorso migliore tra mittente e destinazione.
+\paragraph{Indirizzamento}
+Strumento per identificare gli host nell'internet.
+\paragraph{Modello datagram} Permette la segmentazione / riunificazione dei pacchetti, il controllo degli errori (nell'header), e la verifica TTL.
+\subsection{Formato dei datagrammi}
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Intestazione&\hspace{15mm}Dati\hspace{15mm}\space\\
+        \hline
+    \end{tabular}
+\end{center}
+\paragraph{Intestazione} e' lunga 20-60Byte ed e' formata da:
+% TODO: Se mai mi verra' voglia aggiungerò le dimensioni dei pezzetti di pipi qui sotto.
+% 4 4 8 16 16 3 13 8 8 16 32 32 0-40
+\begin{description}
+    \item[ver] Versione del protocollo IP (IPv4, IPv6).
+    \item[head. len] Lunghezza dell'header in parole di 4Byte.
+    \item[type of service] 
+    \item[lenght] Lunghezza del datagramma in Byte.
+    \item[16-bit identifier] Per frammentazione.
+    \item[flags] Per frammentazione.
+    \item[fragment offset] Per frammentazione.
+    \item[time to live] Massimo numero di \textit{hop} rimanenti (decrementato ad ogni router).
+    \item[upper layer] Protocollo di trasporto.
+    \item[header checksum] Calcolato ad ogni router.
+    \item[32 bit source IP address] Indirizzo sorgente.
+    \item[32 bit destination IP address] Indirizzo destinazione.
+    \item[options] Facoltativo.
+    \item[data] Lunghezza variabile, solitamente segmento TCP o UDP.
+\end{description}
+\subsection{Frammentazione}
+Diversi protocolli di trasferimento possono piu' o meno dati in un solo frame. Il massimo e' determinato dal Maximum Transfer Unit (MTU).
+Cio' significa che un router potrebbe ricevere un frame piu' grande dell'MTU della rete verso la quale deve inoltrarlo; in questi casi il router deve dividere il datagramma in piu' datagrammi piu' piccoli detti frammenti.
+Il riassemblaggio dei frammenti viene effettuato dall'entità rete del destinatario.
+Se uno o piu' frammenti vengono persi l'intero messaggio viene scartato.
+
+Per riordinare i frammenti vengono usati 3 campi intestazione:
+\begin{description}
+    \item[Identificatore] e' un valore associato alla coppia <mittente, destinatario> che identifica il datagramma.
+    \item[Offset] indica la posizione relativa come multiplo di 8Byte (Il primo frammento ha offset 0).
+    \item[Flag] Serve ad identificare l'ultimo frammento:
+    \begin{description}
+        \item[bit 0] \textit{reserved}, sempre a 0 per il momento.
+        \item[bit 1] \textit{do not fragment}, vale 1 se il pacchetto non puo' essere frammentato.
+        \item[bit 2] \textit{more fragments}, vale 1 se il pacchetto non e' l'ultimo del frammento.
+    \end{description} 
+\end{description}
+La frammentazione e' un processo critico perché richiede risorse ai nodi intermedi e destinazione e introduce ritardi perciò e' preferibile non usarla (impostare il \textit{do not fragment} a 1 in IPv4, IPv6 non supporta la frammentazione).
+\section{Indirizzamento IPv4}
+Gli indirizzi IPv4 sono costituiti da 4Byte.
+Ogni host ha un indirizzo univoco diviso in 2 parti
+\begin{tabular}{|c|c|}
+    \hline
+    \hspace{15mm}Prefisso\hspace{15mm}\space&\hspace{5mm}Suffisso\hspace{5mm}\space\\
+    \hline
+\end{tabular}\\
+Il Prefisso individua la rete metre il suffisso individua il singolo host.
+\subsection{Classful addressing}
+Per riconoscere un indirizzo c'e' bisogno di indicare la lunghezza del prefisso (e di conseguenza del suffisso).
+
+Un sistema e' il \bluetext{classful addressing} che definisce delle classi e le rispettive divisioni P/S.
+Per riconoscere le classi si imposta il primo byte dell'indirizzo in un range di valori prefissato.
+
+\begin{tabular}{||c c c||}
+    \hline
+    Classe & Primo Byte & Pref. Len.\\
+    \hline\hline
+    A & 0-127 & 8bit\\
+    B & 128-191 & 16bit\\
+    C & 192-223 & 24bit\\
+    D & 224-239 & Non applicabile\\
+    E & 240-255 & Non applicabile\\
+    \hline
+\end{tabular}
+\subsection{Classless addressing}
+Utilizza la notazione Classless Interdomain Routing (CIDR) cioe':
+\begin{quote}
+    byte.byte.byte.byte/n
+\end{quote}
+con n pari alla lunghezza del prefisso.
+
+Dato un indirizzo \bluetext{a.b.c.d/n} si definisce la \bluetext{Subnet mask} come valore da 32bit con i primi \bluetext{n} bit a sinistra impostati a 1.
+Effettuando una Bitwise-AND tra un indirizzo e la maschera si ottiene l'indirizzo della rete.

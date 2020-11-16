@@ -229,4 +229,21 @@ Ad ogni evento di perdita di ACK la CWND viene dimezzata.
 Viene definita una variabile di threshold alla quale viene assegnato un valore alto;
 Finché $cwnd < threshold$, siamo in slow start (cwnd aumenta esponenzialmente).\newline
 Non appena $cwnd > theshold$, si entra in AI.
-%TODO: Rileggiti perdita e fast recovery di tcp reno che non hai voglia di capirli finche stai scrivendo questa merda di TODO; BRUTTO SVOGLIATO DI MERDA! P36 L05.3
+\paragraph{Se ricevo 3 ACK duplicati} entro in fast recovery:
+\[ threshold = \dfrac{cwnd}{2} \]
+\[ cwnd = threshold + 3MSS \]
+Finché continuano ad arrivare ACK duplicati
+\[ cwnd = cwnd + 1 \]
+Non appena arriva un ACK non duplicato
+\[ cwnd = threshold \]
+\paragraph{Se perdo un ACK per timeout} entro in slow start:
+\[ threshold = \dfrac{cwnd}{2} \]
+\[ cwnd = 1MSS \]
+\subsection{TCP Tahoe}
+Molto simile a RENO ma timeout e 3 ACK duplicati vengono gestiti allo stesso modo (si va in slow start)
+\subsection{Throughput}
+Indicando con $W$ la dimensione massima raggiunta dalla finestra, il throughput medio e'
+\[ Throughput = \dfrac{0,75 \times W}{RTT} \]
+\subsection{Equità (fairness)}
+In condizioni perfette, $K$ connessioni TCP che passano sullo stesso link di capacita' $R$ bit/s, le connessioni hanno gli stessi valori di $MSS$ e $RTT$; in questo caso ogni connessione trasmette $R/K$ bit/s.
+In condizioni reali pero' le connessioni con $RTT$ piu' piccolo (migliori) variano piu' velocemente $congwin$ e raggiungono throughput superiori.

@@ -1,0 +1,4 @@
+Modifica del sistema di typechecking statico
+	Pre:		Tipi identificati da una stringa
+	Post:		Tipi identificati tramite un nuovo Type 'static'
+Eliminati TestSet ridondanti

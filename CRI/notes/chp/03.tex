@@ -1,0 +1,59 @@
+\chapter{Teoria della Calcolabilità}
+% Studia la potenza e le limitazioni dei sistemi di calcolo.
+\section{Problemi computazionali}
+\paragraph{Sono classificati in:}
+\begin{itemize}
+    \item Non decidibili
+    \item Decidibili
+    \begin{itemize}
+        \item Trattabili \textit{(polinomiali)}
+        \item Intrattabili \textit{(esponenziali)}
+    \end{itemize}
+\end{itemize}
+\subsection{Calcolabilità e Complessità}
+\paragraph{Calcolabilità} E' lo studio delle nozioni di algoritmo e di problema non decidibile.
+\paragraph{Complessità} E' lo studio di algoritmi efficienti e di problemi intrattabili.
+% Se mi viene voglia metto la dimostrazione dell'esistenza di problemi indecidibili
+\subsection{Problema della rappresentazione}
+\paragraph{Algoritmo}
+Sequenza finita di operazioni, completamente e univocamente determinate.
+Gli algoritmi possono essere formulati con modelli diversi come: modello matematico, algoritmo in pseudocodice, programma eseguibile\dots
+Qualunque modello venga scelto, gli algoritmi devono essere descritti perciò \redtext{sono possibilmente \textbf{infiniti} ma \textbf{numerabili}}.
+\paragraph{Problemi computazionali}
+Sono funzioni matematiche che associano ad ogni insieme di input un risultato; \redtext{\textbf{non} sono numerabili}.
+Cio' significa che:
+\begin{center}
+    \redtext{\#\{Problemi\} $>>$ \#\{Algoritmi\}}
+\end{center}
+Non esiste quindi un algoritmo di calcolo per ogni problema.
+\paragraph{Il problema dell'arresto}
+E' la dimostrazione data da Turing nel 1930 dell'esistenza di problemi non decidibili.
+
+Prendiamo in considerazione il generico algoritmo
+\begin{quote}
+    $A: \{I\} \rightarrow \{0, 1\}$
+\end{quote}
+Che, in base a $I$ puo' terminare o non terminare.
+Adesso poniamo per assurdo che esista un altro algoritmo $Arresto(A, D)$ che in tempo finito ritorna:
+\begin{description}
+    \item[true] se $A(D)$ termina
+    \item[false] se $A(D)$ non termina 
+\end{description}
+$Arresto$ non puo' semplicemente simulare il comportamento di $A(D)$ perché se esso non terminasse, non terminerebbe neanche \bluetext{$Arresto$}.
+    Se l'algoritmo \bluetext{$Arresto$} esistesse, esisterebbe anche l'algoritmo \bluetext{$Paradosso$} definito come:
+\begin{algorithm}
+    \While{Arresto(A, A)}{
+        \;
+    }
+    \caption{Paradosso(A)}
+\end{algorithm}\\
+Se provo ad eseguire $Paradosso(Paradosso)$
+\begin{quote}
+    $Paradosso(Paradosso)$ termina\\
+    $Arresto(Paradosso, Paradosso) = 0$\\
+    $Paradosso(Paradosso)$ non termina
+    \redtext{!!! ERR !!!}
+\end{quote}
+Cio' significa che l'algoritmo $Paradosso$ \redtext{\textbf{non puo' esistere}} (quindi neanche $Arresto$)
+\section{Tesi di Church-Turing}
+Tutti i \textit{(ragionevoli)} modelli di calcolo risolvono la stessa classe di problemi; perciò la decidibilità e' una proprietà del problema e non del modello utilizzato.

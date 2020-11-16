@@ -1,0 +1,59 @@
+\chapter{Lo Strato Applicativo: File Transfer Protocol}
+\section{Introduzione}
+Il File Transfer Protocol \bluetext{FTP} e' un protocollo che vive sullo strato applicativo di reti TCP/IP per il trasferimento di file da/a un host remoto:
+Utilizza il protocollo \bluetext{client/server}
+\begin{description}
+    \item[Client] Il lato che richiede il trasferimento.
+    \item[Server] Host remoto che fornisce il servizio. 
+\end{description}
+Lo standard non prevede la modifica \textit{"live"} dei file, ma soltanto la richiesta di copie e l'eventuale aggiornamento del file successivamente.
+Fornisce inoltre l'accesso interattivo alle directory nel filesystem remoto.
+Permette anche l'autenticazione degli utenti.
+\section{Modello}
+Dettato dalla RFC 959. Permette due tipi di connessione:
+\begin{description}
+    \item[Control connection] Scambio di comandi e risposte, segue il protocollo Telnet.
+    \item[Data connection] Scambio di dati che possono essere parte, l'intero, o un set di file.
+\end{description}
+Viene usato il protocollo TCP per il trasporto.
+
+FTP e' un protocollo \bluetext{stateful}: il server deve tener traccia dello stato dell'utente \textit{(connessione di controllo associata ad un account, current directory, \dots)}
+\subsection{Control Connection}
+E' una connessione persistente.
+
+Il client contatta il server FTP (sulla porta 21 di default). Dopo che il server gli fornisce l'autorizzazione, il client puo' iniziare ad inviare comandi \textit{(change dir, invio file, list files, \dots)} sotto forma di caratteri codificati con standard NVT ASCII.
+\subsection{Data Connection}
+Quando viene richiesto un trasferimento di file tramite la connessione di controllo, il server apre una nuova connessione TCP (porta 20 di default) con il client, vi trasferisce i dati, e la richiude subito dopo.
+\subsection{Active / Passive Mode}
+% Non ho una sega di voglia adesso, a mai piu' a/p mode.
+\subsection{Standard di comunicazione}
+Come per Telnet, anche per il trasferimento dati bisogna definire uno standard per la struttura dei file e delle directory.
+Il trasferimento viene preparato attraverso uno scambio di informazioni tramite la connessione di controllo.
+\subsection{Modalità di trasmissione}
+\begin{description}
+    \item[Stream mode] I dati vengono inviati cone flusso continuo di bit allo strato TCP.
+    \item[Block mode] I dati vengono inviati a TCP suddivisi in blocchi. Ogni blocco e' preceduto da un header.
+    \item[Compressed mode] Al posto di inviare direttamente i file, vengono inviate delle versioni compresse.  
+\end{description}
+\section{Comandi di controllo}
+\subsection{Client-to-Server}
+\begin{description}
+    \item[USER] Username
+    \item[PASS] Password 
+    \item[LIST] Elenca i file della directory corrente
+    \item[NLST] Elenca file e dirs nella directory corrente
+    \item[RETR] Recupera un file dalla current directory
+    \item[STOR] filename: Memorizza un file nell'host remoto
+    \item[ABOR] Interrompe tutto
+    \item[PORT] Indirizzo e numero di porta del client
+    \item[SYST] Restituisce il tipo di sistema
+    \item[QUIT] Chiude la connessione 
+\end{description}
+\subsection{Server-to-Client}
+% Non ho voglia neanche di scrivere sti cazzo di codici di ritorno; vedi p12
+\section{Altre caratteristiche}
+\subsection{Anonymous FTP}
+E' possibile attivare il supporto a connessioni senza autenticazione.
+Queste connessioni solitamente hanno accesso a una piccola parte del filesystem e permettono meno operazioni (es. no PUT)
+\subsection{Secure FTP with TLS}
+Descritto dalla RFC 2246, permette di implementare sicurezza e autenticazione attraverso il protocollo TLS

@@ -80,13 +80,13 @@ Inoltre si ha un mignor controllo di congestione.
 
 La connessione viene chiusa dal server solo quando esplicitamente richiesto dal client nell'header del messaggio, o se non riceve piu' richieste (time out)
 
-\subsection{Pipelining e HeadOfLineBlocking}
+% \subsection{Pipelining e HeadOfLineBlocking}
 
-Per migliorare le le prestazioni il client puo' inviare contemporaneamente piu' richieste al server, il quale \textbf{DEVE} rispondere nello stesso ordine in cui sono state ricevute.
+% Per migliorare le le prestazioni il client puo' inviare contemporaneamente piu' richieste al server, il quale \textbf{DEVE} rispondere nello stesso ordine in cui sono state ricevute.
 
-Se pero' una richiesta richiede piu' tempo al server per essere processata blocca tutte le risposte successive e porta all'HOLB. In questi casi non si ha un miglioramento delle performance.
+% Se pero' una richiesta richiede piu' tempo al server per essere processata blocca tutte le risposte successive e porta all'HOLB. In questi casi non si ha un miglioramento delle performance.
 
-\newpage
+% \newpage
 \subsection{HTTP Request}
 
 La richesta e' formata da:
@@ -149,3 +149,22 @@ Una soluzione e' utilizzare i cookies, cioe' id unici che il client presenta al 
 
 Alla prima connessione, il server invia la normale risposta HTTP + una line \textbf{Set-cookie: id}.
 Il client si salva il cookie e lo associa al server. Ogni successiva richiesta a quel server conterra' quel cookie.
+
+\section{Versioni HTTP}
+\paragraph{HTTP/1.1}
+Permette di instaurare piu' connessioni contemporaneamente perciò il client puo' inviare piu' richieste al server contemporaneamente \bluetext{(Pipelining)}.
+
+Il server deve pero' rispondere nello stesso ordine in cui sono arrivate le richieste perciò, se una richiesta richiede piu' tempo per essere elaborata, tutte le risposte successive non possono essere inviate \bluetext{(HeadOfLineBlocking)}.
+\paragraph{HTTP/2}
+Aggiunge caratteristiche allo standard HTTP come:
+\begin{itemize}
+    \item Multiplexing delle richieste su un'unica connessione TCP attraverso la definizione di:
+    \begin{description}
+        \item[Frame] Un messaggio HTTP viene mappato da una sequenza di Frame (come Data Frame, Headers Frame, \dots).
+        \item[Stream] E' un flusso bidirezionale di frame all'interno di una connessione TCP; mediante l'astrazione di essi, e' possibile effettuare il multiplexing delle richieste (piu' stream su un'unica connessione). E' possibile anche associargli un peso (priorità), e una dipendenza verso altri stream.
+    \end{description}
+    \item Compressione delle intestazioni.
+    \item Server Push (permette al server di inviare risorse aggiuntive oltre a quella richiesta dal client).
+\end{itemize}
+\paragraph{HTTP/3}
+E' un'evoluzione di HTTP/2 che usa i servizi di QUIC, un protocollo di trasporto basato su UDP. QUIC aggiunge controllo del flusso e della congestione, e rilevazione dell'errore e delle perdite. Grazie all'astrazione dello stream a livello di trasporto, il rallentamento o la perdita di uno di essi non influisce sugli altri.

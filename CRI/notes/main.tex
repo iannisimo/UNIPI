@@ -6,6 +6,7 @@
 \usepackage{adjustbox}
 \usepackage{amssymb} 
 \usepackage{amsmath}
+\usepackage[ruled,vlined]{algorithm2e}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -35,6 +36,11 @@
 }
 
 \newcommand{\bluetext}[1]{\textcolor{blue}{#1}}
+\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+\newcommand{\orangetext}[1]{\textcolor{orange}{#1}}
+\newcommand{\subtext}[1]{\textsubscript{#1}}
+\newcommand{\supertext}[1]{\textsuperscript{#1}}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 
 \begin{document}
 
@@ -46,5 +52,9 @@
 \tableofcontents
 
 \include{chp/01}
+\include{chp/02}
+\include{chp/03}
+\include{chp/04}
+\include{chp/05}
 
 \end{document}

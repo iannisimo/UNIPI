@@ -1,0 +1,94 @@
+\chapter{Teoria della Complessità}
+\section{Problemi}
+\subsection{Legenda}
+\begin{description}
+    \item[$\mathbf{\Pi}$] Problema
+    \item[$\mathbf{I}$] Insieme delle istanze in ingresso
+    \item[$\mathbf{S}$] Insieme delle soluzioni  
+\end{description}
+\subsection{Tipologie di problemi}
+\paragraph{Problemi decisionali}
+\begin{itemize}
+    \item $S = \{0, 1\}$
+    \item Istanze positive: $x \in I$ t.c. $\Pi(x) = 1$
+    \item Istanze negative: $x \in I$ t.c. $\Pi(x) = 0$
+\end{itemize}
+\paragraph{Problemi di ricerca}
+\begin{itemize}
+    \item $S$ \textit{"libera"}
+    \item Trovare \textit{una} soluzione al problema.
+\end{itemize}
+\paragraph{Problemi di ottimizzazione}
+\begin{itemize}
+    \item $S$ \textit{"libera"}
+    \item Trovare la \bluetext{miglior} soluzione $s \in S$
+\end{itemize}
+I problemi di interesse pratico sono spesso di ottimizzazione. E' possibile pero' esprimerli sotto forma di problemi decisionali:
+\begin{itemize}
+    \item \bluetext{MAX-CLIQUE(G):} Richiede di trovare la CLIQUE piu' grande in un grafo G.
+    \item \bluetext{CLIQUE(G, k):} Chiede se esiste una clique in G di almeno k vertici; non e' piu' difficile di \bluetext{MAX-CLIQUE}.
+\end{itemize}
+\section{Classi}
+\subsection{Classi di Complessità}
+Dati $\Pi$ e $A$, diciamo che $A$ risolve $\Pi$ se: $\exists x \in I$ t.c. $A(x) \and \Pi(x) = true$.
+\subsection{Classi Time e Space}
+\begin{description}
+    \item[$Time(f(n))$] e' l'insieme dei problemi decisionali risolvibili in tempo $O(f(n))$
+    \item[$Space(f(n))$] e' l'insieme dei problemi decisionali risolvibili in spazio $O(f(n))$
+\end{description}
+\subsection{Classe P}
+E' la classe dei problemi risolvibili in tempo polinomiale \textit{($O(n^c)$, $c$ costante, $n$ dati in ingresso)}
+\subsection{Classe PSpace}
+E' la classe dei problemi risolvibili in spazio polinomiale \textit{($O(n^c)$, $c$ costante, $n$ dati in ingresso)}
+\subsection{Classe ExpTime}
+E' la classe dei problemi risolvibili in tempo esponenziale \textit{($O(c^n)$, $c$ costante, $n$ dati in ingresso)}
+\subsection{Relazioni tra le classi}
+\begin{description}
+    \item[$P \subseteq PSpace$] Un algoritmo polinomiale ha accesso al piu' ad un numero polinomiale di locazioni.
+    \item[$PSpace \subseteq ExpTime$]
+\end{description}
+% Ma porca puttana, non devo ridare ALGO, io gli algoritmi non li riscrivo.
+\section{Certificati}
+Un certificato e' un attestato di esistenza della soluzione a un problema. Si definisce solamente per istanze accettabili.
+% PAG 17 
+\subsection{Verifica}
+Un problema $\mathbf{\Pi}$ e' verificabile it tempo polinomiale se:
+\begin{itemize}
+    \item $x \in I$ of $len = n$ ammette un certificato $y$ of $len$ polinomiale in $n$.
+    \item Esiste un algoritmo di verifica che, applicato alle coppie $<x,y>$ permette di attestare che $x$ e' accettabile.
+\end{itemize}
+\section{Classe NP}
+E' la classe dei problemi risolvibili in tempo polinomiale non deterministico.
+Cio' significa che sono verificabili in tempo polinomiale.
+Se si ha una soluzione si puo' verificare la sua legittimità in tempo polinomiale; Altrimenti la si puo' individuare con una ricerca esaustiva in tempo esponenziale.
+\subsection{P e NP}
+Sappiamo per certo che
+\begin{quote}
+    $P \subset NP$
+\end{quote}
+Ma non e' stato matematicamente dimostrata la congettura
+\begin{quote}
+    $P \not\equiv NP$
+\end{quote}
+\subsection{NP-Completo}
+I problemi NP-Completi sono i problemi piu' \textit{"difficili"} all'interno della classe NP. Tutti i problemi NP sono riducibili in tempo polinomiale a problemi NP-Completi.
+\paragraph{Riduzioni polinomiali} Dati i problemi $\Pi_1, \Pi_2$ e le rispettive istanze di input $I_1, I_2$, si dice che $\Pi_1$ si riduce in tempo polinomiale a $\Pi_2$ se esiste una funzione $f: I_1 \rightarrow I_2$ t.c. per ogni istanza x di $\Pi_1$
+\begin{center}
+    $x$ e' istanza accettabile di $\Pi_1$\\
+    $\equiv$\\
+    $f(x)$ e' istanza accettabile di $\Pi_2$
+\end{center}
+\subsection{NP-Arduo}
+% TODO: Che cazzo sono i problemi NP-Ardui dio merda!@!
+\subsection{Teorema di Cook}
+Cook ha dimostrato che:
+\begin{quote}
+    Dato un problema $\Pi$ in NP e una qualunque istanza $x$ per $\Pi$\\
+    Si puo' esprimere $\Pi$ sotto forma di espressione booleana in forma normale, la quale restituisce $true$ IIF x e' accettabile per $\Pi$
+\end{quote}
+\subsection{Gerarchia delle classi}
+\begin{center}
+    $(P \cup NP-Completi) \subseteq NP \subseteq PSpace \subseteq Exp \subseteq Decidibili$
+\end{center}
+\subsection{co-P \& co-NP}
+% TODO: I cazzo di complementari, non ho voglia

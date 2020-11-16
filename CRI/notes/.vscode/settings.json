@@ -4,12 +4,26 @@
         "CRITTO",
         "Crittoanalisi",
         "Crittologia",
+        "FANCULO",
         "MITM",
+        "PSPACE",
         "Scitale",
         "crittare",
+        "crittati",
         "crittazione",
         "crittoanalista",
         "iniettiva",
+        "l'RSA",
+        "pseudocodice",
         "scorrelati"
+    ],
+    "multiCommand.commands": [
+        {
+            "command": "multi.autoFix",
+            "sequence": [
+                "editor.action.quickFix",
+                "enter"
+            ]
+        }
     ]
 }

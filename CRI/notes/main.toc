@@ -13,3 +13,53 @@
 \contentsline {subsection}{\numberline {1.4.2}Cifrari sicuri}{7}{subsection.1.4.2}%
 \contentsline {section}{\numberline {1.5}Cifrari in uso}{7}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}AES}{7}{subsection.1.5.1}%
+\contentsline {paragraph}{Distribuzione delle chiavi}{7}{section*.3}%
+\contentsline {subsection}{\numberline {1.5.2}Cifrari a chiave pubblica (asimmetrici)}{7}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Cifrari ibridi}{8}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Applicazioni sulla rete}{8}{subsection.1.5.4}%
+\contentsline {chapter}{\numberline {2}Rappresentazione matematica di oggetti}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Definizioni}{9}{section.2.1}%
+\contentsline {paragraph}{Alfabeto}{9}{section*.4}%
+\contentsline {paragraph}{Oggetto}{9}{section*.5}%
+\contentsline {section}{\numberline {2.2}Alfabeti e sequenze}{9}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Rappresentazione binaria}{9}{subsection.2.2.1}%
+\contentsline {paragraph}{s = 2, $\mathbf {\Gamma }$ = {0, 1}}{9}{section*.6}%
+\contentsline {chapter}{\numberline {3}Teoria della Calcolabilità}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Problemi computazionali}{11}{section.3.1}%
+\contentsline {paragraph}{Sono classificati in:}{11}{section*.7}%
+\contentsline {subsection}{\numberline {3.1.1}Calcolabilità e Complessità}{11}{subsection.3.1.1}%
+\contentsline {paragraph}{Calcolabilità}{11}{section*.8}%
+\contentsline {paragraph}{Complessità}{11}{section*.9}%
+\contentsline {subsection}{\numberline {3.1.2}Problema della rappresentazione}{11}{subsection.3.1.2}%
+\contentsline {paragraph}{Algoritmo}{11}{section*.10}%
+\contentsline {paragraph}{Problemi computazionali}{11}{section*.11}%
+\contentsline {paragraph}{Il problema dell'arresto}{12}{section*.12}%
+\contentsline {section}{\numberline {3.2}Tesi di Church-Turing}{12}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Teoria della Complessità}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Problemi}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Legenda}{13}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Tipologie di problemi}{13}{subsection.4.1.2}%
+\contentsline {paragraph}{Problemi decisionali}{13}{section*.13}%
+\contentsline {paragraph}{Problemi di ricerca}{13}{section*.14}%
+\contentsline {paragraph}{Problemi di ottimizzazione}{13}{section*.15}%
+\contentsline {section}{\numberline {4.2}Classi}{14}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Classi di Complessità}{14}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Classi Time e Space}{14}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Classe P}{14}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Classe PSpace}{14}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Classe ExpTime}{14}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Relazioni tra le classi}{14}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}Certificati}{14}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Verifica}{15}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Classe NP}{15}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}P e NP}{15}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}NP-Completo}{15}{subsection.4.4.2}%
+\contentsline {paragraph}{Riduzioni polinomiali}{15}{section*.16}%
+\contentsline {subsection}{\numberline {4.4.3}NP-Arduo}{15}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Teorema di Cook}{15}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Gerarchia delle classi}{16}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}co-P \& co-NP}{16}{subsection.4.4.6}%
+\contentsline {chapter}{\numberline {5}Esempi di algoritmi numerici}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Euclide}{17}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Dimostrazione}{17}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Test di primalità (inefficiente)}{18}{section.5.2}%

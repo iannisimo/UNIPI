@@ -1,0 +1,134 @@
+% TODO: refactor (sub)sections
+\chapter{Lo Strato Applicativo: E-Mail}
+\section{E-Mail}
+Permette il trasferimento di messaggi tra un mittente e un destinatario.
+Dato che il destinatario potrebbe non avere il client mail aperto in quel momento, il servizio di posta elettronica deve basarsi su componenti intermediari per mantenere il messaggio finché il destinatario non e' in grado di riceverlo.
+\subsection{Principio di funzionamento}
+\begin{itemize}
+    \item L'utente invia un messaggio.
+    \item Il sistema ne mantiene una copia nell'area di accodamento \textit{(spool)}, insieme a id mittente, id destinatario, id destinazione e tempo di deposito.
+    \item Il client avvia il trasferimento alla macchina remota  stabilendo una connessione TCP.
+    \item Se la connessione viene aperta inizia il trasferimento del messaggio e, a trasferimento completato, cancella la copia locale.
+    \item Altrimenti il processo viene ripetuto periodicamente scandendo i messaggi nella spool.
+    \item Oltre un certo intervallo di tempo, se il messaggio non e' ancora stato consegnato, viene inviata una notifica al mittente.
+\end{itemize}
+\subsection{Indirizzi email}
+Formato da
+\begin{center}
+    local-part @ domain-name
+\end{center}
+\paragraph{local-part} Specifica la cassetta a cui consegnare il messaggio.
+\paragraph{domain-name} Specifica il mail server.
+
+\subsection{Simple Mail Transfer Protocol (SMTP)}
+L'obbiettivo di SMTP e' il trasferimento affidabile ed efficiente di mail.
+Il protocollo e' indipendente dal sistema di trasmissione usato.
+Una caratteristica e' la capacita' di trasportare mail attraverso piu' reti; Un messaggio puo' quindi passare da server intermedi prima di arrivare al destinatario.
+
+\paragraph{Modello: }
+Un client apre un canale bidirezionale con il server SMTP. Inizia poi il trasferimento del messaggio (se non va a buon fine, comunica l'insuccesso).
+Per trovare il server SMTP, il client risolve il dominio attraverso un DNS.
+
+\paragraph{Protocollo: }
+Solitamente SMTP si basa sulla porta 25 TCP.
+Le fasi del trasferimento sono:
+\begin{itemize}
+    \item handshaking
+    \item trasferimento del messaggio
+    \item chiusura della connessione
+\end{itemize}
+L'interazione e' di tipo \textbf{comando/risposta}
+
+\paragraph{Handshaking} Il client stabilisce la connessione e aspetta la risposta 220 READY FOR MAIL. Il client risponde con HELO ed il server risponde identificandosi.
+\paragraph{Comandi SMTP:}
+\begin{itemize}
+    \item HELO \textit{client-id}
+    \item MAIL FROM: \textit{reverse-path} [SP \textit{mail-parameters}] $<$CRLF$>$
+    \item RCPT TO: \textit{forward-path} [SP \textit{rcpt-parameters}] $<$CRLF$>$
+    \item DATA
+    \item QUIT
+\end{itemize}
+$<$CRLF$>$.$<$CRLF$>$ determina la fine di un messaggio.
+
+\newpage
+\paragraph{Formato dei messaggi}
+\begin{itemize}
+    \item Linee di intestazione (header)
+    \begin{itemize}
+        \item To:
+        \item From:
+        \item Subject:
+        \item \dots
+    \end{itemize}
+    \item body
+    \begin{itemize}
+        \item Soli caratteri ASCII a 7 bit.
+    \end{itemize}
+\end{itemize}
+
+Per ovviare al body solo testuale e' stato creato lo standard MIME (Multipurpose Internet Mail Extension).
+Questo standard \textit{vive sopra} alla RFC 822 originale ma da nuove regole di interpretazione del body. Cio' ha permesso di mantenere i mail-server esistenti e cambiare solo gli user-agents.
+
+Linee di intestazione aggiuntive per il MIME:
+\begin{itemize}
+    \item MIME-Version:
+    \item Content-Transfer-Encoding:
+    \item Content-Type:
+\end{itemize}
+
+\paragraph{Content-Type:}
+type/subtype;
+\begin{multicols}{2}
+\begin{itemize}
+    \item text
+    \begin{itemize}
+        \item plain
+        \item html
+    \end{itemize}
+    \item image
+    \begin{itemize}
+        \item jpeg
+        \item gif
+    \end{itemize}
+    \columnbreak
+    \item audio
+    \begin{itemize}
+        \item basics
+        \item 32kadpcm
+    \end{itemize}
+    \item video
+    \begin{itemize}
+        \item mpeg
+    \end{itemize}
+    \item application
+    \begin{itemize}
+        \item msword
+        \item ocet-stream
+    \end{itemize}
+\end{itemize}
+\end{multicols}
+
+Esiste anche il tipo multipart: esso permette di inviare messaggi con piu' tipi separati da un {\color{blue}boundary=}
+
+\subsection{Sistemi pull per le mail POP3, IMAP e HTML}
+\paragraph{Post Office Protocol} Lo user-agent apre una connessione TCP (porta 110) verso il server di posta. Comandi permessi:
+\begin{itemize}
+    \item Autorizzazione
+    \begin{itemize}
+        \item user:
+        \item pass:
+    \end{itemize}
+    \item Transazione
+    \begin{itemize}
+        \item list:
+        \item retr:
+        \item dele:
+        \item quit:
+    \end{itemize}
+    \item Aggiornamento
+    \begin{itemize}
+        \item Dopo \texttt{quit} il server cancella i messaggi marcati per la rimozione.
+    \end{itemize}
+\end{itemize}
+\paragraph{Internet Mail Access Protocol} E' piu' complesso di POP3 ma permette la manipolazione dei messaggi memorizzati e da la possibilita' di estrarre solo alcuni componenti dei messaggi.
+\paragraph{HTTP} Hotmail, Gmail, \dots

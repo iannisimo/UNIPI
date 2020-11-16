@@ -73,6 +73,8 @@ La query puo' essere:
     \item[Ricorsiva] La richiesta fa il \textit{giro completo} attraversando ogni name server fino a trovare il dominio che sta' cercando.
     \item[Iterativa] Le risposte sono restituite direttamente al client insieme al riferimento al server da contattare.
 \end{description}
+Se un server supporta le query ricorsive, imposta il bit RA \textit{(Recursion Available)} a true.
+Se anche il client imposta il bit BD \textit{(Recursion Desired)} a true, viene effettuata la query in modalità ricorsiva.
 \subsection{DNS Caching}
 I name server mantengono una memoria delle associazioni gia' richieste, le quali vengono cancellate dopo un tempo di timeout.
 \section{Resource Records}
