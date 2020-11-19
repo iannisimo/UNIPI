@@ -11,14 +11,17 @@ public class Packet {
     private String header;
 
     private String type;
+    private String status;
 
     public Packet(String filename) throws FileNotFoundException, IOException {
         System.out.println("Generating packet for \"" + filename + "\"");
         File file = new File("res/" + filename);
+        status = "200";
         if(!file.isFile()) {
             // Redirecting to 404
-            System.err.println("Requested file not present on the server, redirecting on 404 page");
+            System.out.println("Requested file not present on the server, redirecting on 404 page");
             filename = Const._404;
+            status = "404";
         }
         body = buildBody(filename);
         String ext = getExtension(filename);
@@ -27,7 +30,7 @@ public class Packet {
         } else {
             type = Const.EXT_MAP.get(ext);
         }
-        header = buildHeader(type, body.length);
+        header = buildHeader(type, status, body.length);
     }
 
     public void sendPacket(OutputStream outputStream) throws IOException {
@@ -41,12 +44,9 @@ public class Packet {
     }
 
 
-    private String buildHeader(String fileType, int len) {
-        StringBuilder headerBuilder = new StringBuilder();
-        headerBuilder.append(Const.STATUS_LINE);
-        headerBuilder.append("Content-Type: " + fileType + "\r\n");
-        headerBuilder.append("Content-Length: " + len + "\r\n\r\n");
-        return headerBuilder.toString();
+    private String buildHeader(String fileType, String status, int len) {
+        String headerTmp = String.format(Const.HEADER_FORMAT, status, Const.STATUS_MAP.get(status), fileType, len);
+        return headerTmp;
     }
 
     private static byte[] buildBody(String filename) throws IOException {
