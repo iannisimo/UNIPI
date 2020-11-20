@@ -109,3 +109,25 @@ con n pari alla lunghezza del prefisso.
 
 Dato un indirizzo \bluetext{a.b.c.d/n} si definisce la \bluetext{Subnet mask} come valore da 32bit con i primi \bluetext{n} bit a sinistra impostati a 1.
 Effettuando una Bitwise-AND tra un indirizzo e la maschera si ottiene l'indirizzo della rete.
+
+\section{Assegnazione blocchi di indirizzi}
+Gli indirizzi IP \textit{"globali"} sono gestiti da ICANN, che li assigna agli ISP in blocchi. Sono poi gli ISP ad assegnare sottoblocchi di essa ai suoi clienti.
+\subsection{Aggregazione di indirizzi}
+Per rendere piu' efficiente l'instradamento, gli ISP possono assegnare vari blocchi di indirizzi a piu' clienti per poi aggregarli in un singolo blocco da annunciare alla rete.
+\subsection{Indirizzi speciali}
+\begin{description}
+    \item[0.0.0.0] This host, usato come indirizzo sorgente quando un host non sa il proprio indirizzo.
+    \item[255.255.255.255] Limited-broadcast, usato per inviare un datagramma a tutti i dispositivi all'interno della rete locale.
+    \item[127.0.0.1] Loopback, il datagramma non lascia l'host locale.
+    \item[10.0.0.0/8] 
+    \item[127.16.0.0/12] 
+    \item[192.168.0.0/16]
+    \item[169.254.0.0/16] Indirizzi privati, riservati per le reti locali.
+    \item[224.0.0.0/4] Indirizzi multicast.
+\end{description}
+\subsection{DHCP}
+Un indirizzo IP puo' essere attribuito a un host tramite configurazione manuale (l'host o chi lo gestisce configura l'indirizzo e le altre informazioni di servizio), oppure tramite DHCP (l'host ottiene tutte le informazioni automaticamente).
+
+Il Dynamic Host Configuration Protocol e' un protocollo client-server che assegna indirizzi IP in modo dinamico.
+Appena un host si connette alla sottorete da inizio alla procedura di assegnazione comunicando con il server DHCP della sottorete su cui e' inserito.
+% TODO: forwarding

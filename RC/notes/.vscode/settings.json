@@ -7,8 +7,10 @@
         "Gmail",
         "Hotmail",
         "IANA",
+        "ICANN",
         "Interdomain",
         "L'header",
+        "Loopback",
         "QUIC",
         "SYNACK",
         "Wireshark",
@@ -29,6 +31,7 @@
         "kadpcm",
         "l'ACK",
         "l'acknowledgment",
+        "l'host",
         "msword",
         "multicast",
         "nell'header",
@@ -36,6 +39,8 @@
         "nntp",
         "ocet",
         "riassemblaggio",
+        "sottoblocchi",
+        "sottorete",
         "textsubscript"
     ]
 }

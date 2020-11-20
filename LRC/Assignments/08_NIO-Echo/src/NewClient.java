@@ -36,7 +36,8 @@ public class NewClient {
             e.printStackTrace();
             return;
         }
-        while(true) {
+        boolean exit = false;
+        while(!exit) {
             try {
                 selector.select();
             } catch(IOException e) {
@@ -48,26 +49,37 @@ public class NewClient {
                 SelectionKey key = iterator.next();
                 iterator.remove();
                 try {
-                    if(key.isWritable()) {
-                        ByteBuffer buffer = (ByteBuffer) key.attachment();
-                        if(!reader.ready()) break;
-                        String userInput = reader.readLine();
-                        buffer.put(userInput.getBytes());
-                        buffer.flip();
-                        client.write(buffer);
-                        client.register(selector, SelectionKey.OP_READ);
-                        Thread.sleep(100);
-                    } else if(key.isReadable()) {
+                    if(key.isReadable()) {
                         ByteBuffer buffer = (ByteBuffer) key.attachment();
                         client.read(buffer);
                         System.out.println(new String(buffer.array()));
-                    }
+                        buffer.clear();
+                        client.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ).attach(buffer);
+                    } else if(key.isWritable()) {
+                        if(!reader.ready()) break;
+                        ByteBuffer buffer = (ByteBuffer) key.attachment();
+                        String userInput = reader.readLine();
+                        if(userInput.equals("")) break;
+                        if(userInput.equals("exit")) exit = true;
+                        buffer.put(userInput.getBytes());
+                        buffer.flip();
+                        client.write(buffer);
+                        buffer = ByteBuffer.allocate(Const.BUF_SIZE);
+                        if(exit) {
+                            key.cancel();
+                            client.close();
+                            break;
+                        }
+                        client.register(selector, SelectionKey.OP_READ).attach(buffer);
+                    } 
                 } catch(IOException e) {
+                    key.cancel();
                     e.printStackTrace();
-                    break;
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    try {
+                        client.close();
+                    } catch(IOException ee) {
+                        ee.printStackTrace();
+                    }
                 }
             }
         }

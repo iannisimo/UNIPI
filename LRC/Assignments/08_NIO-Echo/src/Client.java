@@ -32,25 +32,39 @@ public class Client {
         }
 
         Scanner stdin = new Scanner(System.in);
-
+        SocketChannel client;
         try {
-            SocketChannel client = SocketChannel.open(new InetSocketAddress(address, port));
+            client = SocketChannel.open(new InetSocketAddress(address, port));
             client.configureBlocking(true);
-            while(true) {
-                while(!stdin.hasNextLine());
-                String userInput = stdin.nextLine();
-                if(userInput.equals("exit")) break;
-                if(userInput.length() > Const.MAX_STRING_LEN) userInput = userInput.substring(0, Const.MAX_STRING_LEN-1);
-                ByteBuffer outputBuffer = ByteBuffer.allocate(Const.MAX_STRING_LEN);
-                ByteBuffer inputBuffer = ByteBuffer.allocate(Const.MAX_STRING_LEN + Const.CONCAT.length()*2);
-                outputBuffer.put(userInput.getBytes());
-                outputBuffer.flip();
-                client.write(outputBuffer);
-                client.read(inputBuffer);
-                System.out.println(new String(inputBuffer.array()));
-            }
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
+            return;
         }
+
+        while(true) {
+            String userInput = stdin.nextLine();
+            if(userInput.equals("exit")) break;
+            if(userInput.length() > Const.MAX_STRING_LEN) userInput = userInput.substring(0, Const.MAX_STRING_LEN-1);
+            ByteBuffer writeBuffer = ByteBuffer.allocate(Const.BUF_SIZE);
+            ByteBuffer readBuffer = ByteBuffer.allocate(Const.BUF_SIZE + Const.CONCAT.length()*2);
+            writeBuffer.put(userInput.getBytes());
+            writeBuffer.flip();
+            try {
+                client.write(writeBuffer);
+                client.read(readBuffer);
+            } catch (IOException e) {
+                stdin.close();
+                e.printStackTrace();
+                try {
+                    client.close();
+                    break;
+                } catch(IOException ee) {
+                    // ee.printStackTrace();
+                    return;
+                }
+            }
+            System.out.println(new String(readBuffer.array()));
+        }
+        System.out.println("Server closed connection.. Ending.");
     }
 }

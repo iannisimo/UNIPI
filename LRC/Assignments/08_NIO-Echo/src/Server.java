@@ -44,10 +44,10 @@ public class Server {
             }
             Set<SelectionKey> readyKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = readyKeys.iterator();
-            System.out.println("New Iterator started");
             while(iterator.hasNext()) {
                 SelectionKey key = iterator.next();
                 iterator.remove();
+                boolean closeConn = false;
                 try {
                     if(key.isAcceptable()) {
                         ServerSocketChannel server = (ServerSocketChannel) key.channel();
@@ -57,11 +57,16 @@ public class Server {
                         ByteBuffer buffer = ByteBuffer.allocate(Const.BUF_SIZE);
                         client.register(selector, SelectionKey.OP_READ).attach(buffer);
                     } else if(key.isReadable()) {
-                        // TODO: soft close connection
                         SocketChannel client = (SocketChannel) key.channel();
                         ByteBuffer buffer = (ByteBuffer) key.attachment();
-                        if(buffer.position() == 0) buffer.put(Const.CONCAT.getBytes());
+                        buffer.put(Const.CONCAT.getBytes());
                         client.read(buffer);
+                        if(new String(buffer.array()).contains("exit\0")) {
+                            key.cancel();
+                            key.channel().close();
+                            System.out.println("Closing connection on client's request...");
+                            break;
+                        }
                         System.out.printf("Got new message from client.\n");
                         buffer.flip();
                         client.register(selector, SelectionKey.OP_WRITE).attach(buffer);
@@ -70,7 +75,7 @@ public class Server {
                         ByteBuffer buffer = (ByteBuffer) key.attachment();
                         System.out.printf("Sending back response...\n\t<%s>\n", new String(buffer.array()));
                         client.write(buffer);
-                        buffer.clear();
+                        buffer = ByteBuffer.allocate(Const.BUF_SIZE);
                         client.register(selector, SelectionKey.OP_READ).attach(buffer);
                     }
                 } catch (IOException e) {
