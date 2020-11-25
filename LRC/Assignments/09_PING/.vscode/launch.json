@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PingClient<09_PING_49d8a371>",
+            "request": "launch",
+            "mainClass": "PingClient",
+            "args": "127.0.0.1 2020",
+            "projectName": "09_PING_49d8a371"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PingServer<09_PING_49d8a371>",
+            "request": "launch",
+            "mainClass": "PingServer",
+            "args": "2020",
+            "projectName": "09_PING_49d8a371"
+        }
+    ]
+}
