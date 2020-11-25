@@ -24,7 +24,7 @@ public class EchoClient {
             while(true) {
                 String userInput = stdin.nextLine();
                 ByteBuffer writeBuf = ByteBuffer.allocate(Const.BUF_SIZE);
-                ByteBuffer readBuf = ByteBuffer.allocate(Const.BUF_SIZE);
+                ByteBuffer readBuf;
                 writeBuf.put(userInput.getBytes());
                 writeBuf.flip();
                 client.write(writeBuf);
