@@ -1,0 +1,28 @@
+\chapter{Lo Strato di Collegamento}
+I collegamenti possono essere:
+\begin{description}
+    \item[Punto-punto] Collegamento dedicato a due soli dispositivi.
+    \item[Broadcast] Collegamento condiviso tra piu' dispositivi.
+\end{description}
+\section{Servizi offerti}
+\paragraph{Framing}
+I datagrammi del livello di rete vengono incapsulati all'interno di un frame. I frame sono formati da:
+\begin{itemize}
+    \item Campo dati
+    \item Intestazione
+    \item Trailer (opzionale)
+\end{itemize}
+Per identificare origine e destinazione si utilizzano i \bluetext{MAC addresses}
+\paragraph{Consegna affidabile}
+Non necessaria per collegamenti \textit{affidabili} come quelli cablati. Si utilizza spesso nei collegamenti wireless.
+\paragraph{Controllo di flusso}
+Evita che il nodo trasmittente saturi il ricevente.
+\paragraph{Rilevazione degli errori}
+Il trasmittente puo' inserire dei bit di controllo degli errori all'interno del frame permettendo al ricevente di individuarli.
+\paragraph{Correzione degli errori}
+Grazie ad algoritmi di correzione, il ricevente puo' correggere gli errori.
+\section{Indirizzi a livello collegamento}
+E' associato alla scheda di rete e non al nodo, tipicamente e' permanente. Per le LAN Ethernet (IEEE 802) e' lungo 6Byte. L'univocità di tali indirizzi e' garantita perché in parte gestita da IEEE (I primi 24 bit sono assegnati da IEEE mentre i restanti vengono gestiti dalle aziende).
+\subsection{Indirizzamento}
+Quando il nodo mittente spedisce un frame, vi inserisce l'indirizzo MAC della scheda di destinazione. Tutti i nodi collegati su quel collegamento ricevono il frame e lo scartano se non e' indirizzato a loro. Se si vuole spedire un frame a tutte le schede di rete su un collegamento , immette nel campo destinazione l'indirizzo \bluetext{broadcast} ovvero FF-FF-FF-FF-FF-FF
+\section{ARP}

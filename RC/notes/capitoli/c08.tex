@@ -130,4 +130,80 @@ Un indirizzo IP puo' essere attribuito a un host tramite configurazione manuale 
 
 Il Dynamic Host Configuration Protocol e' un protocollo client-server che assegna indirizzi IP in modo dinamico.
 Appena un host si connette alla sottorete da inizio alla procedura di assegnazione comunicando con il server DHCP della sottorete su cui e' inserito.
-% TODO: forwarding
+\section{Network Address Translation}
+L'accesso di una rete privata su Internet avviene tramite un router abilitato alla NAT.
+Tutto il traffico in uscita dal router di accesso ha come indirizzo IP quello pubblico del router.
+Tutto il traffico in ingresso alla subnet e' indirizzato verso l'IP pubblico del router.
+
+Il router mantiene una tabella di traduzione NAT, le cui righe contengono associazioni del tipo:
+\begin{quote}
+    (IP privato, porta) $\leftrightarrow$ (IP pubblico, porta)
+\end{quote}
+\section{Internet Control Message Protocol}
+L'ICMP e' usato da host e router per scambiarsi messaggi di errore o altre situazioni che richiedono intervento.
+Sono incapsulati all'interno di datagrammi IP ma il protocollo viene comunque considerato parte dello stato di rete.
+I pacchetti ICMP vengono instradati dai router prima dei pacchetti IP ordinari.
+Sono relativi solo al frammento 0 in caso di frammentazione del pacchetto.
+\subsection{Tipi di messaggio}
+I messaggi ICMP si dividono in
+\begin{itemize}
+    \item Messaggi di segnalazione errore.
+    \item Messaggi di richiesta/risposta.
+\end{itemize}
+L'header ICMP e' formato da un campo Tipo (8bit) e un campo Codice (8bit).
+\begin{center}
+    \begin{tabular}{||c c r||}
+        \hline
+        Tipo & Codice & Descrizione\\
+        \hline\hline
+        0 & 0 & Echo replay. (ping)\\
+        3 & 0 & Dest. network unreachable.\\
+        3 & 1 & Dest. host unreachable.\\
+        3 & 2 & Dest. protocol unreachable.\\
+        3 & 3 & Dest. port unreachable.\\
+        3 & 6 & Dest. network unknown.\\
+        3 & 7 & Dest. host unknown.\\
+        4 & 0 & Source quench. (congestion control)\\
+        8 & 0 & Echo request.\\
+        9 & 0 & Router advertisement.\\
+        10 & 0 & Router discovery.\\
+        11 & 0 & TTL expired.\\
+        12 & 0 & Bad IP header\\
+        \hline
+    \end{tabular}
+\end{center}
+\subsection{Ping} 
+PING e' un'applicazione di ICMP utilizzata per verificare lo stato di funzionamento di un altro host.
+Viene inviata una richiesta eco (08,00) e si attende la risposta dell'host destinazione (00,00).
+Essa fornisce anche misure dell'RTT e permette in maniera molto grossolana di misurare l'affidabilità e la congestione dei router tra due host inviando una sequenza di messaggi richiesta-risposta.
+\subsection{Traceroute}
+Traceroute si basa sui messaggi di errore (tempo scaduto e porta non raggiungibile).
+Invia datagrammi UDP con valori di TTL crescenti (partendo da zero); quando il TTL raggiunge 0, il router invia un messaggio di errore.
+L'host conta il tempo di ritorno dell'errore per trovare il RTT di ciascun router del percorso.
+\section{IPv6}
+\begin{center}
+    \begin{tabular}{||l | r||}
+        \hline
+        Motivazione & Soluzione\\
+        \hline
+        \hline
+        Esaurimento indirizzi 32bit & Indirizzi a 128bit\\
+        \hline
+        Velocizzare elaborazione e forwarding & Lunghezza fissa header\\
+        \space & Eliminato checksum\\
+        \hline
+        Risparmiare costo frammentazione ai router & ICMPv6 msg 'packet too big'\\
+        \hline
+        Facilitare QoS & Introdotta 'flow label'\\
+        \hline
+    \end{tabular}
+\end{center}
+\subsection{Dual stack}
+E' possibile mascherare un datagramma IPv6 (header + payload) come payload di un datagramma IPv4.
+\begin{center}
+    \begin{tabular}{c c c}
+        \space & \space & header IPv4\\
+        header IPv6 & $\rightarrow$ & \small header IPv6\\
+        payload & \space & \small payload\\
+    \end{tabular}
+\end{center}

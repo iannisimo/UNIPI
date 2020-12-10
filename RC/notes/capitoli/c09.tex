@@ -1,0 +1,144 @@
+\chapter{Lo strato di rete: Forwarding e Routing}
+\section{Architettura di un Router}
+\subsection{Forwarding vs Routing}
+\paragraph{Forwarding} \bluetext{\textbf{Data plane}}
+
+E' il processo che si occupa del trasferimento dei pacchetti sul collegamento in uscita appropriato.
+\paragraph{Routing} \bluetext{\textbf{Control plane}}
+
+E' il processo decisionale di scelta del percorso ottimale verso una destinazione.
+\subparagraph{Routing decentralizzato} Ogni router si coordina con gli altri scambiandocisi messaggi ed esegue algoritmi di routing.
+\subparagraph{Software-Defined Networking (SDA)} Un Remote Controller interagisce con tutti i Control Agents locali (router): I CA inviano informazioni sui collegamenti e sul traffico al RC; esso calcola i percorsi migliori ed invia ai CA i valori da inserire nelle tabella di inoltro.
+\subsection{Componenti di un router}
+Le quattro componenti principali di un router sono:
+\begin{itemize}
+    \item Porte di input
+    \item Porte di output
+    \item Routing processor
+    \item Switching fabric
+\end{itemize}
+\subsection{Porte di input}
+Sono formate da:
+\begin{description}
+    \item[Line termination] La connessione fisica che riceve i bit.
+    \item[Link layer protocol] Il livello di collegamento, si occupa di interpretare i bit in ingresso dallo strato inferiore.
+    \item[Lookup, Forwarding, Queueing] Preleva dati dall'header e li confronta con una copia della tabella di inoltro per determinare la porta di output. Se il router non riesce ad inoltrare i datagrammi nella switching fabric abbastanza velocemente, essi entrano in una coda.
+\end{description}
+\subsection{Porte di output}
+Formate da:
+\begin{description}
+    \item[Datagram buffer, queueing] Permette di mantenere una coda di datagrammi se essi arrivano ad una velocità maggiore della velocità di trasmissione sul collegamento in uscita. Permette anche di definire politiche di scheduling per dare piu' o meno priorità a determinati datagrammi.
+    \item[Link layer protocol] Vedi input.
+    \item[Line termination] Vedi input.  
+\end{description}
+\subsection{Routing processor}
+E' il \textit{cervello} del router, il suo ruolo principale e' quello di definire le tabelle di inoltro.
+\subsection{Switching fabric}
+E' il sistema che si occupa di trasferire i datagrammi dal buffer di input al buffer di output.
+I sistemi di commutazione piu' standard si basano su:
+\begin{description}
+    \item[Memory] I dati passano dalla memoria del sistema di commutazione.
+    \item[Bus] Si ha un unico bus condiviso da tutte le porte.
+    \item[Crossbar] Anche detta matrice di commutazione, e' un collegamento \textit{a griglia}, permette il trasferimento simultaneo su piu' collegamenti.
+\end{description}
+\subsection{Approfondimenti}
+I buffer sono fonte di ritardi dovuti agli accodamenti o a overflow degli stessi.
+\section{IP Forwarding}
+E' il sistema che vive sui router che si occupa di inoltrare i pacchetti dal collegamento di ingresso al giusto collegamento di uscita.
+Puo' essere diretto o indiretto.
+\paragraph{Inoltro diretto}
+Avviene quando il pacchetto IP non esce dalla propria rete o subnet; L'indirizzo di destinazione a livello di link e' il suo MAC address.
+\paragraph{Inoltro indiretto}
+E' quando il pacchetto deve uscire dalla propria rete; l'indirizzo di destinazione a livello di link e' quello del router.
+\subsection{Fasi dell'inoltro}
+\paragraph{Diretto}
+L'host sorgente confronta l'IP destinazione con il proprio IP e la subnet; se riconosce la destinazione come parte della sua rete procede con l'inoltro diretto. 
+Cerca quindi l'indirizzo di livello collegamento (MAC address) del destinatario all'intero della propria ARP table (una tabella che contiene le associazioni $IP \leftrightarrow MAC$) e invia un frame con:
+\begin{itemize}
+    \item src-MAC = \textit{MAC Sorgente}
+    \item dst-MAC = \textit{MAC Destinazione}
+    \item Pacchetto IP
+    \begin{itemize}
+        \item src-IP = \textit{IP Sorgente}
+        \item dst-IP = \textit{IP Destinazione}
+        \item payload
+    \end{itemize}
+\end{itemize}
+\paragraph{Indiretto}
+In caso di inoltro indiretto il frame conterrà il MAC Address del router, il quale dovrà poi reinoltrare il pacchetto verso il giusto host.
+
+\section{Routing}
+Lo scopo del livello di rete e' quello di consegnare un datagramma dalla sorgente alla{\tiny /e} destinazione{\tiny /i}.
+\begin{description}
+    \item[Routing unicast] significa che un datagramma e' destinato a una sola destinazione.
+    \item[Routing multicasti] significa che un datagramma e' destinato ad un gruppo di host.   
+\end{description}
+Una rete puo' essere rappresentata come un grafo pesato che identifica i Router con i nodi e i collegamenti tra di loro con gli archi (il costo e' determinato da vari fattori come: distanza tra i nodi; numero di hop; banda disponibile\dots).
+\paragraph{Il routing algorithm} calcola il cammino di costo minimo tra due nodi.
+
+\subsection{Routing statico e dinamico}
+\begin{description}
+    \item[Statico] Le entry delle tabelle di inoltro vengono configurate manualmente dall'operatore. Viene usato per reti molto piccole in cui e' possibile prevedere tutti i possibili percorsi di rete.
+    \item[Dinamico] Le tabelle di inoltro vengono compilate automaticamente da protocolli specifici dipendenti dallo stato attuale della rete. Viene utilizzato per grandi reti private e per Internet.
+\end{description}
+\subsection{Algoritmi di routing globali e decentralizzati}
+\begin{description}
+    \item[Globali] Si basano sulla conoscenza della topologia dell'intera rete; Vengono quindi generate e inviate le tabelle di inoltro a tutti i router che la compongono.
+    \item[Decentralizzati] Inizialmente ogni nodo conosce solamente i costi verso i nodi vicini, poi, scambiando informazioni con essi, elabora un vettore di stima dei costi verso tutti gli altri.
+\end{description}
+\subsection{Link-State algorithm}
+E' un algoritmo globale. Ogni nodo invia e riceve i costi dei collegamenti attraverso il \bluetext{Link-State Broadcast}. Ogni nodo dispone quindi dell'intera topologia di rete e puo' calcolare i percorsi migliori utilizzando l'algoritmo di Dijkstra.
+\paragraph{Il Link-State Database} e' una tabella $N\times N$ (Con $N$ pari al numero di nodi) in cui 
+\[LSD(x, y) =
+\begin{cases}
+    c(x, y) & \mbox{se } x, y \mbox{ sono adiacenti}\\
+    \infty & \mbox{altrimenti}
+\end{cases}\]
+Viene creata utilizzando le informazioni che arrivano da tutti i nodi sotto forma di \bluetext{Link-State Packet}s, i quali contengono i costi dei percorsi di ogni nodo verso i suoi vicini.
+\subsection{Distance Vector algorithm}
+E' un algoritmo decentralizzato e asincrono: ogni nodo provvede al ricalcolo dei Distance Vectors se:
+\begin{itemize}
+    \item Cambia il costo di uno dei collegamenti verso i nodi vicini.
+    \item Si riceve un DV aggiornato da un nodo vicino.
+\end{itemize}
+Se il DV cambia, il nodo lo notifica ai vicini.
+\begin{algorithm*}
+    \tcc{The node executing the code is identified as \textit{x}}
+    \For{y = 1 $\rightarrow$ N} {
+        \eIf{y.isAdj()}{
+            D[y] = c(x, y)
+        }{
+            D[y] = $\infty$
+        }
+    }
+    D[x] = 0\\
+    \While{true}{
+        \tcc{Wait for a modified distance vector from another node}
+        \lWhile{!newVecFromAdj(D\textsubscript{v})}{nothing}
+        \ForAll{y = 1 to N}{
+            \tcc{Compare the old route to y and the route passing through v}
+            D[y] = min(c(x, v) + D\textsubscript{v}, D[y])
+        }
+    }
+    \caption{DistanceVectorRouting()}
+\end{algorithm*}
+% TODO: Count to infinity
+\section{Hierarchal Routing}
+Seppur semplice concettualmente, una rete costituita da un insieme di router omogenei interconnessi, questo approccio non e' applicabile alle dimensioni di Internet.
+In realtà i router sono divisi in gruppi detti \bluetext{sistemi autonomi (AS)} gestiti da un unico amministratore.
+\subsection{AS Types}
+\begin{description}
+    \item[AS Stub] Collegato ad un solo altro AS.
+    \item[AS Multihomed] Collegato a piu' AS ma trasporta solo traffico da o verso se stesso.
+    \item[AS di transito] Implied by name.   
+\end{description}
+\paragraph{Interior Gateway Protocol (IGP)} Sono i protocolli di routing utilizzati all'interno di un AS.
+\paragraph{Exterior Gateway Protocol (EGP)} Sono i protocolli di routing fra AS.
+\subsection{INTRA-AS e INTER-AS Routing}
+Per trasferire pacchetti all'interno di un AS si usano protocolli detti \bluetext{INTRA-AS}: I piu' comuni sono
+\begin{itemize}
+    \item Routing Information Protocol (RIP) - Di tipo DV
+    \item Open Shortest Path First (OSPF) - Di tipo LS
+\end{itemize}
+Nel momento in cui ci si deve \textit{spostare} da un AS a un altro si utilizzano i protocolli \bluetext{INTER-AS}: Il piu' usato e' il \bluetext{Border Gateway Protocol (BGP)}
+% TODO: RIP, OSPF, e BGP
