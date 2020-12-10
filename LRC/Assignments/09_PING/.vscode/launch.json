@@ -6,24 +6,26 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch) - Current File",
+            "name": "CodeLens (Launch) - PingServer",
             "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-PingClient<09_PING_49d8a371>",
-            "request": "launch",
-            "mainClass": "PingClient",
-            "args": "127.0.0.1 2020",
+            "mainClass": "Server.Bloking.PingServer",
+            "args": "2020",
             "projectName": "09_PING_49d8a371"
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-PingServer<09_PING_49d8a371>",
+            "name": "CodeLens (Launch) - PingServer",
             "request": "launch",
-            "mainClass": "PingServer",
+            "mainClass": "Server.NonBlocking.PingServer",
             "args": "2020",
+            "projectName": "09_PING_49d8a371"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - PingClient",
+            "request": "launch",
+            "mainClass": "Client.PingClient",
+            "args": "127.0.0.1 2020",
             "projectName": "09_PING_49d8a371"
         }
     ]

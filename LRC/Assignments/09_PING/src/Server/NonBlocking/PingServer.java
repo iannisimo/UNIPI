@@ -1,9 +1,14 @@
+package Server.NonBlocking;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
+
+import Server.NetErr;
+import Server.ReqResp;
 
 public class PingServer {
     public static void main(String[] args) {
@@ -45,7 +50,7 @@ public class PingServer {
         }
         while(true) {
             try {
-                selector.select();
+                selector.selectNow();
             } catch(IOException e) {
                 e.printStackTrace();
                 break;

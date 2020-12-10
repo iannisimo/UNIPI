@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
@@ -20,14 +19,21 @@ public class EchoClient {
             port = Const.DEFAULT_PORT;
         }
 
-        try (SocketChannel client = SocketChannel.open(new InetSocketAddress(address, port)); Scanner stdin = new Scanner(System.in)) {
+        try (
+            SocketChannel client = SocketChannel.open(new InetSocketAddress(address, port));
+            Scanner stdin = new Scanner(System.in)
+            ) {
             while(true) {
                 String userInput = stdin.nextLine();
+                if(userInput.equals("")) continue;
                 ByteBuffer writeBuf = ByteBuffer.allocate(Const.BUF_SIZE);
                 ByteBuffer readBuf;
                 writeBuf.put(userInput.getBytes());
                 writeBuf.flip();
                 client.write(writeBuf);
+                /*
+                 * The next few lines are needed to read messages that cannot be stored in the buffer at once.
+                 */
                 StringBuilder sb = new StringBuilder();
                 do {
                     readBuf = ByteBuffer.allocate(Const.BUF_SIZE);
@@ -39,8 +45,5 @@ public class EchoClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scanner stdin = new Scanner(System.in);
-
     }
 }

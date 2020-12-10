@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CongressClient<11_Gestione-Congresso_2efda4e>",
+            "request": "launch",
+            "mainClass": "Congress.Client.CongressClient",
+            "args": "127.0.0.1 1099",
+            "projectName": "11_Gestione-Congresso_2efda4e"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CongressServer<11_Gestione-Congresso_2efda4e>",
+            "request": "launch",
+            "mainClass": "Congress.Server.CongressServer",
+            "args": "1099",
+            "projectName": "11_Gestione-Congresso_2efda4e"
+        }
+    ]
+}
