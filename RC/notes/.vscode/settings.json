@@ -23,8 +23,10 @@
         "dall'header",
         "datagramma",
         "datagrammi",
+        "decapsulato",
         "delegabile",
         "dell'ACK",
+        "dell'AS",
         "dell'MTU",
         "dell'RTT",
         "dell'authoritative",
@@ -37,6 +39,8 @@
         "imap",
         "kadpcm",
         "l'ACK",
+        "l'ADV",
+        "l'AS",
         "l'acknowledgment",
         "l'host",
         "msword",
@@ -48,6 +52,7 @@
         "riassemblaggio",
         "sottoblocchi",
         "sottorete",
+        "sottoreti",
         "textsubscript"
     ]
 }

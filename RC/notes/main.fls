@@ -208,6 +208,7 @@ INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c04.tex
 INPUT /home/simone/projects/UNIPI/RC/notes/./img/dns-tree.png
 INPUT ./img/dns-tree.png
 INPUT ./img/dns-tree.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 OUTPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c04.1.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c04.1.tex
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c04.1.tex

@@ -1,6 +1,4 @@
-% TODO: refactor (sub)sections
 \chapter{Lo Strato Applicativo: Telnet}
-\section{Telnet}
 TErminaL NETwork e' un protocollo che permette l'uso di shell su macchine remote.
 Permette al client di effettuare una sessione di login al server, dopo la quale esso puo' accedere a comandi e programmi disponibili sulla macchina remota.
 
@@ -12,13 +10,13 @@ Il protocollo TELNET [RFC854] detta che:
     \item Vengono \textit{"collegate"} le STDIN e STDOUT dei tue terminali.
 \end{itemize}
 Il server Telnet utilizza uno Pseudo Terminal Driver per eseguire i comandi.
-\subsection{Network Virtual Terminal: NVT}
+\section{Network Virtual Terminal: NVT}
 Telnet deve poter operare con il numero massimo di sistemi quindi deve poter lavorare con client su sistemi operativi diversi.
 
 Per fare questo il client e il server passano attraverso un terminale virtuale in modo da avere una sola codifica ed entrambi effettuano una conversione dalla propria a quella del NVT.
 Sulla rete vengono quindi trasferiti i comandi con l'\textbf{NVT Character Set}.
 \newpage
-\subsection{NVT Character Set}
+\section{NVT Character Set}
 I dati vengono trasferiti tramite 7-bit US-ASCII.
 \begin{itemize}
     \item Ogni carattere e' inviato come un byte con il primo bit settato a 0.

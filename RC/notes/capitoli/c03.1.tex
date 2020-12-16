@@ -1,9 +1,7 @@
-% TODO: refactor (sub)sections
 \chapter{Lo Strato Applicativo: E-Mail}
-\section{E-Mail}
 Permette il trasferimento di messaggi tra un mittente e un destinatario.
 Dato che il destinatario potrebbe non avere il client mail aperto in quel momento, il servizio di posta elettronica deve basarsi su componenti intermediari per mantenere il messaggio finché il destinatario non e' in grado di riceverlo.
-\subsection{Principio di funzionamento}
+\section{Principio di funzionamento}
 \begin{itemize}
     \item L'utente invia un messaggio.
     \item Il sistema ne mantiene una copia nell'area di accodamento \textit{(spool)}, insieme a id mittente, id destinatario, id destinazione e tempo di deposito.
@@ -12,7 +10,7 @@ Dato che il destinatario potrebbe non avere il client mail aperto in quel moment
     \item Altrimenti il processo viene ripetuto periodicamente scandendo i messaggi nella spool.
     \item Oltre un certo intervallo di tempo, se il messaggio non e' ancora stato consegnato, viene inviata una notifica al mittente.
 \end{itemize}
-\subsection{Indirizzi email}
+\section{Indirizzi email}
 Formato da
 \begin{center}
     local-part @ domain-name
@@ -20,7 +18,7 @@ Formato da
 \paragraph{local-part} Specifica la cassetta a cui consegnare il messaggio.
 \paragraph{domain-name} Specifica il mail server.
 
-\subsection{Simple Mail Transfer Protocol (SMTP)}
+\section{Simple Mail Transfer Protocol (SMTP)}
 L'obbiettivo di SMTP e' il trasferimento affidabile ed efficiente di mail.
 Il protocollo e' indipendente dal sistema di trasmissione usato.
 Una caratteristica e' la capacita' di trasportare mail attraverso piu' reti; Un messaggio puo' quindi passare da server intermedi prima di arrivare al destinatario.
@@ -110,8 +108,9 @@ type/subtype;
 
 Esiste anche il tipo multipart: esso permette di inviare messaggi con piu' tipi separati da un {\color{blue}boundary=}
 
-\subsection{Sistemi pull per le mail POP3, IMAP e HTML}
-\paragraph{Post Office Protocol} Lo user-agent apre una connessione TCP (porta 110) verso il server di posta. Comandi permessi:
+\section{Sistemi pull per le mail POP3, IMAP e HTML}
+\subsection{Post Office Protocol}
+Lo user-agent apre una connessione TCP (porta 110) verso il server di posta. Comandi permessi:
 \begin{itemize}
     \item Autorizzazione
     \begin{itemize}
@@ -130,5 +129,7 @@ Esiste anche il tipo multipart: esso permette di inviare messaggi con piu' tipi 
         \item Dopo \texttt{quit} il server cancella i messaggi marcati per la rimozione.
     \end{itemize}
 \end{itemize}
-\paragraph{Internet Mail Access Protocol} E' piu' complesso di POP3 ma permette la manipolazione dei messaggi memorizzati e da la possibilita' di estrarre solo alcuni componenti dei messaggi.
-\paragraph{HTTP} Hotmail, Gmail, \dots
+\subsection{Internet Mail Access Protocol}
+E' piu' complesso di POP3 ma permette la manipolazione dei messaggi memorizzati e da la possibilita' di estrarre solo alcuni componenti dei messaggi.
+\subsection{HTTP}
+Hotmail, Gmail, \dots

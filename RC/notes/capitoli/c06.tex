@@ -216,7 +216,7 @@ L'algoritmo utilizzato per regolare la frequenza di invio in funzione della cong
     \item Fast recovery
 \end{itemize}
 \subsection{Finestra di congestione (Congestion Window)}
-Misurata in Max Segment Size (MSS); E' il numero di segmenti che si possono inviare insieme, senza bisogno di aspettarne l'ACK. %TODO: Ricontrolla sta roba cretino, tanto non hai capito sicuramente un cazzo
+Misurata in Max Segment Size (MSS); E' il numero di segmenti che si possono inviare insieme, senza bisogno di aspettarne l'ACK. %FIXED: Ricontrolla sta roba cretino, tanto non hai capito sicuramente un cazzo;
 \subsection{Slow start}
 All'inizio la congestion window (CW) e' posta a 1MSS.
 Per ogni ACK, CW viene aumentata di 1MSS. Cio' significa che essa raddoppia per ogni RTT.

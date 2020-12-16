@@ -24,5 +24,59 @@ Grazie ad algoritmi di correzione, il ricevente puo' correggere gli errori.
 \section{Indirizzi a livello collegamento}
 E' associato alla scheda di rete e non al nodo, tipicamente e' permanente. Per le LAN Ethernet (IEEE 802) e' lungo 6Byte. L'univocità di tali indirizzi e' garantita perché in parte gestita da IEEE (I primi 24 bit sono assegnati da IEEE mentre i restanti vengono gestiti dalle aziende).
 \subsection{Indirizzamento}
-Quando il nodo mittente spedisce un frame, vi inserisce l'indirizzo MAC della scheda di destinazione. Tutti i nodi collegati su quel collegamento ricevono il frame e lo scartano se non e' indirizzato a loro. Se si vuole spedire un frame a tutte le schede di rete su un collegamento , immette nel campo destinazione l'indirizzo \bluetext{broadcast} ovvero FF-FF-FF-FF-FF-FF
-\section{ARP}
+Quando il nodo mittente spedisce un frame, vi inserisce l'indirizzo MAC della scheda di destinazione. Tutti i nodi collegati su quel collegamento ricevono il frame e lo scartano se non e' indirizzato a loro. Se si vuole spedire un frame a tutte le schede di rete su un collegamento , immette nel campo destinazione l'indirizzo \bluetext{broadcast} ovvero FF-FF-FF-FF-FF-FF.
+\section{Address Resolution Protocol}
+Nel momento in cui viene inserito un nodo in una nuova rete esso conosce:
+\begin{itemize}
+    \item Il proprio indirizzo fisico (MAC)
+    \item Il proprio indirizzo IP
+    \item Il proprio indirizzo alfanumerico
+\end{itemize}
+Per comunicare con i nodi vicini pero', come visto sopra, ha bisogno degli indirizzi fisici di essi.
+Per trovarli e memorizzarli utilizza il \bluetext{Protocollo di Risoluzione degli Indirizzi}. (Protocollo a livello di rete)
+\paragraph{ARP Table}
+Nella tabella ARP vengono memorizzate le associazioni IP $\rightarrow$ MAC, insieme ad un TTL (quanto tempo deve valere l'associazione, solitamente 20min)
+\paragraph{ARP Packet}
+Tramite richieste ARP (fatte in broadcast) un nodo puo' richiedere l'indirizzo fisico di un altro nodo nella rete. Il pacchetto contiene l'indirizzo del nodo che fa la richiesta cosicché il destinatario sa a chi rispondere.
+Il pacchetto ARP viene incapsulato in un frame e spedito sulla rete; ogni nodo riceve ed elabora la richiesta; il nodo che riconosce il proprio indirizzo IP restituisce una risposta contenente il proprio IP e MAC, esso viene inviato in modalità unicast al nodo richiedente.
+\subsection{Esempio forwarding diretto}
+A vuole inviare un messaggio a B, entrambi sono sulla stessa rete.
+\begin{itemize}
+    \item A richiede l'indirizzo MAC di B tramite un messaggio ARP in broadcast.
+    \item B riceve il pacchetto ARP e risponde ad A (in unicast) comunicandogli il proprio indirizzo MAC.
+    \item A riceve il MAC Address di B, aggiorna la ARP Table, e invia a B il frame.
+\end{itemize}
+\subsection{Esempio forwarding indiretto}
+A vuole inviare un messaggio a B, i due host si trovano su reti differenti ma sono collegati da un router R.
+\begin{itemize}
+    \item A, grazie a DHCP o configurazione manuale, conosce l'indirizzo IP di R.
+    \item Tramite ARP ricava anche l'indirizzo MAC di R.
+    \item Invia il frame destinato a B, con indirizzo IP di destinazione di B e indirizzo MAC di destinazione di R.
+    \item R riceve il frame, che viene decapsulato passando al livello IP.
+    \item R vede che il datagramma e' destinato a B quindi lo incapsula in un frame con indirizzo MAC destinazione di B (eventualmente ricavato con ARP)
+\end{itemize}
+\section{Ethernet}
+E' il sistema di collegamento cablato piu' diffuso.
+\paragraph{Nella configurazione a BUS} (il primo tipo di connessione ethernet) si avevano piu' host collegati ad un unico \textit{cavo di rete}. Questo sistema non era particolarmente efficiente per colpa della facilita con cui si riscontravano collisioni tra pacchetti.
+\paragraph{Nella configurazione a stella} invece, tutti ghi host si collegano ad un nodo centrale detto hub (o switch).
+\subsection{Struttura dei pacchetti Ethernet}
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        Preamble & Dst.addr & Src.addr & Type & Data & CRC\\
+        \hline
+    \end{tabular}
+\end{center}
+\begin{description}
+    \item[Preamble] I pacchetti Ethernet iniziano tutti con 7Byte (10101010) e 1Byte (10101011) che segnano l'inizio di un frame e servono a sincronizzare i clock dei riceventi con il trasmittente.
+    \item[Dst.addr] 6Byte, La scheda di rete che riconosce il proprio MAC Address in questo campo (o vede l'indirizzo di broadcast), ne trasferisce il contenuto al livello di rete.
+    \item[Src.addr] 6Byte, Indirizzo della scheda di rete che trasmette il frame.
+    \item[Type] 2Byte, Permette di supportare e riconoscere i vari protocolli di rete (ARP, IPv\textit{n} \dots)
+    \item[Data] I dati da trasmettere. Se il campo dati e' troppo piccolo, viene riempito (stuffed).
+    \item[CRC] Cyclic Redundancy Check, contiene i bit di controllo utilizzati dal ricevente per rilevare eventuali errori.
+\end{description}
+\subsection{Dispositivi di interconnessione}
+\paragraph{Repeater} Opera a livello fisico, rigenera il segnale che riceve sull'ingresso e lo inoltra sull'uscita.
+\paragraph{Hub} Esattamente come un repeater ma ha piu' porte: tutto cio' che riceve su una lo inoltra sulle altre.
+\paragraph{Switch} Operano anche a livello Link leggendo il MAC nel frame; tramite una tabella di commutazione inoltra il pacchetto verso la porta dove si trova il destinatario. La tabella di commutazione si genera automaticamente ogni volta che si riceve un frame da una porta.
+\paragraph{Router} Opera fino a livello network per verificare l'indirizzo IP di destinazione e inoltrare il pacchetto verso l'interfaccia giusta. Opera solo sui frame che hanno come Des.addr l'indirizzo del Router.

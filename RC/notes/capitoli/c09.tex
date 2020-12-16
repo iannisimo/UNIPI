@@ -123,6 +123,8 @@ Se il DV cambia, il nodo lo notifica ai vicini.
     \caption{DistanceVectorRouting()}
 \end{algorithm*}
 % TODO: Count to infinity
+\subsection{Count to infinity}
+\textit{\small V. slide}
 \section{Hierarchal Routing}
 Seppur semplice concettualmente, una rete costituita da un insieme di router omogenei interconnessi, questo approccio non e' applicabile alle dimensioni di Internet.
 In realtà i router sono divisi in gruppi detti \bluetext{sistemi autonomi (AS)} gestiti da un unico amministratore.
@@ -142,3 +144,47 @@ Per trasferire pacchetti all'interno di un AS si usano protocolli detti \bluetex
 \end{itemize}
 Nel momento in cui ci si deve \textit{spostare} da un AS a un altro si utilizzano i protocolli \bluetext{INTER-AS}: Il piu' usato e' il \bluetext{Border Gateway Protocol (BGP)}
 % TODO: RIP, OSPF, e BGP
+\subsection{Routing Information Protocol (RIP)}
+E' un protocollo di routing INTRA-AS che implementa Distance Vector con Poisoned Reverse (inf = 16).
+Il costo dei collegamenti e' dato dal numero di sottoreti attraversate.
+Cio' porta a una limitazione al numero massimo di sottoreti pari a 15.
+La tabella di inoltro conterrà quindi:
+\begin{itemize}
+    \item Rete di destinazione
+    \item Next hop (prossimo router)
+    \item Costo (in hop)
+\end{itemize}
+I messaggi contenenti le tabelle di routing vengono scambiati, tramite la porta UDP 520, ogni 30sec o se la tabella cambia.
+Quando un router (R) riceve una tabella di inoltro da un suo vicino (V), procede a modificare la sua se:
+\begin{itemize}
+    \item D\textsubscript{R}[y] non esiste.
+    \item D\textsubscript{V}[y]+1 $<$ D\textsubscript{R\redtext{old}}[y]
+    \item D\textsubscript{V}[y] e' cambiato e V e' nextHop di y
+\end{itemize}
+Inoltre si aggiunge 1 a ogni valore prelevato da D\textsubscript{V} dato che si deve effettuare un hop in piu' R $\rightarrow$ V.
+\subsection{Open Shortest Path First (OSPF)}
+Protocollo di routing INTRA-AS che implementa LS su IP.
+In OSPF il costo dei collegamenti e' tarato su variabili determinate dall'amministratore della rete (latenza, banda, n.hop \dots)
+Inoltre l'AS puo' essere partizionato in aree per ridurre il numero di pacchetti LS che attraversano la rete.
+\subsection{Border Gateway Protocol (BGP)}
+BGP4 e' l'unico protocollo INTER-AS usato in Internet.
+I router si scambiano informazioni su connessioni TCP.
+Si considerano le sessioni BGP \bluetext{esterne} (Tra AS diversi) e \bluetext{interne} (All'interno dell'AS).
+Un gateway riceve informazioni da gateway di altri AS su eBGP e ri-distribuisce queste informazioni all'interno del suo AS tramite iBGP.
+I pacchetti di Advertisement (ADV) BGP contengono:
+\begin{quote}
+    prefisso + attributi
+\end{quote}
+Gli attributi principali sono:
+
+\begin{description}
+    \item[AS\_PATH] La sequenza di AS attraversati per raggiungere il prefisso.
+    \item[NEXT\_HOP] IP del primo router lungo il percorso annunciato (al di fuori dell'AS che riceve l'ADV)
+\end{description}
+
+Dato che si possono ricevere piu' rotte per lo stesso prefisso bisogna avere una sequenza di regole per selezionare quella megliore.
+\begin{enumerate}
+    \item Attributo LOCAL-PREF, scelta dall'amministratore o impostato dei router dell'AS.
+    \item Shortest AS\_Path.
+    \item Closest NEXT\_HOP interface ("hot potato routing").
+\end{enumerate}
