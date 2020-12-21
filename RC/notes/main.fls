@@ -135,6 +135,8 @@ INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c09.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c09.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.aux
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.aux
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.aux
 OUTPUT /home/simone/projects/UNIPI/RC/notes/main.aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -243,6 +245,15 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti8.tfm
 OUTPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.tex
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.tex
+OUTPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.aux
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.tex
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.tex
+INPUT /home/simone/projects/UNIPI/RC/notes/./img/ipsec-tr.png
+INPUT ./img/ipsec-tr.png
+INPUT ./img/ipsec-tr.png
+INPUT /home/simone/projects/UNIPI/RC/notes/./img/ipsec-tu.png
+INPUT ./img/ipsec-tu.png
+INPUT ./img/ipsec-tu.png
 INPUT /home/simone/projects/UNIPI/RC/notes/main.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c01.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c01.aux
@@ -268,6 +279,8 @@ INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c09.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c09.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c10.aux
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.aux
+INPUT /home/simone/projects/UNIPI/RC/notes/capitoli/c11.aux
 INPUT /home/simone/projects/UNIPI/RC/notes/main.out
 INPUT /home/simone/projects/UNIPI/RC/notes/main.out
 INPUT /home/simone/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk

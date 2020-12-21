@@ -1,0 +1,15 @@
+Scritti 32-32:
+    Esercizio frammentazione
+    Differenza tra query ricorsiva e iterativa DNS
+        ?
+        Come fa un host a conoscere l'indirizzo del local DNS
+    Come funziona il DHCP
+        Livello DHCP
+        Trasporto DHCP
+    Come funziona il controllo di congestione
+        Incremento finestra in <congestion avoidance>
+        Comportamento equo TCP
+    IPSec modalita' Trasporto e Tunnel
+        Come protegge i dati
+Voto finale: 32
+
