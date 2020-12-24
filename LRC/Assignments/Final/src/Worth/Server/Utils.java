@@ -19,6 +19,14 @@ import Worth.Server.Users.RegisterService;
 
 public class Utils {
 
+    private Properties prop;
+    public void setProp(String key, String val) {
+        prop.setProperty(key, val);
+    }
+    public String getProp(String key) {
+        return prop.getProperty(key);
+    }
+
     public static Boolean setProperty(String key, String val) {
         try {
             Properties p = new Properties();
@@ -66,11 +74,10 @@ public class Utils {
     }
 
     public static boolean registerRegisterService() {
-        int rmiPort = Integer.parseInt(getProperty(Const.RMI_PORT_KEY));
         try {
             RegisterService service = new RegisterService();
             RegisterServiceInterface stub = (RegisterServiceInterface) UnicastRemoteObject.exportObject(service, 0);
-            Registry r = LocateRegistry.createRegistry(rmiPort);
+            Registry r = LocateRegistry.createRegistry(Const.RMI_PORT);
             r.rebind(Const.RMI_REG, stub);
         } catch (RemoteException e) {
             return false;

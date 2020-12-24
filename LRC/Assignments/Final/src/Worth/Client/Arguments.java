@@ -1,4 +1,4 @@
-package Worth.Server;
+package Worth.Client;
 
 import com.github.jankroken.commandline.annotations.LongSwitch;
 import com.github.jankroken.commandline.annotations.Option;
@@ -33,5 +33,13 @@ public class Arguments {
     public void changeTcpPort(String tp) {
         Const.TCP_PORT = Integer.parseInt(tp);
         // Utils.setProperty(Const.TCP_PORT_KEY, tp);
+    }
+
+    @Option
+    @LongSwitch("debug")
+    @ShortSwitch("d")
+    @Toggle(true)
+    public void debugMode(boolean debug) {
+        Const.DEBUG = debug;
     }
 }

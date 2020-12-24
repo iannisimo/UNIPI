@@ -1,6 +1,10 @@
 package Worth.Client.GUI;
 
 import javax.swing.*;
+
+import Worth.Client.Const;
+import Worth.Client.Utils;
+
 import java.awt.*;
 
 public class GUI {
@@ -11,7 +15,7 @@ public class GUI {
     private JFrame frame;
 
     public GUI() {
-        frame = new JFrame("WORTH Client");
+        frame = new JFrame("WORTH Client" + (Const.DEBUG ? " (Debug)" : ""));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(DEF_WIDTH, DEF_HEIGHT);
     }
@@ -22,7 +26,11 @@ public class GUI {
         JPanel center_panel = new JPanel(new GridLayout(4, 2, 20, 10));
         parent_panel.add(center_panel, new GridBagConstraints());
         JLabel lIP = new JLabel("Server IP:");
-        JTextField tfIP = new JTextField("127.0.0.1", 10);
+        JTextField tfIP = new JTextField("", 10);
+        if(Const.DEBUG) {
+            tfIP.setText("127.0.0.1");
+            tfIP.setEnabled(false);
+        }
         JLabel lUser = new JLabel("Username:");
         JTextField tfUser = new JTextField();
         JLabel lPass = new JLabel("Password:");
@@ -40,7 +48,8 @@ public class GUI {
         center_panel.add(bLog);
 
         bReg.addActionListener(e -> {
-            
+            Const.IP = tfIP.getText();
+            System.out.println(Utils.register(tfUser.getText(), tfPass.getPassword()));
         });
         bLog.addActionListener(e -> {
 

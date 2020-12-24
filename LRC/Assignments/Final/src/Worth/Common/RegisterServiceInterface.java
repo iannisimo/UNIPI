@@ -8,9 +8,9 @@ public interface RegisterServiceInterface extends Remote {
     /**
      * Register to the WORTH service using RMI
      * @param username
-     * @param hash
-     * @return {0, 1, -1} -> {success, dup. username, error}
+     * @param password
+     * @return {true, false} -> {success, dup.user}
      * @throws RemoteException
      */
-    public short register(String username, String hash) throws RemoteException;
+    public boolean register(String username, String password) throws RemoteException;
 }
