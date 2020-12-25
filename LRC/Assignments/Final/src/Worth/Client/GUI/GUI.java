@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import Worth.Client.Const;
 import Worth.Client.Utils;
+import Worth.Client.TCP.Commands;
+import Worth.Client.TCP.Connection;
 
 import java.awt.*;
 
@@ -52,7 +54,8 @@ public class GUI {
             System.out.println(Utils.register(tfUser.getText(), tfPass.getPassword()));
         });
         bLog.addActionListener(e -> {
-
+            if(!Connection.isConnected()) Connection.connect();
+            Commands.login(tfUser.getText(), new String(tfPass.getPassword()));
         });
         
         frame.setVisible(true);

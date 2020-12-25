@@ -22,6 +22,7 @@
             "type": "java",
             "name": "Launch mainServer",
             "request": "launch",
+            "args": "-d",
             "mainClass": "Worth.Server.mainServer",
             "projectName": "Final_c56fb91f"
         }

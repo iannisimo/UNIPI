@@ -12,9 +12,9 @@ import Worth.Server.Const;
 
 public class Users {
 
-    private Map<String, User> users;
+    private static Map<String, User> users;
 
-    public Users() {
+    public static void init() {
         users = new HashMap<>();
         File usersFile = new File(Const.USERS_FILE);
         if(usersFile.isFile()) {
@@ -40,7 +40,7 @@ public class Users {
      * @return {true, false} -> {success, dup. user}
      * @throws NullPointerException
      */
-    public Boolean addUser(String username, String password) throws NullPointerException {
+    public static Boolean addUser(String username, String password) throws NullPointerException {
         if (username == null)
             throw new NullPointerException();
         if (password == null)
@@ -53,7 +53,7 @@ public class Users {
         return true;
     }
 
-    private void appendNew(User u) {
+    private static void appendNew(User u) {
         String newline = String.format("%s:%s\n", u.getUsername(), u.getPassword());
         File usersFile = new File(Const.USERS_FILE);
         try {
@@ -63,6 +63,14 @@ public class Users {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean matchPassword(String username, String password) {
+        return users.get(username).passwordMatch(password);
+    }
+
+    public static boolean isRegistered(String username) {
+        return users.containsKey(username);
     }
 }
 

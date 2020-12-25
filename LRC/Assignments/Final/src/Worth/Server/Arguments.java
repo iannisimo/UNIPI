@@ -34,4 +34,12 @@ public class Arguments {
         Const.TCP_PORT = Integer.parseInt(tp);
         // Utils.setProperty(Const.TCP_PORT_KEY, tp);
     }
+
+    @Option
+    @LongSwitch("debug")
+    @ShortSwitch("d")
+    @Toggle(true)
+    public void setDebug(boolean debug) {
+        Const.DEBUG = debug;
+    }
 }
