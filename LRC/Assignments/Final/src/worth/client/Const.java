@@ -6,6 +6,6 @@ public class Const {
     public static boolean DEBUG = false;
     public static String IP = "127.0.0.1";
     
-    public static final String RMI_REG = "REG_SERVICE";
     public static final int BYTEBUF_SIZE = 8192;
+    public static final int CHAT_BUF_SIZE = 1024;
 }

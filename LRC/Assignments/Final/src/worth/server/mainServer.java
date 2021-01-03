@@ -13,6 +13,7 @@ public class mainServer {
         try {
             Users.restore();
             Projects.restore();
+            Users.initCallbackService();
         } catch (IOException e) {
             if(Const.DEBUG) e.printStackTrace();
             System.err.println("Unrecoverable error while restoring the status of the program, exiting...");
@@ -20,10 +21,5 @@ public class mainServer {
         }
         Utils.registerRegisterService();
         new Thread(new Connection()).start();
-
-        // Projects.addProject("project2", "admin");
-        // Projects.addCard("project", "card", "description");
-        // Projects.addCard("project", "card1", "description");
-        // Projects.moveCard("project", "card", Status.TODO, Status.INPROGRESS);
     }
 }

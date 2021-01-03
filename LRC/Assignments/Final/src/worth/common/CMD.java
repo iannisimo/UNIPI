@@ -30,6 +30,8 @@ public class CMD {
      * 0x19 - FTPsCs:   Move (C)ard from (P)roject (F)rom status (T)o status;
      * 0x1A - PsCs:     Get (P)roject's (C)ard history
      * 0x1B - Ps:       Delete (P)roject
+     * 0x20 - Ps:       Join (P)roject's chat IP
+     * 0x21 - Ps:       Exit (P)roject's chat
      * 
      * Responses:
      * 0xFFMs(Ms(Ms()): OK      (M)essage
@@ -50,6 +52,8 @@ public class CMD {
     public static final byte MOVE_CARD = (byte) 0x19;
     public static final byte GET_CARD_HISTORY = (byte) 0x1A;
     public static final byte DELETE_PROJECT = (byte) 0x1B;
+    public static final byte JOIN_CHAT = (byte) 0x20;
+    public static final byte EXIT_CHAT = (byte) 0x21;
 
     public static final byte OK = (byte) 0xFF;
     public static final byte ERROR = (byte) 0xFE;

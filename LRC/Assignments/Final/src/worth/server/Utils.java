@@ -52,7 +52,7 @@ public class Utils {
             RegisterService service = new RegisterService();
             RegisterServiceInterface stub = (RegisterServiceInterface) UnicastRemoteObject.exportObject(service, 0);
             Registry r = LocateRegistry.createRegistry(Const.RMI_PORT);
-            r.rebind(Const.RMI_REG, stub);
+            r.rebind(RegisterServiceInterface.RMI_REG, stub);
         } catch (RemoteException e) {
             return false;
         }

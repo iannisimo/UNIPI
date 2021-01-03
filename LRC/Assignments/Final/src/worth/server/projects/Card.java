@@ -2,12 +2,13 @@ package worth.server.projects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import worth.common.Status;
 
 public class Card {
-    protected String description;
-    protected List<Status> history;
+    private String description;
+    private List<Status> history;
     
     public Card(String description) {
         this.description = description;
@@ -16,13 +17,20 @@ public class Card {
     }
 
     public boolean move(Status from, Status to) {
-        if(!getStatus().equals(from)) return false;
         if(!acceptedMoves(from, to)) return false;
-        return history.add(to);
+        return this.history.add(to);
     }
 
-    public Status getStatus() {
-        return history.get(history.size() - 1);
+    public String getDescription() {
+        return this.description;
+    }
+
+    public List<Status> getHistory() {
+        return this.history;
+    }
+
+    public List<String> getHistoryString() {
+        return this.history.stream().map(s -> s.toString()).collect(Collectors.toList());
     }
 
 

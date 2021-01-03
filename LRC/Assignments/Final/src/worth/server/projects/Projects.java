@@ -24,12 +24,12 @@ public class Projects {
 
     public synchronized static boolean isMember(String project, String member) {
         if(!exists(project)) return false;
-        return projects.get(project).members.contains(member);
+        return projects.get(project).isMember(member);
     }
 
     public synchronized static boolean deleteProject(String project) {
         if(!projects.containsKey(project)) return false;
-        if(projects.get(project).cards.values().stream().anyMatch(c -> !c.getStatus().equals(Status.DONE))) return false;
+        if(!projects.get(project).allDone()) return false;
         try {
             Files.walk(Path.of(Const.PROJECT_FOLDER(project))).sorted(Comparator.reverseOrder()).map(Path::toFile)
                     .forEach(File::delete);
@@ -50,32 +50,36 @@ public class Projects {
 
     public synchronized static List<Status> getCardHistory(String project, String card) {
         if(!exists(project, card)) return null;
-        return projects.get(project).cards.get(card).history;
+        return projects.get(project).get(card).getHistory();
+    }
+
+    public synchronized static List<String> getCardHistoryString(String project, String card) {
+        if(!exists(project, card)) return null;
+        return projects.get(project).get(card).getHistoryString();
     }
 
     public synchronized static List<String> getCardInfo(String project, String card) {
         if(!exists(project, card)) return null;
-        Card c = projects.get(project).cards.get(card);
         List<String> resp = new ArrayList<>();
         resp.add(card);
-        resp.add(c.description);
-        resp.add(c.getStatus().toString());
+        resp.add(projects.get(project).get(card).getDescription());
+        resp.add(projects.get(project).getCardStatus(card).toString());
         return resp;
     }
 
     public synchronized static List<String> getCards(String project) {
         if(!exists(project)) return null;
-        return new ArrayList<String>(projects.get(project).cards.keySet());
+        return projects.get(project).getCards();
     }
 
     public synchronized static List<String> getMembers(String project) {
         if(!exists(project)) return null;
-        return new ArrayList<String>(projects.get(project).members);
+        return projects.get(project).getMembers();
     }
 
     public synchronized static boolean exists(String project, String card) {
         if(!exists(project)) return false;
-        return projects.get(project).cards.containsKey(card);
+        return projects.get(project).exists(card);
     }
 
     public synchronized static boolean exists(String project) {
@@ -85,7 +89,7 @@ public class Projects {
     public synchronized static List<String> findProjects(String member) {
         List<String> ret = new ArrayList<>();
         projects.forEach((k, v) -> {
-            if(v.members.contains(member)) ret.add(k);
+            if(v.getMembers().contains(member)) ret.add(k);
         });
         return ret;
     }
@@ -107,9 +111,26 @@ public class Projects {
 
     public synchronized static boolean moveCard(String project, String card, Status from, Status to) {
         if(!projects.containsKey(project)) return false;
-        boolean ret = projects.get(project).moveCard(card, from, to);
+        if(!projects.get(project).moveCard(card, from, to)) return false;
         store(project, card);
-        return ret;
+        return true;
+    }
+
+    public synchronized static String joinChat(String project, String member) {
+        if(!projects.containsKey(project)) return null;
+        if(!projects.get(project).isMember(member)) return null;
+        return projects.get(project).joinChat(member);
+    }
+
+    public synchronized static boolean exitChat(String project, String member) {
+        return projects.get(project).exitChat(member);
+    }
+
+    // TOFIX: find chat for chat member
+    public synchronized static void exitAllChats(String member) {
+        for(String project : findProjects(member)) {
+            projects.get(project).exitChat(member);
+        }
     }
 
     @SuppressWarnings("all")
@@ -117,9 +138,9 @@ public class Projects {
         if(!projects.containsKey(project)) return false;
 
         JSONArray members = new JSONArray();
-        members.addAll(projects.get(project).members);
+        members.addAll(projects.get(project).getMembers());
         JSONArray cards = new JSONArray();
-        cards.addAll(projects.get(project).cards.keySet());
+        cards.addAll(projects.get(project).getCards());
 
         Map<String, Object> json = new HashMap<>();
         json.put("project", project);
@@ -143,12 +164,12 @@ public class Projects {
 
     private synchronized static boolean store(String project, String card) {
         if(!projects.containsKey(project)) return false;
-        if(!projects.get(project).cards.containsKey(card)) return false;
-        Card c = projects.get(project).cards.get(card);
+        if(!projects.get(project).exists(card)) return false;
+        Card c = projects.get(project).get(card);
         Map<String, Object> json = new HashMap<>();
         json.put("card", card);
-        json.put("description", c.description);
-        json.put("history", c.history);
+        json.put("description", c.getDescription());
+        json.put("history", c.getHistoryString());
         JSONObject obj = new JSONObject(json);
         File cFile = new File(Const.PROJECT_CARD(project, card));
         try {

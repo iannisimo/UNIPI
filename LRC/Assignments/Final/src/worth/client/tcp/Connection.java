@@ -41,6 +41,18 @@ public class Connection {
         return readResponse();
     }
 
+    public static boolean sendWithoutResponse(ByteBuffer buf) {
+        buf.flip();
+        try {
+            channel.write(buf);
+        } catch (IOException e) {
+            if(Const.DEBUG) e.printStackTrace();
+            connected = false;
+            return false;
+        }
+        return true;
+    }
+
     public static boolean isConnected() {
         return connected;
     }

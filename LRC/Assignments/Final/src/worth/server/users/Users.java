@@ -6,14 +6,30 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import worth.common.CallbackServerInterface;
 import worth.server.Const;
+import worth.server.projects.Projects;
 
 public class Users {
     private static Map<String, User> users = new HashMap<>();
-    private static Map<SelectionKey, String> onlineUsers = new HashMap<>(); 
+    private static Map<SelectionKey, String> onlineUsers = new HashMap<>();
+    private static Callback callback;
+
+    public static void initCallbackService() throws RemoteException {
+        callback = new Callback();
+        CallbackServerInterface stub = (CallbackServerInterface) UnicastRemoteObject.exportObject(callback, 0);
+        Registry r = LocateRegistry.createRegistry(Const.RMI_PORT);
+        r.rebind(CallbackServerInterface.REG, stub);
+    }
 
     protected synchronized static void addUser(String username, String hash) {
         if (!username.matches(Const.UNAME_REGEX))
@@ -22,6 +38,7 @@ public class Users {
             throw new IllegalArgumentException("Username taken");
         storeNew(username, hash);
         users.put(username, new User(hash));
+        callback.setStatus(username, false);
     }
 
     public synchronized static boolean exists(String username) {
@@ -34,13 +51,16 @@ public class Users {
         if(onlineUsers.containsKey(key)) return false;
         if(onlineUsers.containsValue(username)) return false;
         onlineUsers.put(key, username);
+        callback.setStatus(username, true);
         return true;
     }
 
-    public synchronized static boolean logout(SelectionKey key) throws IOException {
+    public synchronized static boolean logout(SelectionKey key) throws RemoteException {
         key.cancel();
-        key.channel().close();
-        return onlineUsers.remove(key) == null ? false : true;
+        Projects.exitAllChats(onlineUsers.get(key));
+        callback.unregisterCallback(onlineUsers.get(key));
+        onlineUsers.remove(key);
+        return true;
     }
 
     public synchronized static String keyToName(SelectionKey key) {
@@ -75,5 +95,25 @@ public class Users {
         }
         reader.close();
     }
-    
+
+    public static List<String> listUsers() {
+        return users.keySet().stream().collect(Collectors.toList());
+    }
+
+    public static List<String> listOnlineUsers() {
+        return onlineUsers.values().stream().collect(Collectors.toList());
+    }
+
+    // // FIXME: optimize this garbage
+    // public static Map<String, Boolean> listOnlineUsers() {
+
+    //     // Map<String, List<SelectionKey>> m = onlineUsers.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue, Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
+
+    //     Map<String, Boolean> onlineUsersMap = new HashMap<>();
+    //     users.keySet().stream().forEach(user -> {
+    //         if(onlineUsers.values().contains(user)) onlineUsersMap.put(user, true);
+    //         else onlineUsersMap.put(user, false);
+    //     });
+    //     return onlineUsersMap;
+    // }
 }

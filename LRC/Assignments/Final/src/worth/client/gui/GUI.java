@@ -4,14 +4,17 @@ import javax.swing.*;
 
 import worth.client.Const;
 import worth.client.Utils;
+import worth.client.chat.Callback;
+import worth.client.chat.Chat;
 import worth.client.tcp.Commands;
 import worth.client.tcp.Connection;
 import worth.client.tcp.Response;
 
 import java.awt.*;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
-
-public class GUI {
+public class GUI implements Callback {
 
     private static final int DEF_WIDTH = 800;
     private static final int DEF_HEIGHT = 600;
@@ -32,7 +35,7 @@ public class GUI {
         parent_panel.add(center_panel, new GridBagConstraints());
         JLabel lIP = new JLabel("Server IP:");
         JTextField tfIP = new JTextField("", 10);
-        if(Const.DEBUG) {
+        if (Const.DEBUG) {
             tfIP.setText("127.0.0.1");
             tfIP.setEnabled(false);
         }
@@ -42,7 +45,7 @@ public class GUI {
         JPasswordField tfPass = new JPasswordField();
         JButton bReg = new JButton("Register");
         JButton bLog = new JButton("Login");
-        
+
         center_panel.add(lIP);
         center_panel.add(tfIP);
         center_panel.add(lUser);
@@ -55,36 +58,56 @@ public class GUI {
         bReg.addActionListener(e -> {
             Const.IP = tfIP.getText();
             Response r = Utils.register(tfUser.getText(), tfPass.getPassword());
-            if(r.getStatus()) JOptionPane.showMessageDialog(frame, "Registration successful", "OK", JOptionPane.INFORMATION_MESSAGE);
-            else JOptionPane.showMessageDialog(frame, r.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            if (r.getStatus())
+                JOptionPane.showMessageDialog(frame, "Registration successful", "OK", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(frame, r.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
         });
         bLog.addActionListener(e -> {
-            if(!Connection.isConnected()) {
-                if(!Connection.connect()) JOptionPane.showMessageDialog(frame, "Cannot connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
+            if (!Connection.isConnected()) {
+                if (!Connection.connect()) {
+                    JOptionPane.showMessageDialog(frame, "Cannot connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             }
             Response r = Commands.login(tfUser.getText(), new String(tfPass.getPassword()));
-            if(r.getStatus()) {
+            if (r.getStatus()) {
                 JOptionPane.showMessageDialog(frame, "Login successful", "OK", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    Utils.registerCallbackService(tfUser.getText());
+                } catch (RemoteException | NotBoundException e1) {
+                    if(Const.DEBUG) e1.printStackTrace();
+                    return;
+                }
                 showMainMenu();
             } else {
                 JOptionPane.showMessageDialog(frame, "Wrong username / password", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
         
         frame.setVisible(true);
     }
 
     public void showMainMenu() {
-        System.out.println(Commands.listProjects().getMessages());
-        System.out.println(Commands.deleteProject("project").getStatus());
-        System.out.println(Commands.deleteProject("project2").getStatus());
-        // Commands.createProject("project3");
+        Chat c = new Chat("project", this);
+        new Thread(c).start();
         parent_panel.removeAll();;
         String week[] = {"M", "T", "W", "T", "F", "S"};
         JList<String> s = new JList<>(week);
         parent_panel.add(s);
         frame.setVisible(false);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void newMessage(String message) {
+        
+    }
+
+    @Override
+    public void chatUnreachable() {
+        
     }
 }

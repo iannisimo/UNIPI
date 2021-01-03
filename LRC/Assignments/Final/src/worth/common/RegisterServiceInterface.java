@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 public interface RegisterServiceInterface extends Remote {
 
+    public static final String RMI_REG = "REG_SERVICE";
+
     /**
      * Register to the WORTH service using RMI
      * @param username

@@ -64,6 +64,7 @@ public class Connection implements Runnable {
                     if(Const.DEBUG) e.printStackTrace();
                     try {
                         Users.logout(key);
+                        key.channel().close();
                     } catch (IOException ee) {
                         if(Const.DEBUG) ee.printStackTrace();
                     }
@@ -167,8 +168,28 @@ public class Connection implements Runnable {
                 if(!Projects.deleteProject(project)) break;
                 return okBuf();
             }
+            case CMD.JOIN_CHAT: {
+                if(params.size() < 1) break;
+                String project = params.get(0);
+                return generateResponse(Projects.joinChat(project, Users.keyToName(key)));
+            }
+            case CMD.EXIT_CHAT: {
+                if(params.size() < 1) break;
+                String project = params.get(0);
+                if(!Projects.exitChat(project, Users.keyToName(key))) break;
+                return okBuf();
+            }
         }
         return errorBuf();
+    }
+
+    private ByteBuffer generateResponse(String message) {
+        if(message == null) return errorBuf();
+        ByteBuffer response = ByteBuffer.allocate(Const.BYTEBUF_SIZE);
+        response.put(CMD.OK);
+        response.put(message.getBytes());
+        response.put(CMD.SPACER);
+        return response.flip();
     }
 
     private ByteBuffer generateResponse(List<String> messages) {
@@ -204,10 +225,10 @@ public class Connection implements Runnable {
     }    
 
     private ByteBuffer errorBuf() {
-        return ByteBuffer.allocate(2).put(CMD.ERROR).flip();
+        return ByteBuffer.allocate(2).put(CMD.ERROR).put(CMD.SPACER).flip();
     }
 
     private ByteBuffer okBuf() {
-        return ByteBuffer.allocate(2).put(CMD.OK).flip();
+        return ByteBuffer.allocate(2).put(CMD.OK).put(CMD.SPACER).flip();
     }
 }

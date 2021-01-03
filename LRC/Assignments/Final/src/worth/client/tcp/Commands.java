@@ -27,11 +27,11 @@ public class Commands {
         return Connection.send(buf);
     }
 
-    public static Response logout() {
+    public static boolean logout() {
         ByteBuffer buf = ByteBuffer.allocate(2);
         buf.put(CMD.LOGOUT);
         buf.put(CMD.SPACER);
-        return Connection.send(buf);
+        return Connection.sendWithoutResponse(buf);
     }
 
     public static Response listProjects() {
@@ -147,6 +147,26 @@ public class Commands {
         int size = p.length + 2;
         ByteBuffer buf = ByteBuffer.allocate(size);
         buf.put(CMD.DELETE_PROJECT);
+        buf.put(p);
+        buf.put(CMD.SPACER);
+        return Connection.send(buf);
+    }
+
+    public static Response joinChat(String project) {
+        byte[] p = project.getBytes();
+        int size = p.length + 2;
+        ByteBuffer buf = ByteBuffer.allocate(size);
+        buf.put(CMD.JOIN_CHAT);
+        buf.put(p);
+        buf.put(CMD.SPACER);
+        return Connection.send(buf);
+    }
+
+    public static Response exitChat(String project) {
+        byte[] p = project.getBytes();
+        int size = p.length + 2;
+        ByteBuffer buf = ByteBuffer.allocate(size);
+        buf.put(CMD.EXIT_CHAT);
         buf.put(p);
         buf.put(CMD.SPACER);
         return Connection.send(buf);
