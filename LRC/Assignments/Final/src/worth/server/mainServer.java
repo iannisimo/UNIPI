@@ -8,6 +8,7 @@ import worth.server.users.Users;
 
 public class mainServer {
     public static void main(String[] args) {
+        // Initialization sequence
         Utils.setupEnviroment();
         Utils.parseArgs(args);
         try {
@@ -20,6 +21,7 @@ public class mainServer {
             System.exit(1);
         }
         Utils.registerRegisterService();
+        // Firing thread for TCP connections worker
         new Thread(new Connection()).start();
     }
 }

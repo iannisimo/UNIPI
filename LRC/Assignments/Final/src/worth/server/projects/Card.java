@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import worth.common.Status;
 
+/**
+ * Structure containing a card's information
+ */
 public class Card {
     private String description;
     private List<Status> history;

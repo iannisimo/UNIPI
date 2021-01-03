@@ -19,11 +19,18 @@ import worth.common.CallbackServerInterface;
 import worth.server.Const;
 import worth.server.projects.Projects;
 
+/**
+ * This class contains the information and functions needed for the users
+ */
 public class Users {
     private static Map<String, User> users = new HashMap<>();
     private static Map<SelectionKey, String> onlineUsers = new HashMap<>();
     private static Callback callback;
 
+    /**
+     * Registers the CallbackService in the RMI's rogistry
+     * @throws RemoteException
+     */
     public static void initCallbackService() throws RemoteException {
         callback = new Callback();
         CallbackServerInterface stub = (CallbackServerInterface) UnicastRemoteObject.exportObject(callback, 0);
@@ -31,6 +38,11 @@ public class Users {
         r.rebind(CallbackServerInterface.REG, stub);
     }
 
+    /**
+     * Add a new {@code (user -> hash)} pair in the data structure (registration)
+     * @param username
+     * @param hash
+     */
     protected synchronized static void addUser(String username, String hash) {
         if (!username.matches(Const.UNAME_REGEX))
             throw new IllegalArgumentException("Wrong username format");
@@ -41,10 +53,22 @@ public class Users {
         callback.setStatus(username, false);
     }
 
+    /**
+     * Check in a user is in the data structure
+     * @param username username whose presence is to be tested
+     * @return {@code true} if the username is is in the data structure
+     */
     public synchronized static boolean exists(String username) {
         return users.containsKey(username);
     }
 
+    /**
+     * Try to log a new client
+     * @param username identifier to be tested
+     * @param hash hash of the user's password
+     * @param key {@code SelectionKey} of the requesting client
+     * @return {@code true} if the login procedure is succesful
+     */
     public synchronized static boolean login(String username, String hash, SelectionKey key) {
         if(!users.containsKey(username)) return false;
         if(!users.get(username).login(hash)) return false;
@@ -55,18 +79,33 @@ public class Users {
         return true;
     }
 
-    public synchronized static boolean logout(SelectionKey key) throws RemoteException {
-        key.cancel();
+    /**
+     * Logout the client associated to {@code key}
+     * @param key key of the client
+     * @throws IOException
+     */
+    public synchronized static void logout(SelectionKey key) throws IOException {
         Projects.exitAllChats(onlineUsers.get(key));
         callback.unregisterCallback(onlineUsers.get(key));
         onlineUsers.remove(key);
-        return true;
+        key.cancel();
+        key.channel().close();
     }
 
+    /**
+     * Convert a key to the correspondig username
+     * @param key {@code SelectionKey} to be converted
+     * @return The username associated to the given {@code key}
+     */
     public synchronized static String keyToName(SelectionKey key) {
         return onlineUsers.get(key);
     }
 
+    /**
+     * Store a new {@code (username -> hash)} association to the save file
+     * @param username
+     * @param hash
+     */
     private synchronized static void storeNew(String username, String hash) {
         File usersFile = new File(Const.USERS_FILE);
         try {
@@ -81,6 +120,10 @@ public class Users {
         }
     }
 
+    /**
+     * Restore all the {@code (username -> hash)} associations from the save file
+     * @throws IOException
+     */
     public static void restore() throws IOException {
         File usersFile = new File(Const.USERS_FILE);
         if(!usersFile.isFile()) return;
@@ -96,24 +139,17 @@ public class Users {
         reader.close();
     }
 
+    /**
+     * @return A list containing all the users registered to the service
+     */
     public static List<String> listUsers() {
         return users.keySet().stream().collect(Collectors.toList());
     }
 
+    /**
+     * @return A list containing all the users online
+     */
     public static List<String> listOnlineUsers() {
         return onlineUsers.values().stream().collect(Collectors.toList());
     }
-
-    // // FIXME: optimize this garbage
-    // public static Map<String, Boolean> listOnlineUsers() {
-
-    //     // Map<String, List<SelectionKey>> m = onlineUsers.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue, Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
-
-    //     Map<String, Boolean> onlineUsersMap = new HashMap<>();
-    //     users.keySet().stream().forEach(user -> {
-    //         if(onlineUsers.values().contains(user)) onlineUsersMap.put(user, true);
-    //         else onlineUsersMap.put(user, false);
-    //     });
-    //     return onlineUsersMap;
-    // }
 }

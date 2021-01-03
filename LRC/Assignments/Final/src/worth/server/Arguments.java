@@ -13,7 +13,12 @@ public class Arguments {
     @Toggle(true)
     public void showHelp(boolean help) {
         if(help) {
-            // System.out.println("You can use the option --port <p> to change the server port");
+            System.out.print("Accepted arguments:\n" +
+                "\t-h:\tShow this help message\n" + 
+                "\t-rp:\tSet the port for RMI connections\n" +
+                "\t-tp:\tSet the port fot TCP connections\n" +
+                "\t-d:\tSet the program in debug mode\n");
+            System.exit(0);
         }
     }
 
@@ -23,7 +28,6 @@ public class Arguments {
     @SingleArgument
     public void changeRmiPort(String rp) {
         Const.RMI_PORT = Integer.parseInt(rp);
-        // Utils.setProperty(Const.RMI_PORT_KEY, p);
     }
     
     @Option
@@ -32,7 +36,6 @@ public class Arguments {
     @SingleArgument
     public void changeTcpPort(String tp) {
         Const.TCP_PORT = Integer.parseInt(tp);
-        // Utils.setProperty(Const.TCP_PORT_KEY, tp);
     }
 
     @Option
@@ -41,21 +44,5 @@ public class Arguments {
     @Toggle(true)
     public void setDebug(boolean debug) {
         Const.DEBUG = debug;
-    }
-
-    @Option
-    @LongSwitch("min-pool")
-    @ShortSwitch("m")
-    @SingleArgument
-    public void changeMinPool(String min) {
-        Const.CORE_POOL_SIZE = Integer.parseInt(min);
-    }
-
-    @Option
-    @LongSwitch("max-pool")
-    @ShortSwitch("M")
-    @SingleArgument
-    public void changeMaxPool(String max) {
-        Const.MAX_POOL_SIZE = Integer.parseInt(max);
     }
 }

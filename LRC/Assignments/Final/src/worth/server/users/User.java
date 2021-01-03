@@ -1,26 +1,17 @@
 package worth.server.users;
 
+/**
+ * Data structure containing a user's information.
+ * Useles in the current state of the program but facilitates later revisions
+ */
 public class User {
     private String hash;
-    private boolean online;
 
     public User(String hash) {
         this.hash = hash;
-        this.online = false;
     }
 
     public boolean login(String hash) {
-        if(hash.equals(this.hash)) {
-            this.online = true;
-        }
-        return this.online;
-    }
-
-    public void logout() {
-        this.online = false;
-    }
-
-    public boolean isOnline() {
-        return this.online;
+        return hash.equals(this.hash);
     }
 }

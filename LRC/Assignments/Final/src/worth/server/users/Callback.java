@@ -10,6 +10,9 @@ import worth.common.CallbackInterface;
 import worth.common.CallbackServerInterface;
 import worth.server.Const;
 
+/**
+ * Implementation on the CallbackServerInterface used to notify clients about changes in the users list
+ */
 public class Callback extends RemoteObject implements CallbackServerInterface {
     
     // Default serial version UID
@@ -21,6 +24,13 @@ public class Callback extends RemoteObject implements CallbackServerInterface {
         clients = new HashMap<>();
     }
 
+    /**
+     * This method gets called from a client to register to the callback functionality.
+     * The server saves the association {@code (username -> clientInterface)} for later use and sends the curent Users status to the newly logged user
+     * @param username The username of the newly logged user
+     * @param clientInterface A reference to the client's callback interface
+     * @throws RemoteException
+     */
     @Override
     public synchronized void registerCallback(String username, CallbackInterface clientInterface) throws RemoteException {
         clients.put(username, clientInterface);
@@ -29,12 +39,22 @@ public class Callback extends RemoteObject implements CallbackServerInterface {
         
     }
 
+    /**
+     * This method needs to be called to unregister a client from the notifyiable list.
+     * @param username Username of the logged-out client
+     * @throws RemoteException
+     */
     @Override
     public synchronized void unregisterCallback(String username) throws RemoteException {
         clients.remove(username);
         setStatus(username, false);
     }
 
+    /**
+     * Notify the status change of a single client
+     * @param username User changing status
+     * @param online New status
+     */
     public synchronized void setStatus(String username, boolean online) {
         this.clients.entrySet().stream().forEach(m -> {
             try {
@@ -50,6 +70,12 @@ public class Callback extends RemoteObject implements CallbackServerInterface {
         });
     }
 
+
+    /**
+     * Notify the status change of a list of clients
+     * @param usernames Users changing status
+     * @param online New status
+     */
     public synchronized void setStatus(List<String> usernames, boolean online) {
         this.clients.entrySet().stream().forEach(m -> {
             try {

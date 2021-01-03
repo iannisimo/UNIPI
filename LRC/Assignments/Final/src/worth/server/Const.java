@@ -7,8 +7,6 @@ public class Const {
     public static int TCP_PORT = 9999;
     public static int RMI_PORT = 9998;
     public static boolean DEBUG = false;
-    public static int CORE_POOL_SIZE = 1;
-    public static int MAX_POOL_SIZE = 4;
     
     public static final String RES_FOLDER = "files" + File.separator;
     public static final String PROJECTS_FOLDER = RES_FOLDER + "projects" + File.separator;

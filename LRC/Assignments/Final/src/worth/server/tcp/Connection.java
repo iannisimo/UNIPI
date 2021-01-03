@@ -17,10 +17,15 @@ import worth.server.Const;
 import worth.server.projects.Projects;
 import worth.server.users.Users;
 
+
+/**
+ * This class contains the Thread that catches, parses, and executes TCP commands.
+ */
 public class Connection implements Runnable {
 
     protected Selector selector;
 
+    // NIO SocketChannel implementation (Standatd de facto)
     @Override
     public void run() {
         try {
@@ -73,6 +78,14 @@ public class Connection implements Runnable {
         }
     }
 
+    /**
+     * Execute and respond to the command in {@code req} for the client associated to {@code key}
+     * @param req ByteBuffer containing the request received from a client
+     * @param key SelectionKey from witch the request cama from, it's used to recognize the user with the association {@code (key -> username)} registered with a login command
+     * @return The response to be sent back to the client
+     * @throws java.nio.BufferUnderflowException
+     * @throws IOException
+     */
     private ByteBuffer execute(ByteBuffer req, SelectionKey key) throws java.nio.BufferUnderflowException, IOException {
         req.flip();
         byte cmd = req.get();
@@ -87,8 +100,7 @@ public class Connection implements Runnable {
                 break;
             }
             case CMD.LOGOUT: {
-                if(!Users.logout(key)) break;
-                return okBuf();
+                Users.logout(key);
             }
             case CMD.LIST_PROJECTS: {
                 String member = Users.keyToName(key);
@@ -183,6 +195,11 @@ public class Connection implements Runnable {
         return errorBuf();
     }
 
+    /**
+     * Encodes a message into a series of bytes
+     * @param message the message to be converted
+     * @return A ByteBuffer containing the converted message
+     */
     private ByteBuffer generateResponse(String message) {
         if(message == null) return errorBuf();
         ByteBuffer response = ByteBuffer.allocate(Const.BYTEBUF_SIZE);
@@ -192,6 +209,11 @@ public class Connection implements Runnable {
         return response.flip();
     }
 
+    /**
+     * Encodes a list of messages into a series of bytes
+     * @param messages the messages to be converted
+     * @return A ByteBuffer containing the converted messages
+     */
     private ByteBuffer generateResponse(List<String> messages) {
         if(messages == null) return errorBuf();
         ByteBuffer response = ByteBuffer.allocate(Const.BYTEBUF_SIZE);
@@ -203,6 +225,11 @@ public class Connection implements Runnable {
         return response.flip();
     }
 
+    /**
+     * Decodes a series of bytes into readable strings
+     * @param bb The buffer containing the request
+     * @return The decoded strings
+     */
     private static List<String> readResponse(ByteBuffer bb) {
         List<String> response = new ArrayList<>();
         int len;
@@ -215,6 +242,11 @@ public class Connection implements Runnable {
         return response;
     }
 
+    /**
+     * Every parameter in a request is separated by a specific byte
+     * @param bb The buffer we are working on
+     * @return The posision of the first separator in the sequence
+     */
     private static int findSeparator(ByteBuffer bb) {
         if(!bb.hasRemaining()) return 0;
         int i = 0;
@@ -222,11 +254,18 @@ public class Connection implements Runnable {
         while(bb.get() != CMD.SPACER) i++;
         bb.reset();
         return i;
-    }    
+    }
 
+    /**
+     * @return A simple error response 
+     */
     private ByteBuffer errorBuf() {
         return ByteBuffer.allocate(2).put(CMD.ERROR).put(CMD.SPACER).flip();
     }
+
+    /**
+     * @return A simple OK response with no additional information
+     */
 
     private ByteBuffer okBuf() {
         return ByteBuffer.allocate(2).put(CMD.OK).put(CMD.SPACER).flip();
