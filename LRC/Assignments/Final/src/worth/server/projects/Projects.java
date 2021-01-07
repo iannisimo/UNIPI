@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,18 +18,18 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import worth.common.Status;
-import worth.server.Const;
-import worth.server.Utils;
+import worth.server.Utils.Const;
+import worth.server.Utils.Utils;
 
 public class Projects {
-    private static Map<String, Project> projects = new HashMap<>();
+    private static Map<String, Project> projects = new ConcurrentHashMap<>();
 
-    public synchronized static boolean isMember(String project, String member) {
+    public static boolean isMember(String project, String member) {
         if(!exists(project)) return false;
         return projects.get(project).isMember(member);
     }
 
-    public synchronized static boolean deleteProject(String project) {
+    public static boolean deleteProject(String project) {
         if(!projects.containsKey(project)) return false;
         if(!projects.get(project).allDone()) return false;
         try {
@@ -41,24 +43,25 @@ public class Projects {
         return true;
     }
 
-    public synchronized static boolean addProject(String project, String member) {
+    public static boolean addProject(String project, String member) {
+        if(!project.matches(Const.PNAME_REGEX)) return false;
         if(projects.containsKey(project)) return false;
         projects.put(project, new Project(member));
         store(project);
         return true;
     }
 
-    public synchronized static List<Status> getCardHistory(String project, String card) {
+    public static List<Status> getCardHistory(String project, String card) {
         if(!exists(project, card)) return null;
         return projects.get(project).get(card).getHistory();
     }
 
-    public synchronized static List<String> getCardHistoryString(String project, String card) {
+    public static List<String> getCardHistoryString(String project, String card) {
         if(!exists(project, card)) return null;
         return projects.get(project).get(card).getHistoryString();
     }
 
-    public synchronized static List<String> getCardInfo(String project, String card) {
+    public static List<String> getCardInfo(String project, String card) {
         if(!exists(project, card)) return null;
         List<String> resp = new ArrayList<>();
         resp.add(card);
@@ -67,26 +70,26 @@ public class Projects {
         return resp;
     }
 
-    public synchronized static List<String> getCards(String project) {
+    public static List<String> getCards(String project) {
         if(!exists(project)) return null;
         return projects.get(project).getCards();
     }
 
-    public synchronized static List<String> getMembers(String project) {
+    public static List<String> getMembers(String project) {
         if(!exists(project)) return null;
         return projects.get(project).getMembers();
     }
 
-    public synchronized static boolean exists(String project, String card) {
+    public static boolean exists(String project, String card) {
         if(!exists(project)) return false;
         return projects.get(project).exists(card);
     }
 
-    public synchronized static boolean exists(String project) {
+    public static boolean exists(String project) {
         return projects.containsKey(project);
     }
 
-    public synchronized static List<String> findProjects(String member) {
+    public static List<String> findProjects(String member) {
         List<String> ret = new ArrayList<>();
         projects.forEach((k, v) -> {
             if(v.getMembers().contains(member)) ret.add(k);
@@ -94,14 +97,14 @@ public class Projects {
         return ret;
     }
 
-    public synchronized static boolean addMember(String project, String member) {
+    public static boolean addMember(String project, String member) {
         if(!projects.containsKey(project)) return false;
         boolean ret = projects.get(project).addMember(member);
         store(project);
         return ret;
     }
 
-    public synchronized static boolean addCard(String project, String card, String description) {
+    public static boolean addCard(String project, String card, String description) {
         if(!exists(project)) return false;
         if(!projects.get(project).addCard(card, description)) return false;
         store(project);
@@ -109,25 +112,26 @@ public class Projects {
         return true;
     }
 
-    public synchronized static boolean moveCard(String project, String card, Status from, Status to) {
+    public static boolean moveCard(String project, String card, Status from, Status to) {
         if(!projects.containsKey(project)) return false;
         if(!projects.get(project).moveCard(card, from, to)) return false;
         store(project, card);
         return true;
     }
 
-    public synchronized static String joinChat(String project, String member) {
+    public static String joinChat(String project, String member) {
         if(!projects.containsKey(project)) return null;
         if(!projects.get(project).isMember(member)) return null;
         return projects.get(project).joinChat(member);
     }
 
-    public synchronized static boolean exitChat(String project, String member) {
+    public static boolean exitChat(String project, String member) {
+        if(!exists(project)) return false;
         return projects.get(project).exitChat(member);
     }
 
     // TOFIX: find chat for chat member
-    public synchronized static void exitAllChats(String member) {
+    public static void exitAllChats(String member) {
         for(String project : findProjects(member)) {
             projects.get(project).exitChat(member);
         }
@@ -204,7 +208,7 @@ public class Projects {
                     String c_json = Utils.readFile(Const.PROJECT_CARD(project, card));
                     Map<String, Object> c_map = (Map<String, Object>) new JSONParser().parse(c_json);
                     String description = (String) c_map.get("description");
-                    List<Long> history = (List<Long>) c_map.get("history");
+                    List<Integer> history = ((List<String>) c_map.get("history")).stream().map(v -> Integer.valueOf(v)).collect(Collectors.toList());
                     projects.get(project).addCard(card, description);
                     for(int i = 1; i < history.size(); i++) {
                         projects.get(project).moveCard(card, Status.fromOrdinal(history.get(i-1).intValue()),  Status.fromOrdinal(history.get(i).intValue()));

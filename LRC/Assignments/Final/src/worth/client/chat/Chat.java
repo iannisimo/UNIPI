@@ -6,21 +6,24 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.text.Text;
 import worth.client.Const;
 import worth.client.tcp.Commands;
 
 public class Chat implements Runnable {
 
     private String project;
-    private Callback cb;
     private InetAddress ip;
     private int port;
     private boolean open = false;
     private DatagramPacket sendPacket;
+    private ObservableList<Text> messages;
 
-    public Chat(String project, Callback cb) {
+    public Chat(String project) {
         this.project = project;
-        this.cb = cb;
         try {
             String IPPort = Commands.joinChat(project).getMessage();
             String[] split = IPPort.split(":");
@@ -29,9 +32,14 @@ public class Chat implements Runnable {
             this.port = Integer.valueOf(split[1]);
         } catch (UnknownHostException e) {
             if(Const.DEBUG) e.printStackTrace();
-            cb.chatUnreachable();
         }
         open = true;
+        messages = FXCollections.observableArrayList();
+        new Thread(this).start();
+    }
+
+    public ObservableList<Text> getMessages() {
+        return this.messages;
     }
 
     public void close() {
@@ -39,8 +47,9 @@ public class Chat implements Runnable {
         Commands.exitChat(project);
     }
 
-    public void send(String message) {
-        byte[] buf = message.getBytes();
+    public void send(String username, String message) {
+        String m = username + ": " + message;
+        byte[] buf = m.getBytes();
         sendPacket = new DatagramPacket(buf, buf.length, ip, port);
     }
 
@@ -58,13 +67,12 @@ public class Chat implements Runnable {
                 }
                 try {
                     socket.receive(receivePacket);
-                    cb.newMessage(new String(receivePacket.getData(), 0, receivePacket.getLength()));
+                    messages.add(new Text(new String(receivePacket.getData(), 0, receivePacket.getLength())));
                 } catch (SocketTimeoutException e) {}
             }
         } catch (IOException e) {
             if(Const.DEBUG) e.printStackTrace();
             open = false;
-            cb.chatUnreachable();
         }
     }
     

@@ -13,7 +13,7 @@ import java.util.List;
 
 import worth.common.CMD;
 import worth.common.Status;
-import worth.server.Const;
+import worth.server.Utils.Const;
 import worth.server.projects.Projects;
 import worth.server.users.Users;
 
@@ -63,6 +63,7 @@ public class Connection implements Runnable {
                         ByteBuffer buf = ByteBuffer.allocate(Const.BYTEBUF_SIZE);
                         channel.read(buf);
                         ByteBuffer resp = execute(buf, key);
+                        if(!key.channel().isOpen()) break;
                         channel.register(selector, SelectionKey.OP_WRITE, resp);
                     }
                 } catch (IOException | java.nio.BufferUnderflowException e) {

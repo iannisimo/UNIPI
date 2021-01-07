@@ -13,6 +13,9 @@ import java.util.Base64;
 import com.github.jankroken.commandline.CommandLineParser;
 import com.github.jankroken.commandline.OptionStyle;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import worth.client.tcp.Response;
 import worth.client.users.Callback;
 import worth.common.CallbackInterface;
@@ -28,7 +31,7 @@ public class Utils {
         }
     }
 
-    public static Response register(String username, char[] password) {
+    public static Response register(String username, String password) {
         RegisterServiceInterface rs;
         Registry r;
         try {
@@ -39,7 +42,7 @@ public class Utils {
             return new Response(false, "Cannot reach the server");
         }
         try {
-            rs.register(username, hashPass(new String(password)));
+            rs.register(username, hashPass(password));
         } catch (RemoteException | IllegalArgumentException e) {
             if(Const.DEBUG) e.printStackTrace();
             return new Response(false, e.getMessage());
@@ -66,5 +69,24 @@ public class Utils {
         md.update(password.getBytes());
         byte[] digest = md.digest();
         return Base64.getEncoder().encodeToString(digest);
+    }
+
+    public static Alert ErrorAlert(String message) {
+        Alert a = new Alert(AlertType.ERROR, message, ButtonType.OK);
+        a.setResizable(true);
+        a.getDialogPane().setPrefWidth(Const.DIALOG_WIDTH);
+        return a;
+    }
+
+    public static Alert InfoAlert(String message) {
+        Alert a = new Alert(AlertType.INFORMATION, message, ButtonType.OK);
+        a.setResizable(true);
+        a.getDialogPane().setPrefWidth(Const.DIALOG_WIDTH);
+        return a;
+    }
+
+    public static void showErrorAndExit(String message) {
+        ErrorAlert(message).showAndWait();
+        System.exit(-1);
     }
 }

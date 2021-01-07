@@ -1,14 +1,14 @@
 package worth.server.projects;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import worth.common.Status;
+import worth.server.Utils.ConcurrentHashSet;
 import worth.server.chat.IPGen;
 import worth.server.users.Users;
 
@@ -23,14 +23,14 @@ public class Project {
     private String mcastIP;
 
     public Project(String member) {
-        this.cards = new HashMap<>();
-        this.cards.put(Status.TODO, new HashMap<>());
-        this.cards.put(Status.INPROGRESS, new HashMap<>());
-        this.cards.put(Status.TOBEREVISED, new HashMap<>());
-        this.cards.put(Status.DONE, new HashMap<>());
-        this.members = new HashSet<>();
+        this.cards = new ConcurrentHashMap<>();
+        this.cards.put(Status.TODO, new ConcurrentHashMap<>());
+        this.cards.put(Status.INPROGRESS, new ConcurrentHashMap<>());
+        this.cards.put(Status.TOBEREVISED, new ConcurrentHashMap<>());
+        this.cards.put(Status.DONE, new ConcurrentHashMap<>());
+        this.members = new ConcurrentHashSet<>();
         this.members.add(member);
-        this.onlineMembers = new HashSet<>();
+        this.onlineMembers = new ConcurrentHashSet<>();
     }
 
     /**

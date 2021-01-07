@@ -3,7 +3,7 @@ package worth.server.chat;
 import java.util.ArrayList;
 import java.util.List;
 
-import worth.server.Const;
+import worth.server.Utils.Const;
 
 /**
  * This class is used to retreive an unused multicast address for usage in a project's chat

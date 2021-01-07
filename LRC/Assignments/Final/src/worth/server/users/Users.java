@@ -10,25 +10,26 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import worth.common.CallbackServerInterface;
-import worth.server.Const;
+import worth.common.RegisterServiceInterface;
+import worth.server.Utils.Const;
 import worth.server.projects.Projects;
 
 /**
  * This class contains the information and functions needed for the users
  */
 public class Users {
-    private static Map<String, User> users = new HashMap<>();
-    private static Map<SelectionKey, String> onlineUsers = new HashMap<>();
+    private static Map<String, User> users = new ConcurrentHashMap<>();
+    private static Map<SelectionKey, String> onlineUsers = new ConcurrentHashMap<>();
     private static Callback callback;
 
     /**
-     * Registers the CallbackService in the RMI's rogistry
+     * Registers the CallbackService and the RegisterService in the RMI's registry
      * @throws RemoteException
      */
     public static void initCallbackService() throws RemoteException {
@@ -36,6 +37,9 @@ public class Users {
         CallbackServerInterface stub = (CallbackServerInterface) UnicastRemoteObject.exportObject(callback, 0);
         Registry r = LocateRegistry.createRegistry(Const.RMI_PORT);
         r.rebind(CallbackServerInterface.REG, stub);
+        RegisterService service = new RegisterService();
+        RegisterServiceInterface stubR = (RegisterServiceInterface) UnicastRemoteObject.exportObject(service, 0);
+        r.rebind(RegisterServiceInterface.RMI_REG, stubR);
     }
 
     /**
@@ -43,7 +47,7 @@ public class Users {
      * @param username
      * @param hash
      */
-    protected synchronized static void addUser(String username, String hash) {
+    protected static void addUser(String username, String hash) {
         if (!username.matches(Const.UNAME_REGEX))
             throw new IllegalArgumentException("Wrong username format");
         if (users.containsKey(username))
@@ -58,7 +62,7 @@ public class Users {
      * @param username username whose presence is to be tested
      * @return {@code true} if the username is is in the data structure
      */
-    public synchronized static boolean exists(String username) {
+    public static boolean exists(String username) {
         return users.containsKey(username);
     }
 
@@ -69,7 +73,7 @@ public class Users {
      * @param key {@code SelectionKey} of the requesting client
      * @return {@code true} if the login procedure is succesful
      */
-    public synchronized static boolean login(String username, String hash, SelectionKey key) {
+    public static boolean login(String username, String hash, SelectionKey key) {
         if(!users.containsKey(username)) return false;
         if(!users.get(username).login(hash)) return false;
         if(onlineUsers.containsKey(key)) return false;
@@ -84,7 +88,7 @@ public class Users {
      * @param key key of the client
      * @throws IOException
      */
-    public synchronized static void logout(SelectionKey key) throws IOException {
+    public static void logout(SelectionKey key) throws IOException {
         Projects.exitAllChats(onlineUsers.get(key));
         callback.unregisterCallback(onlineUsers.get(key));
         onlineUsers.remove(key);
@@ -97,7 +101,7 @@ public class Users {
      * @param key {@code SelectionKey} to be converted
      * @return The username associated to the given {@code key}
      */
-    public synchronized static String keyToName(SelectionKey key) {
+    public static String keyToName(SelectionKey key) {
         return onlineUsers.get(key);
     }
 

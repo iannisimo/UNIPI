@@ -1,5 +1,7 @@
 package worth.client;
 
+import java.io.File;
+
 public class Const {
     public static int TCP_PORT = 9999;
     public static int RMI_PORT = 9998;
@@ -8,4 +10,7 @@ public class Const {
     
     public static final int BYTEBUF_SIZE = 8192;
     public static final int CHAT_BUF_SIZE = 1024;
+    public static final int DIALOG_WIDTH = 320;
+
+    public static final String FXML_DIR = "res" + File.separator + "fxml" + File.separator;
 }

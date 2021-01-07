@@ -2,14 +2,13 @@ package worth.server.users;
 
 import java.rmi.RemoteException;
 import java.rmi.server.RemoteObject;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import worth.common.CallbackInterface;
 import worth.common.CallbackServerInterface;
-import worth.server.Const;
-
+import worth.server.Utils.Const;
 /**
  * Implementation on the CallbackServerInterface used to notify clients about changes in the users list
  */
@@ -21,7 +20,7 @@ public class Callback extends RemoteObject implements CallbackServerInterface {
     private Map<String, CallbackInterface> clients;
     public Callback() {
         super();
-        clients = new HashMap<>();
+        clients = new ConcurrentHashMap<>();
     }
 
     /**

@@ -1,113 +1,61 @@
 package worth.client.gui;
 
-import javax.swing.*;
+import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import worth.client.Const;
-import worth.client.Utils;
-import worth.client.chat.Callback;
-import worth.client.chat.Chat;
 import worth.client.tcp.Commands;
 import worth.client.tcp.Connection;
-import worth.client.tcp.Response;
 
-import java.awt.*;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+public class GUI extends Application {
 
-public class GUI implements Callback {
+    Scene scene;
 
-    private static final int DEF_WIDTH = 800;
-    private static final int DEF_HEIGHT = 600;
-
-    private JFrame frame;
-    private JPanel parent_panel;
-
-    public GUI() {
-        frame = new JFrame("WORTH Client" + (Const.DEBUG ? " (Debug)" : ""));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(DEF_WIDTH, DEF_HEIGHT);
-        parent_panel = new JPanel(new GridBagLayout());
-        frame.getContentPane().add(parent_panel);
+    public static void show() {
+        launch("");
     }
 
     public void showLogin() {
-        JPanel center_panel = new JPanel(new GridLayout(4, 2, 20, 10));
-        parent_panel.add(center_panel, new GridBagConstraints());
-        JLabel lIP = new JLabel("Server IP:");
-        JTextField tfIP = new JTextField("", 10);
-        if (Const.DEBUG) {
-            tfIP.setText("127.0.0.1");
-            tfIP.setEnabled(false);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            scene.setRoot((Parent) loader.load());
+            LoginController controller = loader.<LoginController>getController();
+            controller.init(this);
+        } catch (IOException e) {
+            if (Const.DEBUG)
+                e.printStackTrace();
         }
-        JLabel lUser = new JLabel("Username:");
-        JTextField tfUser = new JTextField();
-        JLabel lPass = new JLabel("Password:");
-        JPasswordField tfPass = new JPasswordField();
-        JButton bReg = new JButton("Register");
-        JButton bLog = new JButton("Login");
-
-        center_panel.add(lIP);
-        center_panel.add(tfIP);
-        center_panel.add(lUser);
-        center_panel.add(tfUser);
-        center_panel.add(lPass);
-        center_panel.add(tfPass);
-        center_panel.add(bReg);
-        center_panel.add(bLog);
-
-        bReg.addActionListener(e -> {
-            Const.IP = tfIP.getText();
-            Response r = Utils.register(tfUser.getText(), tfPass.getPassword());
-            if (r.getStatus())
-                JOptionPane.showMessageDialog(frame, "Registration successful", "OK", JOptionPane.INFORMATION_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(frame, r.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
-        });
-        bLog.addActionListener(e -> {
-            if (!Connection.isConnected()) {
-                if (!Connection.connect()) {
-                    JOptionPane.showMessageDialog(frame, "Cannot connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            Response r = Commands.login(tfUser.getText(), new String(tfPass.getPassword()));
-            if (r.getStatus()) {
-                JOptionPane.showMessageDialog(frame, "Login successful", "OK", JOptionPane.INFORMATION_MESSAGE);
-                try {
-                    Utils.registerCallbackService(tfUser.getText());
-                } catch (RemoteException | NotBoundException e1) {
-                    if(Const.DEBUG) e1.printStackTrace();
-                    return;
-                }
-                showMainMenu();
-            } else {
-                JOptionPane.showMessageDialog(frame, "Wrong username / password", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        
-        frame.setVisible(true);
     }
 
-    public void showMainMenu() {
-        Chat c = new Chat("project", this);
-        new Thread(c).start();
-        parent_panel.removeAll();;
-        String week[] = {"M", "T", "W", "T", "F", "S"};
-        JList<String> s = new JList<>(week);
-        parent_panel.add(s);
-        frame.setVisible(false);
-        frame.setVisible(true);
+    public void showMenu(String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+            scene.setRoot((Parent) loader.load());
+            MenuController controller = loader.<MenuController>getController();
+            controller.init(scene, username);
+        } catch (IOException e) {
+            if (Const.DEBUG)
+                e.printStackTrace();
+        }
     }
 
     @Override
-    public void newMessage(String message) {
-        
+    public void start(Stage stage) throws Exception {
+        scene = new Scene(new VBox());
+        showLogin();
+        stage.setTitle("WORTH Client");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
-    public void chatUnreachable() {
-        
+    public void stop(){
+        if(Connection.isConnected()) Commands.logout();
+        System.exit(0);
     }
 }

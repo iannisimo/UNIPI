@@ -2,6 +2,8 @@ package worth.server;
 
 import java.io.IOException;
 
+import worth.server.Utils.Const;
+import worth.server.Utils.Utils;
 import worth.server.projects.Projects;
 import worth.server.tcp.Connection;
 import worth.server.users.Users;
@@ -20,7 +22,7 @@ public class mainServer {
             System.err.println("Unrecoverable error while restoring the status of the program, exiting...");
             System.exit(1);
         }
-        Utils.registerRegisterService();
+        // Utils.registerRegisterService();
         // Firing thread for TCP connections worker
         new Thread(new Connection()).start();
     }

@@ -6,17 +6,17 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch mainServer",
+            "name": "Launch clientMain",
             "request": "launch",
-            "mainClass": "worth.server.mainServer",
-            "args": "-d -M 8 -m 2",
+            "mainClass": "worth.client.clientMain",
+            "args": "-d",
             "projectName": "Final_c56fb91f"
         },
         {
             "type": "java",
-            "name": "Launch Main",
+            "name": "Launch mainServer",
             "request": "launch",
-            "mainClass": "worth.client.Main",
+            "mainClass": "worth.server.mainServer",
             "args": "-d",
             "projectName": "Final_c56fb91f"
         },
