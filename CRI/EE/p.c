@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     for(int i = 0; i < (sizeof(p)/sizeof(int)); i++) {
         for(int j = 0; j < (sizeof(p)/sizeof(int)); j++) {
             if(p[i]*p[j] == n) {
-                printf("%d, %d\n", p[i], p[j]);
+                printf("%d, %d\nEuler(%d) = %d\n", p[i], p[j], p[i]*p[j], (p[i]-1) * (p[j]-1));
                 return 0;
             }
         }
