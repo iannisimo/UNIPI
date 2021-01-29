@@ -26,7 +26,7 @@ int inverse(int a, int m) {
 }
 
 int getPositive(int v, int m) {
-    return v > 0 ? v : m + v;
+    return v >= 0 ? v : m + v;
 }
 
 int main(int argc, char const *argv[])

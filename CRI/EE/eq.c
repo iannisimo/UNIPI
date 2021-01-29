@@ -129,7 +129,7 @@ int main(int argc, char const *argv[])
     printf("Residui:\n\n");
     printAll(rq, p);
     printf("\n");
-    int order = 0;
+    int order = 1;
     printf("x\ty^2\ty\n\n");
     for(int x = 0; x < p; x++) {
         int ySq = tellMeYSquared(x, a, b, p);
