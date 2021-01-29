@@ -6,4 +6,6 @@
 # Ignore test cases
 *.out
 *.in
+
 *.class
+*.jar
