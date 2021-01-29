@@ -1,0 +1,131 @@
+\chapter{Threads}
+\section{L'interfaccia Runnable}
+Permette la creazione di task eseguibili da uno o piu' threads.
+Contiene solamente la segnatura del metodo \codeb{void run()}.
+Il frammento di codice contenuto all'interno del metodo \code{run()} verrà eseguito richiamando il metodo \code{start()} di un thread associato.
+\section{Daemon Threads}
+Sono thread a bassa priorità, utili per servizi che devono essere eseguiti finché il programma e' in esecuzione.
+Non appena tutti i threads non demoni del programma sono terminati, la JVM forza la terminazione dei thread demoni.
+\section{Metodi}
+\begin{description}
+    \item[\code{t.join()}] Blocca l'esecuzione del thread chiamante finché il thread \code{t} non termina.
+\end{description}
+\section{Interazione tra threads}
+\subsection{BlockingQueue}
+E' una coda ThreadSafe, un produttore vi puo' inserire elementi finché essa non e' piena, il consumatore puo' rimuovere elementi dalla coda.
+\section{ThreadPools}
+Aprire un thread per ogni task e' poco efficiente.
+Thread frequenti e lightweight impattano negativamente sulle performance dell'applicazione.
+Si hanno molti thread idle se il numero di essi supera il numero di processori disponibili.
+
+In un ThreadPool si ha una coda di task, appena un thread si rende disponibile gi viene passato il task da eseguire.
+Il numero e il comportamento dei thread e' variabile e dipende dall'implementazione scelta.
+\subsection{CachedThreadPool}
+Se tutti i thread sono occupati e viene sottomesso un nuovo task si crea un nuovo thread.
+I thread restano attivi per 60 secondi dopo la terminazione del task, dopo i quali, se non viene sottomesso un nuovo task, vengono chiusi.
+\subsection{FixedThreadPool}
+Il numero di thread e' definito alla creazione.
+Se viene sottomesso una task e i thread sono tutti occupati, viene messo in una coda di dimensione illimitata.
+\subsection{ThreadPoolExecutor}
+Permette la creazione di un ThreadPool con un comportamento definibile alla creazione.
+\subsection{Terminazione di un executor}
+La terminazione puo' avvenire in modo
+\begin{description}
+    \item[Graduale] Tutti i task gia attivi finiscono l'esecuzione ma quelli nuovi vengono scartati. (\code{shutdown()})
+    \item[Istantaneo] Tutti i thread vengono chiusi all'istante. (\code{shutdownNow()})
+\end{description}
+\section{Callable e Future}
+Gli oggetti di tipo \code{Runnable} non restituiscono valori di ritorno
+Un oggetto che implementa \code{Callable} invece definisce un task che puo' restituire un risultato e sollevare eccezioni.
+\code{Future} rappresenta il risultato di una \code{Callable} e definisce metodi per controllare la computazione.
+\chapter{Condivisione delle risorse}
+Se piu' thread accedono alla stessa risorsa in modo concorrente e non ci sono controlli si verifica una \bluetext{race condition}
+\section{Locks}
+Una Lock puo' essere bloccata al massimo da un thread; se un nuovo thread prova a richiedere la lock prima che venga sbloccata, viene fermata l'esecuzione del nuovo chiamante.
+\subsection{Deadlock}
+E' possibile che due thread si blocchino a vicenda.
+\section{Condition}
+Una condition permette di sospendere un thread (\code{await()}) e risvegliarlo (\code{notify()})
+Vedere rimozioni concorrenti 3$^a$ lezione
+\section{Sincronizzazione a alto livello}
+\subsection{Blocchi sincronizzati}
+Quando si entra in un blocco 
+\begin{center}
+    \code{synchronized (object) }\{\}
+\end{center}
+Il thread chiamante acquisisce una lock su \code{object} e la rilascia all'uscita dal blocco.
+\subsection{Metodi sincronizzati}
+\begin{center}
+    \code{public synchronized void doSomething() }\{\}
+\end{center}
+Acquisisce una lock su \codeb{this}
+\section{Monitors}
+\subsection{wait e notify}
+La chiamata di \code{wait()} sospende il thread in attesa di essere risvegliato tramite attesa passiva (niente polling).
+Il metodo \code{notify()} risveglia un thread precedentemente sospeso.
+
+Per invocare questi metodi bisogna prima aver acquisito una lock sull'oggetto.
+Alla chiamata di \code{wait()} la lock viene rilasciata.
+Vedere esempio RWMonitor 4$^a$ lezione.
+\section{Classi atomiche}
+Appositamente studiate per permettere l'accesso concorrente, non c'e' bisogno di utilizzare lock o metodi sincronizzati.
+\chapter{IO}
+\section{Stream}
+Uno stream e' una connessione tra un programma JAVA e un dispositivo esterno (File, connessione di rete...)
+Sono bloccanti e one-way.
+\section{Classe File}
+Fornisce, oltre alla path per l'individuazione del file, anche dei metodi per restituire meta-info sul file.
+\section{Buffered I/O Stream}
+Implementano una bufferizzazione per gli stream. I tempi di lettura e scrittura diminuiscono significativamente.
+\section{I/O StreamReader}
+Converte i byte non-unicode in caratteri unicode e viceversa.
+\section{Serializzazione / De-serializzazione}
+Un oggetto che implementa \codeb{Serializable} permette di essere inviato/salvato e riletto da un programma JAVA
+Il programma che intende de-serializzare un oggetto deve conoscere la classe.
+I campi marcati come \code{transient} non vengono serializzati.
+\subsection{Caching}
+Ogni volta che un oggetto viene serializzato e inviato ad una ObjectOutputStream, un suo riferimento viene memorizzato in una \bluetext{identity hash table}.
+Se l'oggetto viene scritto nuovamente viene inserito solamente un puntatore all'oggetto precedente.
+\subsection{Version Control}
+Per identificare la versione di un oggetto serializzato si utilizza il \\\code{serialVersionUID}.
+Se il SUID cambia, la de-serializzazione non e' possibile.
+\chapter{NIO}
+\section{Canali e Buffer}
+Un canale NIO e' analogo a uno stream IO.
+Tutti i dati inviati o letti da un canale devono essere memorizzati in un buffer.
+
+Vedi variabili di stato: lezione del 22 Ottobre.
+
+Un canale e' bidirezionale. I canali orientati alle connessione TCP e UDP possono essere impostati non bloccanti.
+\chapter{JSON}
+E' un formato per l'interscambio di dati indipendente dalla piattaforma.
+E' basato su due strutture: 
+\begin{itemize}
+    \item Coppie (chiave - valore)
+    \item Liste ordinate di valori
+\end{itemize}
+Le chiavi devono essere stringhe.
+I valori ammissibili sono
+\begin{itemize}
+    \item String
+    \item Number
+    \item Object (JSON Object)
+    \item Array
+    \item Boolean
+    \item null
+\end{itemize}
+\chapter{Le socket}
+\section{La classe InetAddress}
+Rappresenta ad alto livello un indirizzo IP. Permette anche la risoluzione degli indirizzi attraverso il DNS tramite il metodo \code{getByName}
+\subsection{Caching}
+Gli indirizzi risolti tramite la InetAddress vengono salvati in una cache locale.
+\section{Tipi di socket}
+Esistono due tipi di socket server:
+\begin{itemize}
+    \item welcome sockets
+    \item connection sockets
+\end{itemize}
+Un client crea una active socket verso la welcome socket del server, il quale a sua volta creerà una connection socket con cui comunicare con in client.
+
+\section{Channel Multiplexing}
+Nel modello non-blocking la chiamata al sistema restituisce il controllo al chiamante prima che l'operazione sia \textit{pianamente soddisfatta}

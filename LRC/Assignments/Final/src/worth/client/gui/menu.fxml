@@ -39,81 +39,89 @@
     </MenuBar>
       <BorderPane VBox.vgrow="ALWAYS">
          <center>
-            <TabPane fx:id="tabPane" disable="true" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-              <tabs>
-                <Tab text="Chat">
-                     <content>
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <ListView fx:id="lvChat" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TabPane fx:id="tabPane" disable="true" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                      <Tab text="Chat">
+                           <content>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <TextField fx:id="tfChat" onKeyPressed="#tfChatKey" promptText="Press Enter to send" HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" onAction="#sendButtonAction" text="Send" />
+                                    <ListView fx:id="lvChat" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextField fx:id="tfChat" onKeyPressed="#tfChatKey" promptText="Press Enter to send" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" onAction="#sendButtonAction" text="Send" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                              <ListView fx:id="lvPMembers" orientation="HORIZONTAL" prefHeight="50.0" prefWidth="560.0" GridPane.rowIndex="2" />
-                           </children>
-                        </GridPane>
-                     </content></Tab>
-                <Tab text="TODO">
-                     <content>
-                        <TableView fx:id="tvTD" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="tvTDc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
-                            <TableColumn fx:id="tvTDd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </content></Tab>
-                  <Tab text="In Progress">
-                     <content>
-                        <TableView fx:id="tvIP" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="tvIPc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
-                            <TableColumn fx:id="tvIPd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </content></Tab>
-                  <Tab text="To Be Revised">
-                     <content>
-                        <TableView fx:id="tvTR" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="tvTRc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
-                            <TableColumn fx:id="tvTRd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </content></Tab>
-                  <Tab text="Done">
-                     <content>
-                        <TableView fx:id="tvDN" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="tvDNc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
-                            <TableColumn fx:id="tvDNd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </content></Tab>
-              </tabs>
-            </TabPane>
+                              </GridPane>
+                           </content>
+                        </Tab>
+                      <Tab text="TODO">
+                           <content>
+                              <TableView fx:id="tvTD" prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn fx:id="tvTDc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
+                                  <TableColumn fx:id="tvTDd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </content>
+                        </Tab>
+                        <Tab text="In Progress">
+                           <content>
+                              <TableView fx:id="tvIP" prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn fx:id="tvIPc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
+                                  <TableColumn fx:id="tvIPd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </content>
+                        </Tab>
+                        <Tab text="To Be Revised">
+                           <content>
+                              <TableView fx:id="tvTR" prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn fx:id="tvTRc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
+                                  <TableColumn fx:id="tvTRd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </content>
+                        </Tab>
+                        <Tab text="Done">
+                           <content>
+                              <TableView fx:id="tvDN" prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn fx:id="tvDNc" editable="false" maxWidth="300.0" minWidth="100.0" prefWidth="200.0" sortable="false" text="Name" />
+                                  <TableColumn fx:id="tvDNd" editable="false" maxWidth="1.7976931348623157E308" prefWidth="-1.0" sortable="false" text="Description" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+                  <ListView fx:id="lvPMembers" orientation="HORIZONTAL" prefHeight="30.0" />
+               </children>
+            </VBox>
          </center>
          <left>
             <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
