@@ -1,0 +1,63 @@
+\chapter{Cifrari perfetti}
+\section{Definizione}
+
+\begin{itemize}
+    \item $\mathcal{P}r(M = m)$ : Probabilita' che $m$ sia il messaggio che deve essere inviato
+    \item $\mathcal{P}r(M = m | C = c)$ : Probabilita' che il messaggio originale fosse $m$ dato il crittogramma $c$ in transito
+    \item Un cifrario e' perfetto se :
+    \begin{itemize}
+        \item $\forall m \in \text{Msg}, c \in \text{Critto}$ : $\mathcal{P}r(M = m | C = c) = \mathcal{P}r(M = m)$
+        \item Cioe' $m$ e $c$ sono totalmente scorrelati tra loro percio' la conoscen\-za complessiva di un crittoanalista non cambia dopo che ha osservato un crittogramma sul canale
+        \begin{itemize}
+            \item In un cifrario perfetto il numero di chiavi deve essere $\geq$ dei messaggi possibili
+            \item $N_m$ : Numero dei messaggi possibili
+            \item $N_k$ : Numero di chiavi
+            \item $N_k \geq N_m$ : Se non fosse cosi', dato un crittogramma $c$, esisterebbe un messaggio $m'$ non generabile tramite la decrittazione di $c$ con tutte le chiavi del sistema
+            \item $\mathcal{P}r(M = m' | C = c) = 0 \not= \mathcal{P}r(M = m)$
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\section{One-Time Pad}
+
+\begin{itemize}
+    \item Si assume che i messaggi $m$, le chiavi $k$, e i crittogrammi $c$ siano codificati come sequenze binarie
+    \item $\mathcal{C}(m, k) = c = m \oplus k$
+    \item $\mathcal{D}(c, k) = m = c \oplus k$
+    \item Gen. chiave : Si costruisce una sequenza $k = k_1k_2\dots k_n : n \geq |m|$, $\mathcal{P}r(k_i = 0) = \mathcal{P}r(k_i = 1) = \nicefrac{1}{2}$
+    \item Cifratura : Dati $m = m_1m_2\dots m_n$ e $k = k_1k_2\dots k_n$ $\implies$ $c = c_1c_2\dots c_n$ con $c_i = m_i \oplus k_i$
+    \item Decifrazione : Identico alla cifratura ma con $c$ e $m$ invertiti
+    \begin{itemize}
+        \item Il cifrario One-Time Pad si considera perfetto se
+        \item \textit{Tutti i messaggi hanno la stessa lunghezza n} : Altrimenti la lunghezza del crittogramma darebbe informazioni utili al crittoanalista
+        \item \textit{Tutte le sequenze di $n$ bit sono messaggi possibili} : Non propriamente vero
+    \end{itemize}
+    \item Dimostrazione di perfezione di One-Time Pad
+    \begin{itemize}
+        \item $\mathcal{P}r(M = m | C = c) = \frac{\mathcal{P}r(M = m, C = c)}{\mathcal{P}r(C = c)}$
+        \item Per definizione di \texttt{XOR} chiavi diverse generano crittogrammi diversi. Quindi fissato $m$ abbiamo $\mathcal{P}r(C = c) = (\nicefrac{1}{2})^n$ quindi gli eventi $\{M = m\}$ e $\{C = c\}$ sono indipendenti
+        \item $\mathcal{P}r(M = m, C = c) = \mathcal{P}r(M = m) \times \mathcal{P}r(C = c)$
+        \item $\mathcal{P}r(M = m | C = c) = \frac{\mathcal{P}r(M = m) \times \cancel{\mathcal{P}r(C = c)}}{\cancel{\mathcal{P}r(C = c)}} = \mathcal{P}r(M = m)$
+    \end{itemize}
+\end{itemize}
+
+\section{Generazione della chiave}
+
+\begin{itemize}
+    \item Per definizione di \texttt{XOR} la chiave non puo' essere riutilizzata perche' dati
+    \begin{itemize}
+        \item $c' = m' \oplus k$
+        \item $c'' = m'' \oplus k$
+        \item $\forall i \in [0, n] \implies c'_i \oplus c''_i = m'_i \oplus m''_i$ : Cio significa che due porzioni identiche di $m'$ e $m''$ corrispondono a un tratto di $c'_i \oplus c''_i$ di tutti zeri
+    \end{itemize}
+    \item Metodi di generazione
+    \begin{itemize}
+        \item \textbf{Generatore pubblico, seme privato} : I due partner devono scambiarsi soltanto il seme ma espone il cifrario ad un attacco esauriente sui semi possibili
+        \item \textbf{Generatore e seme privati} : Richiede che i partner si accordino su un generatore di loro definizione per evitare un attacco esauriente sui generatori conosciuti
+    \end{itemize}
+    \newpage
+    \item Approssimazioni e considerazioni
+    \begin{itemize}
+        \item Nella realta' dei fatti, non tutti i $2^n$ messaggi sono messaggi possibili; Questo perche' si assume che il messaggio sia codificato in linguaggio naturale e deve seguire determinate regole.
+        \item Nei linguaggi naturali il numero di messaggi validi di lunghezza $n$ e' circa $\alpha^n$ con $\alpha < 2$ variabile a seconda della lingua
+    \end{itemize}
+\end{itemize}

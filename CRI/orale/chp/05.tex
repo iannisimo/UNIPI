@@ -1,0 +1,58 @@
+\chapter{Cifrari storici}
+
+\section{Cifrari a sostituzione monoalfabetica}
+
+Ogni lettera $l$ del messaggio viene trasformata in una lettera $c$ non dipendente dalla posizione o dal contesto di essa.
+
+\begin{itemize}
+    \item $pos(n)$ : Posizione della lettera $n$
+    \item $p$ : Lunghezza dell'alfabeto
+    \item Cifrario affine : $pos(y) = a \cdot pos(x) + b \mod{p}$
+    \begin{itemize}
+        \item $mcd(a, p) = 1$
+        \item $b \in [0, p-1]$
+    \end{itemize}
+    \item Cifrario di Cesare : Cifrario affine con $k = (1, 3)$
+    \item Attacchi
+    \begin{itemize}
+        \item Brute-force
+        \item Analizzando la frequenza delle lettere e dei q-grammi del crittogramma e confrontandole con quelle della lingua si puo' risalire velocemente al messaggio e alla chiave
+    \end{itemize}
+\end{itemize}
+
+\section{Cifrari a sostituzione polialfabetica}
+
+La stessa lettera del messaggio corrisponde a lettere diverse del crittogramma
+
+\begin{itemize}
+    \item Cifrario di Alberti : Simile al cifrario affine ma permette il cambio della chiave dinamico\
+    \newpage
+    \item Cifrario di Vigenere
+    \begin{itemize}
+        \item $offset : x = m[offset]$
+        \item $i = offset \mod{|k|}$
+        \item $pos(y) = (pos(x) + pos(k[i])) \mod{p}$
+        \item Attacco : Dato che la chiave viene ripetuta con periodo $|k|$, si hanno $|k|$ sotto-messaggi cifrati con sistema monoalfabetico e si possono usare gli stessi metodi di esso
+    \end{itemize}
+\end{itemize}
+
+\section{Cifrari a trasposizione}
+
+Le lettere del messaggio vengono permutate secondo una legge dettata dalla chiave.
+
+\begin{itemize}
+    \item Permutazione semplice : Fissato un $h$ e una permutazione $\pi$ degli interi $\leq h$, il processo di crittazione consiste dividere il messaggio in blocchi di $h$ lettere e permutare ciascuno di essi in accordo con $\pi$; Il numero di chiavi e' uguale a $h! - 1$
+    \item Permutazione di colonne
+    \begin{itemize}
+        \item $k = \langle c, r, \pi \rangle$
+        \item $\pi$ e' una permutazione di $c$
+        \item Si cifrano le righe come in \textit{permutazione semplice}
+        \item Si costruisce $c$ leggendo la tabella per colonne $\downarrow \rightarrow$
+    \end{itemize}
+    \item Cifrari a griglia
+    \begin{itemize}
+        \item Il crittogramma e' scritto in una tabella $q \times q$
+        \item La chiave e' una scheda perforata con con $\dfrac{q}{4}$ celle trasparenti che permette di ricostruire il messaggio tramite quattro rotazioni della griglia sul crittogramma e leggendo i caratteri $\rightarrow \downarrow$
+        \item Il numero di chiavi possibili $G$ e' $G = 2^{q^2/2}$
+    \end{itemize}
+\end{itemize}

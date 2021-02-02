@@ -1,0 +1,70 @@
+\documentclass[a4paper,11pt,twoside]{book}
+\usepackage{listings}		
+\usepackage{graphicx}
+\usepackage[svgnames]{xcolor}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage[makeroom]{cancel}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\abracket}{\langle}{\rangle}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\tabcolsep}{1em}
+\setlength{\emergencystretch}{10pt}
+\graphicspath{ {./img/} }	
+% \pagecolor{black}
+% \color{white}				
+
+\lstset{language=Java,						
+	showspaces=false,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	commentstyle=\color{ForestGreen},
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	identifierstyle=\color{Gray},
+	basicstyle=\small\ttfamily
+}
+
+\newcommand{\bluetext}[1]{\textcolor{blue}{#1}}
+\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+\newcommand{\orangetext}[1]{\textcolor{orange}{#1}}
+\newcommand{\subtext}[1]{\textsubscript{#1}}
+\newcommand{\supertext}[1]{\textsuperscript{#1}}
+\renewcommand{\mod}[1]{\ \mathbf{\mathrm{mod}}\ #1}
+\newcommand{\m}[1]{\texttt{#1}}
+
+\begin{document}
+
+\title{Appunti per Orale di Crittografia}
+\author{Simone Ianniciello}
+\date{A.A. 2020/2021}
+\maketitle
+
+\tableofcontents
+\include{chp/01}
+\chapter{}
+\chapter{}
+\include{chp/04}
+\include{chp/05}
+\include{chp/06}
+\include{chp/07}
+\include{chp/08}
+\include{chp/09}
+
+\end{document}

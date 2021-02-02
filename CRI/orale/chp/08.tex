@@ -1,0 +1,204 @@
+\chapter{Crittografia a chiave pubblica}
+
+\section{Funzioni One-Way Trap-Door}
+
+\begin{itemize}
+    \item Fattorizzazione
+    \begin{itemize}
+        \item Calcolare Il prodotto $n = pq$ e polinomialmente facile
+        \item Ricavare $p$ e $q$ dato $n$ invece richiede tempo esponenziale perch\`e bisogna \textit{provarli tutti}
+    \end{itemize}
+    \item Calcolo della radice in modulo
+    \begin{itemize}
+        \item Calcolare $y = x^z \mod{s}$ richiede tempo polinomiale grazie al sistema delle successive esponenziazioni
+        \item Se $s$ non \'e primo calcolare $x = \sqrt[z]{y} \mod{s}$ richiede tempo esponenziale
+        \item Se per\'o $mcd(x, s) = 1$ e si conosce $v = z^{-1} \mod{\Phi(s)}$ si ha\\$y^v \mod{s} = x^{zv} \mod{s} = x^{1 + k\Phi(s)} \mod{s} = x \mod{s}$
+    \end{itemize}
+    \item Calcolo del logaritmo discreto
+    \begin{itemize}
+        \item Dati $x, y, s$ interi si richiede di trovare $z$ tale che $y = x^z \mod{s}$ 
+        \item La soluzione a questo problema esiste se $s$ \'e primo e $x$ \'e un generatore di $\mathcal{Z}_s^*$
+        \item Esiste un artificio piuttosto complesso per introdurre una trap-door in questa funzione
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\section{Pregi e difetti dei cifrari a chiave pubblica}
+\begin{itemize}
+    \item Pregi
+    \begin{itemize}
+        \item Dati $n$ utenti connessi a un sistema, il numero complessivo di chiavi e' $2n$ anzich\`e $\frac{n(n-1)}{2}$
+        \item Non \'e richiesto alcuno scambio segreto di chiavi
+    \end{itemize}
+    \item Difetti
+    \begin{itemize}
+        \item Il sistema \'e esposto ad attacchi di tipo \textit{chosen plain-text}
+        \item Questi sistemi sono molto pi\`u lenti dei cifrari simmetrici
+    \end{itemize}
+\end{itemize}
+
+\section{Il cifrario RSA}
+
+\begin{itemize}
+    \item Creazione delle chiavi
+    \begin{itemize}
+        \item Si scelgono $p$ e $q$ primi molto grandi
+        \item $n = pq$
+        \item $\Phi(n) = (p-1)(q-1)$
+        \item Si sceglie $e$ : $e < \Phi(n) \wedge mcd(e, \Phi(n)) = 1$
+        \item Si calcola $d = e^{-1} \mod{\Phi(n)}$ Tramite \texttt{Euclide Esteso}
+        \item $k[pub] = \langle e, n \rangle$
+        \item $k[prv] = \langle d \rangle$
+    \end{itemize}
+    \item Per cifrare un messaggio $m$ esso deve essere codificato come un intero $m < n$
+    \item $m$ pu\'o essere diviso in blocchi di lunghezza $\lfloor \log_2(m) \rfloor$
+    \item $c = \mathcal{C}(m, k[pub]) = m^e \mod{n}$
+    \item $m = \mathcal{D}(c, k[prv]) = c^d \mod{n} = m^{ed} \mod{n} = m$
+\end{itemize}
+
+\subsection{Correttezza di RSA}
+
+Si distinguono due casi
+
+\begin{itemize}
+    \item $p$ e $q$ non dividono $m$
+    \begin{itemize}
+        \item $mcd(m, n) = 1$
+        \item Eulero : $m^{\Phi(n)} \equiv 1 \mod{n}$
+        \item $e \times d \equiv 1 \mod{\Phi(n)} = 1 + r\Phi(n)$
+        \item $m^{ed} \mod{n} = m^{1+r\Phi(n)} \mod{n} = m \times (m^{\Phi(n)})^r \mod{n} =\\\quad= m \times 1^r \mod{n} = m \mod{n}$
+    \end{itemize}
+    \item $m \mid p \wedge m \nmid q$
+    \begin{itemize}
+        \item $m \equiv m^r \equiv 0 \mod{p}, (m^r - m) \equiv 0 \mod{p}$
+        \item $\Phi(q) = (q-1)$ perch\`e $q$ \'e primo
+        \item $m^{\Phi(q)} \mod{q} \equiv 1 \mod{q}$
+        \item $m^{ed} \mod{q} = m^{1+r\Phi(n)} \mod{q} = m \times (m^{\Phi(q)})^{r(p-1)} \mod{q} = m \mod{q}$
+        \item $m^{ed} \equiv m \mod{q} \implies (m^{ed} - m) \equiv 0 \mod{q}$ : $(m^{ed} - m) \mid q$
+        \item $(m^{ed} - m) \equiv 0 \mod{n} \implies m^{ed} \mod{n} = m \mod{n}$
+    \end{itemize}
+\end{itemize}
+
+\section{Attacchi all'RSA}
+
+\begin{itemize}
+    \item $|p - q|$ molto piccolo
+    \begin{itemize}
+        \item Supponiamo $|p-q|$ piccolo
+        \item $\nicefrac{p+q}{2} \approx \sqrt{n}$
+        \item $\frac{(p+q)^2}{4}-n = \frac{(p-q)^2}{4}$
+        \item $(\nicefrac{p+q}{2})^2 \approx n = n_a$
+        \item $n_a - n = \frac{(p-q)^2}{2^2}$
+        \item $\frac{(p-q)^2}{2^2} > 0 \implies n_a > n$
+        \item $w = \frac{(p-q)}{2}$
+        \item Bisogna trovare $z : z^2 - n = w^2$
+    \end{itemize}
+    \item $mcd((p-1), (q-1))$ deve essere piccolo\\(Si scelgono quindi $p$ e $q$ : $mcd(\frac{p-1}{2}, \frac{q-1}{2}) = 1$)
+    \item $e = \nicefrac{1 + \Phi(n)}{k}$ con $m \mid k$ e $mcd(m, n) = 1$\\$c = m^e \mod{n} = m \times (m^{\Phi(n)})^{\nicefrac{1}{k}} \mod{n} = m \mod{n}$
+    \item $e$ molto piccolo
+    \begin{itemize}
+        \item Poniamo che $e$ utenti condividano lo stesso valore di $e$ e che ricevano tutti lo stesso messaggio
+        \item $c_i = m^e \mod{n_i}$
+        \item Si assume che $n_i$ siano tutti coprimi tra loro
+        \item Per \textit{Teorema Cinese del Resto}
+        \begin{itemize}
+            \item $n  = n_1 \times n_2 \times \dots \times n_e$
+            \item $m' < n$
+            \item $m' \equiv m^e \mod{n}$
+        \end{itemize}
+        \item $m^e$ {\tiny($\equiv m'$)} $< n$
+        \item $m' = m^e$ : Perch\`e $m'$ e $m^e$ sono minori di $n$
+        \item $m = \sqrt[e]{m'}$
+        \item Per mantenere valori di $e$ piccoli senza compromettere la sicurezza basta aggiungere una sequenza di bit diversa alla fine di ogni messaggio (\textit{padding})
+    \end{itemize}
+    \item $n$ uguale per pi\'u utenti
+    \begin{itemize}
+        \item Date due chiavi $\abracket{e_1, n}, \abracket{e_2, n} : mcd(e_1, e_2) = 1$
+        \item Tramite \texttt{Euclide Esteso} si possono calcolare $r$ e $s$ tali che $e_1r + e_2s = 1$ (Fissiamo $r < 0$)
+        \item Poniamo adesso che si intercettino due crittogrammi $c_1, c_2$ relativi allo stesso messaggio $m$ diretti ai due utenti attaccati
+        \item $m = m^{e_1r+e_2s} = (c_1^r \times c_2^s) \mod{n} = ((c_1^{-1})^{-r} \times c_2^s) \mod{n}$
+        \item Tramite \texttt{Euclide Esteso} si calcola $c^{-1} \mod{n}$
+        \item Si pu\'o quindi calcola $m$ in tempo polinomiale
+    \end{itemize}
+    \item RSA ha gli stessi problemi (e le stesse soluzioni) del DES per la periodicit\'a dei blocchi 
+\end{itemize}
+
+\section{Diffie-Hellman per lo scambio di chiavi}
+
+\begin{itemize}
+    \item A e B si accordano su un primo $p$ e un generatore $g$ di $\mathcal{Z}_p^*$
+    \item A sceglie $x < p$ casuale e calcola $X = g^x \mod{p}$ e spedisce $X$ a B
+    \item B fa lo stesso ($Y = g^y \mod{p}$)
+    \item Entrambi calcolano $k[session] = Y^x \mod{p} = X^y \mod{p} =\\= g^{xy} \mod{p}$
+    \item Se un crittoanalista intercetta $X$ (o $Y$) dovrebbe calcolarsi il logaritmo discreto per risalire a $x$ (o $y$)
+    \item L'unico attacco possibile \'e \texttt{MITM}
+\end{itemize}
+
+\section{Curve ellittiche su campi finiti}
+
+\begin{itemize}
+    \item $E_p(a, b) = \{(x, y) \in \mathcal{Z}_p^2 \mid y^2 \mod{p} = (x^3 + ax + b) \mod{p}\} \cup \{O\}$
+    \item La curva presenta una simmetria rispetto alla retta $y = p/2$
+\end{itemize}
+% TODO
+
+\section{Diffie-Hellman su curve ellittiche}
+
+\begin{itemize}
+    \item A e C si accordano su una curva definita su campo finito, e su un punto $B$ di ordine $n$ molto grande
+    \item $n$ \'e il pi\'u piccolo intero tale che $nB = O$
+    \item A sceglie un intero $n_A < n$ e genera $P_A = n_AB$ e invia $P_A$ a C
+    \item C fa lo stesso ($P_C = n_CB$)
+    \item Entrambi calcolano $S = n_AP_C = n_cP_A = n_An_CB$
+    \item $k = x_S \mod{2^{256}}$
+\end{itemize}
+
+\section{Algoritmo di Koblitz}
+
+Questo algoritmo serve a trasformare un messaggio $m < p$ in un punto $P_m$ della curva $E_p(a, b)$
+\begin{itemize}
+    \item Si fissa $h \mid (m+1)h < p$
+    \item Si prova ogni $i \in [0, h)$ si calcola $x_i = mh + i$
+    \item Se esiste la radice quadrata di $y_i^2 = x_i^3 + ax_i + b$ allora si sceglie $P_m = (x_i, y_i)$, altrimenti si itera la $i$
+\end{itemize}
+
+Questo algoritmo ha probabilit\'a di successo pari a $1-\nicefrac{1}{2^h}$
+
+\section{Algoritmo di ElGamal su curve ellittiche}
+
+\subsection{Cifratura}
+
+\begin{itemize}
+    \item M sceglie $r$ casuale
+    \item $V = rB$
+    \item $W = P_m + rP_D$ dove $P_D$ \'e la chiave pubblica di D
+    \item Invia $\abracket{V,W}$
+\end{itemize}
+\subsection{Decifrazione}
+\begin{itemize}
+    \item Calcola $P_m = W - n_DV = P_m + rP_D - n_D(rB) =\\= P_m + \cancel{r(n_DB)} - \cancel{n_DrB}$
+\end{itemize}
+
+\section{Sicurezza della crittografia su curve ellittiche}
+
+\begin{itemize}
+    \item Per calcolare il logaritmo discreto in algebra modulare e la fattorizzazione degli interi esiste un algoritmo sub-esponenziale chiamato \textit{index calculus}
+    \item Questo algoritmo richiede in media $O(2^{\sqrt{b \log b}})$ operazioni per chiavi di $b$ bit
+    \item Per il problema del logaritmo discreto su curve ellittiche invece non esiste un algoritmo del genere
+    \item L'algoritmo pi\`u efficiente conosciuto ad oggi ($Pollard\ \rho$) richiede in media $O(2^{b/2})$ operazioni quindi \'e pienamente esponenziale
+\end{itemize}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        TDEA, AES & RSA e DH & ECC\\
+        (bit della chiave) & (bit del modulo) & (bit dell'ordine)\\
+        \hline
+        80 & 1024 & 160\\
+        112 & 2048 & 224\\
+        128 & 3072 & 256\\
+        192 & 7680 & 384\\
+        256 & 15360 & 512\\
+        \hline
+    \end{tabular}
+\end{center}

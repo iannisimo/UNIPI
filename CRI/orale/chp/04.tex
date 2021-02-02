@@ -1,0 +1,50 @@
+\chapter{Il ruolo del caso}
+
+\section{Il significato algoritmico della casualità}
+
+\begin{itemize}
+    \item Casualità secondo Kolmogorov
+    \begin{itemize}
+        \item $\mathcal{K}$ : Complessità
+        \item $S_i$ : Algoritmo
+        \item $h$ : Sequenza "casuale"
+        \item $p$ : Rappresentazione binaria dell'algoritmo
+        \item $\mathcal{K}_{S_i}(h) = min\{|p| : S_i(p) = h\}$
+    \end{itemize}
+    \item Una sequenza e' casuale se
+    \begin{itemize}
+        \item $\mathcal{K}(h) \geq |h| - \ceil{log_2(h)}$
+    \end{itemize}
+\end{itemize}
+
+\section{Generatori di numeri pseudo-casuali}
+
+\begin{itemize}
+    \item Generatore di numeri pseudo-casuali: algoritmo che parte da un piccolo valore iniziale detto seme e genera una sequenza arbitrariamente lunga di numeri.
+    \item Proprietà di un generatore:
+    \begin{itemize}
+        \item \textbf{Frequenza} : Verifica se i diversi elementi appaiono in S approssimativamente lo stesso numero di volte
+        \item \textbf{Poker} : Verifica la equidistribuzione di sottosequenze di lunghez\-za arbitraria ma prefissata
+        \item \textbf{Autocorrelazione} : he verifica il numero di elementi ripetuti a distanza prefissata
+        \item \textbf{Run} : verifica se le sottosequenze massimali contenenti elementi tutti uguali hanno una distribuzione esponenziale negativa
+        \item \textbf{Prossimo bit} : Non esiste un algoritmo polinomiale in grado di predire l'(\textit{i} + 1)-esimo bit della sequenza conoscendo i bit precedenti
+    \end{itemize} 
+    \item Generatore BBS : $x_i \leftarrow (x_{i-1})^2 \text{ mod }n \wedge b_i = 1 \Leftrightarrow x_{m-i}$ e' dispari
+\end{itemize}
+
+\section{Algoritmi randomizzati}
+
+\begin{itemize}
+    \item \textit{Las Vegas} : Risultato \textbf{sicuramente} corretto in tempo \textbf{probabilmente} breve
+    \item \textit{Monte Carlo} : Risultato \textbf{probabilmente} corretto in tempo \textbf{sicuramente} breve
+    \item \textit{Miller e Rabin} : Algoritmo di tipo \textit{Monte Carlo} per il controllo di un numero primo
+    \begin{itemize}
+        \item $n$ : Valore da controllare
+        \item $z$ : Intero tale che $z = \dfrac{N - 1}{2^w}$
+        \item $y$ : $y \in [2, N-1]$ 
+        \item P\textsubscript{1} : $mcd(N, y) = 1$
+        \item P\textsubscript{2} : $(y^z \mod{N} = 1) \vee (\exists{i}, 0 \leq i \leq w-1 : y^{2^iz} \mod{N} = -1)$
+        \item $(P_1 \wedge P_2) = false$ : N e' sicuramente composto
+        \item $(P_1 \wedge P_2) = true$ : N e' primo con probabilità $p \geq \dfrac{3}{4}$
+    \end{itemize}
+\end{itemize}

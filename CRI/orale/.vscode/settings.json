@@ -1,0 +1,38 @@
+{
+    "cSpell.words": [
+        "'a",
+        "'o",
+        "'u",
+        "Crittoanalisi",
+        "Diffie",
+        "Gamal",
+        "Koblitz",
+        "Kolmogorov",
+        "MITM",
+        "TDEA",
+        "Vigenere",
+        "all'RSA",
+        "crittazione",
+        "crittoanalista",
+        "equidistribuzione",
+        "esponenziazioni",
+        "lunghez",
+        "monoalfabetica",
+        "monoalfabetico",
+        "per",
+        "per\\'o",
+        "pi",
+        "pi\\'u",
+        "polialfabetica",
+        "polinomialmente",
+        "probabilit",
+        "probabilit\\'a",
+        "sottochiavi",
+        "sottosequenze",
+        "textsubscript"
+    ],
+    "cSpell.enableFiletypes": [
+        "!java",
+        "latex"
+    ]
+}
