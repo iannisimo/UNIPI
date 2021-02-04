@@ -11,10 +11,22 @@
         \item $p$ : Rappresentazione binaria dell'algoritmo
         \item $\mathcal{K}_{S_i}(h) = min\{|p| : S_i(p) = h\}$
     \end{itemize}
-    \item Una sequenza e' casuale se
+    \item Una sequenza \'e casuale se
     \begin{itemize}
         \item $\mathcal{K}(h) \geq |h| - \ceil{log_2(h)}$
     \end{itemize}
+\end{itemize}
+
+\subsection{Esistenza di sequenze casuali di lunghezza n}
+
+\begin{itemize}
+    \item $n$ : Lunghezza della rappresentazione binaria
+    \item $S = 2^n$ : Tutte le sequenze binarie lunghe $n$
+    \item Chiamiamo $T$ l'insieme delle sequenze non casuali all'interno di $S$
+    \item $N = 2^{n \ceil{\log_2n} - 1}$ : Sequenze pi\'u corte di $n - \ceil{\log_2 n}$
+    \item $N$ Contiene tutte anche tutti i programmi che generano le sequenze $T$
+    \item $T \leq N < S$
+    \item $\nicefrac{T}{S} < 2^{-\ceil{\log_2 n}}$ Tende a $0$ al crescere di $n$
 \end{itemize}
 
 \section{Generatori di numeri pseudo-casuali}
@@ -44,7 +56,7 @@
         \item $y$ : $y \in [2, N-1]$ 
         \item P\textsubscript{1} : $mcd(N, y) = 1$
         \item P\textsubscript{2} : $(y^z \mod{N} = 1) \vee (\exists{i}, 0 \leq i \leq w-1 : y^{2^iz} \mod{N} = -1)$
-        \item $(P_1 \wedge P_2) = false$ : N e' sicuramente composto
-        \item $(P_1 \wedge P_2) = true$ : N e' primo con probabilità $p \geq \dfrac{3}{4}$
+        \item $(P_1 \wedge P_2) = false$ : N \'e sicuramente composto
+        \item $(P_1 \wedge P_2) = true$ : N \'e primo con probabilità $p \geq \dfrac{3}{4}$
     \end{itemize}
 \end{itemize}

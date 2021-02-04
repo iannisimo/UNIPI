@@ -2,18 +2,18 @@
 \section{Definizione}
 
 \begin{itemize}
-    \item $\mathcal{P}r(M = m)$ : Probabilita' che $m$ sia il messaggio che deve essere inviato
-    \item $\mathcal{P}r(M = m | C = c)$ : Probabilita' che il messaggio originale fosse $m$ dato il crittogramma $c$ in transito
-    \item Un cifrario e' perfetto se :
+    \item $\mathcal{P}r(M = m)$ : Probabilit\'a che $m$ sia il messaggio che deve essere inviato
+    \item $\mathcal{P}r(M = m \mid C = c)$ : Probabilit\'a che il messaggio originale fosse $m$ dato il crittogramma $c$ in transito
+    \item Un cifrario \'e perfetto se :
     \begin{itemize}
-        \item $\forall m \in \text{Msg}, c \in \text{Critto}$ : $\mathcal{P}r(M = m | C = c) = \mathcal{P}r(M = m)$
-        \item Cioe' $m$ e $c$ sono totalmente scorrelati tra loro percio' la conoscen\-za complessiva di un crittoanalista non cambia dopo che ha osservato un crittogramma sul canale
+        \item $\forall m \in \text{Msg}, c \in \text{Critto}$ : $\mathcal{P}r(M = m \mid C = c) = \mathcal{P}r(M = m)$
+        \item Cio\`e $m$ e $c$ sono totalmente scorrelati tra loro perci\`o la conoscenza complessiva di un crittoanalista non cambia dopo che ha osservato un crittogramma sul canale
         \begin{itemize}
             \item In un cifrario perfetto il numero di chiavi deve essere $\geq$ dei messaggi possibili
             \item $N_m$ : Numero dei messaggi possibili
             \item $N_k$ : Numero di chiavi
-            \item $N_k \geq N_m$ : Se non fosse cosi', dato un crittogramma $c$, esisterebbe un messaggio $m'$ non generabile tramite la decrittazione di $c$ con tutte le chiavi del sistema
-            \item $\mathcal{P}r(M = m' | C = c) = 0 \not= \mathcal{P}r(M = m)$
+            \item $N_k \geq N_m$ : Se non fosse cos\`i, dato un crittogramma $c$, esisterebbe un messaggio $m'$ non generabile tramite la decrittazione di $c$ con tutte le chiavi del sistema
+            \item $\mathcal{P}r(M = m' \mid C = c) = 0 \not= \mathcal{P}r(M = m)$
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -33,17 +33,17 @@
     \end{itemize}
     \item Dimostrazione di perfezione di One-Time Pad
     \begin{itemize}
-        \item $\mathcal{P}r(M = m | C = c) = \frac{\mathcal{P}r(M = m, C = c)}{\mathcal{P}r(C = c)}$
+        \item $\mathcal{P}r(M = m \mid C = c) = \frac{\mathcal{P}r(M = m, C = c)}{\mathcal{P}r(C = c)}$
         \item Per definizione di \texttt{XOR} chiavi diverse generano crittogrammi diversi. Quindi fissato $m$ abbiamo $\mathcal{P}r(C = c) = (\nicefrac{1}{2})^n$ quindi gli eventi $\{M = m\}$ e $\{C = c\}$ sono indipendenti
         \item $\mathcal{P}r(M = m, C = c) = \mathcal{P}r(M = m) \times \mathcal{P}r(C = c)$
-        \item $\mathcal{P}r(M = m | C = c) = \frac{\mathcal{P}r(M = m) \times \cancel{\mathcal{P}r(C = c)}}{\cancel{\mathcal{P}r(C = c)}} = \mathcal{P}r(M = m)$
+        \item $\mathcal{P}r(M = m \mid C = c) = \frac{\mathcal{P}r(M = m) \times \cancel{\mathcal{P}r(C = c)}}{\cancel{\mathcal{P}r(C = c)}} = \mathcal{P}r(M = m)$
     \end{itemize}
 \end{itemize}
 
 \section{Generazione della chiave}
 
 \begin{itemize}
-    \item Per definizione di \texttt{XOR} la chiave non puo' essere riutilizzata perche' dati
+    \item Per definizione di \texttt{XOR} la chiave non pu\`o essere riutilizzata perch\`e dati
     \begin{itemize}
         \item $c' = m' \oplus k$
         \item $c'' = m'' \oplus k$
@@ -57,7 +57,7 @@
     \newpage
     \item Approssimazioni e considerazioni
     \begin{itemize}
-        \item Nella realta' dei fatti, non tutti i $2^n$ messaggi sono messaggi possibili; Questo perche' si assume che il messaggio sia codificato in linguaggio naturale e deve seguire determinate regole.
-        \item Nei linguaggi naturali il numero di messaggi validi di lunghezza $n$ e' circa $\alpha^n$ con $\alpha < 2$ variabile a seconda della lingua
+        \item Nella realt\'a dei fatti, non tutti i $2^n$ messaggi sono messaggi possibili; Questo perch\`e si assume che il messaggio sia codificato in linguaggio naturale e deve seguire determinate regole.
+        \item Nei linguaggi naturali il numero di messaggi validi di lunghezza $n$ \'e circa $\alpha^n$ con $\alpha < 2$ variabile a seconda della lingua
     \end{itemize}
 \end{itemize}

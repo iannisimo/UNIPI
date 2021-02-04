@@ -16,7 +16,7 @@ Ogni lettera $l$ del messaggio viene trasformata in una lettera $c$ non dipenden
     \item Attacchi
     \begin{itemize}
         \item Brute-force
-        \item Analizzando la frequenza delle lettere e dei q-grammi del crittogramma e confrontandole con quelle della lingua si puo' risalire velocemente al messaggio e alla chiave
+        \item Analizzando la frequenza delle lettere e dei q-grammi del crittogramma e confrontandole con quelle della lingua si pu\`o risalire velocemente al messaggio e alla chiave
     \end{itemize}
 \end{itemize}
 
@@ -41,18 +41,18 @@ La stessa lettera del messaggio corrisponde a lettere diverse del crittogramma
 Le lettere del messaggio vengono permutate secondo una legge dettata dalla chiave.
 
 \begin{itemize}
-    \item Permutazione semplice : Fissato un $h$ e una permutazione $\pi$ degli interi $\leq h$, il processo di crittazione consiste dividere il messaggio in blocchi di $h$ lettere e permutare ciascuno di essi in accordo con $\pi$; Il numero di chiavi e' uguale a $h! - 1$
+    \item Permutazione semplice : Fissato un $h$ e una permutazione $\pi$ degli interi $\leq h$, il processo di crittazione consiste dividere il messaggio in blocchi di $h$ lettere e permutare ciascuno di essi in accordo con $\pi$; Il numero di chiavi \'e uguale a $h! - 1$
     \item Permutazione di colonne
     \begin{itemize}
         \item $k = \langle c, r, \pi \rangle$
-        \item $\pi$ e' una permutazione di $c$
+        \item $\pi$ \'e una permutazione di $c$
         \item Si cifrano le righe come in \textit{permutazione semplice}
         \item Si costruisce $c$ leggendo la tabella per colonne $\downarrow \rightarrow$
     \end{itemize}
     \item Cifrari a griglia
     \begin{itemize}
-        \item Il crittogramma e' scritto in una tabella $q \times q$
-        \item La chiave e' una scheda perforata con con $\dfrac{q}{4}$ celle trasparenti che permette di ricostruire il messaggio tramite quattro rotazioni della griglia sul crittogramma e leggendo i caratteri $\rightarrow \downarrow$
-        \item Il numero di chiavi possibili $G$ e' $G = 2^{q^2/2}$
+        \item Il crittogramma \'e scritto in una tabella $q \times q$
+        \item La chiave \'e una scheda perforata con con $\dfrac{q}{4}$ celle trasparenti che permette di ricostruire il messaggio tramite quattro rotazioni della griglia sul crittogramma e leggendo i caratteri $\rightarrow \downarrow$
+        \item Il numero di chiavi possibili $G$ \'e $G = 2^{q^2/2}$
     \end{itemize}
 \end{itemize}

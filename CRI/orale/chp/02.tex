@@ -1,0 +1,51 @@
+\chapter{Esercizi}
+
+\section{Correttezza RSA}
+
+\begin{itemize}
+    \item $p, q \mid m$
+    \begin{itemize}
+        \item Eulero: $a^{\Phi(n)} \equiv 1 \mod{n}$
+        \item $e \times d \equiv 1 \mod{\Phi(n)} = 1 + r\Phi(n)$
+        \item $m^{ed} \mod{n} \equiv m \times m^{r\Phi(n)} \mod{n} \equiv m \times (m^{\Phi(n)})^r \mod{n} \\\dequiv{Eul} m \times 1^r \mod{n} \equiv m \mod{n}$
+    \end{itemize}
+    \item $p \mid m \wedge q \nmid m$
+    \begin{itemize}
+        \item $m \equiv m^r \equiv 0 \mod{p} \implies (m^r - m) \equiv 0 \mod{p}$
+        \item Eulero: $a^{\Phi(q)} \equiv 1 \mod{q}$
+        \item $m^{ed} \mod{q} \equiv m^{1+r\Phi{n}} \mod{q} \equiv m \times m^{r(p-1)(q-1)} \mod{q} \\\equiv m \times (m^{\Phi(q)})^{r\Phi(p)} \mod{q} \equiv m \mod{q}$
+        \item $(m^{ed} - m) \equiv 0 \mod{q} \implies (m^{ed} - m) \mid q$
+        \item $(m^{ed} - m) \equiv 0 \mod{n} \implies m^{ed} \equiv m \mod{n}$
+    \end{itemize}
+\end{itemize}
+
+\section{Cifrario perfetto}
+
+\subsection{Definizione}
+
+\begin{itemize}
+    \item Un cifrario si dice perfetto se non \'e possibile inferire alcuna informazione sul messaggio originale, dato il crittogramma associato
+    \item $\forall m \in Msg, c \in Critto, \pr(M = m) = \pr(M = m \mid C = c)$
+    \item La conoscenza complessiva di un crittoanalista non cambia dopo aver letto il crittogramma in transito sul canale
+\end{itemize}
+
+\subsection{Enunciato di Shannon}
+
+\begin{itemize}
+    \item Dati $M$, l'insieme dei messaggi possibili e $K$, l'insieme delle chiavi
+    \item Per Shannon : $|K| \geq |M|$
+    \item Poniamo per assurdo che $|K| < |M|$
+    \item Fissato un crittogramma $c \mid \pr(C = c) > 0$, esso corrisponde a $s \leq |K|$ messaggi (non necessariamente distinti) in M
+    \item Dato che $s \leq |K| < |M|$ allora necessariamente esiste almeno un messaggio $m \mid \pr(M=m)>0$ non ottenibile da $c$
+    \item Quindi $\pr(M=m \mid C=c) = 0 \not= \pr(M=m)$
+\end{itemize}
+
+\subsection{Perfettezza di One-Time Pad}
+
+\begin{itemize}
+    \item $\pr(M=m \mid C=c) = \dfrac{\pr(M=m,C=c)}{\pr(C=c)}$
+    \item Per definizione di \m{XOR}, fissato $m$, chiavi diverse corrispondono a crittogrammi diversi
+    \item Perci\`o $\pr(C = c) = (\nicefrac{1}{2})^n$ \'e costante
+    \item Quindi gli eventi $(C=c) e (M=m)$ sono indipendenti
+    \item Ne risulta che $\pr(M=m \mid C=c) = \dfrac{\pr(M=m) \times \cancel{\pr(C=c)}}{\cancel{\pr(C=c)}}$
+\end{itemize}

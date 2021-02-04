@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.6)  2 FEB 2021 18:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.6)  3 FEB 2021 19:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -446,25 +446,25 @@ File: lstlang1.sty 2019/09/10 1.8c listings language file
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count294
 \l__pdf_internal_box=\box105
-) (/home/simone/projects/UNIPI/CRI/orale/main.aux (/home/simone/projects/UNIPI/CRI/orale/chp/01.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/04.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/05.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/06.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/07.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/08.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/09.aux))
+) (/home/simone/projects/UNIPI/CRI/orale/main.aux (/home/simone/projects/UNIPI/CRI/orale/chp/01.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/02.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/04.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/05.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/06.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/07.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/08.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/09.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
 \c@lstlisting=\count295
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -492,7 +492,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \AtBeginShipoutBox=\box107
-Package hyperref Info: Link coloring ON on input line 52.
+Package hyperref Info: Link coloring ON on input line 54.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -502,18 +502,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count302
 )
-LaTeX Info: Redefining \ref on input line 52.
-LaTeX Info: Redefining \pageref on input line 52.
-LaTeX Info: Redefining \nameref on input line 52.
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
  (/home/simone/projects/UNIPI/CRI/orale/main.out) (/home/simone/projects/UNIPI/CRI/orale/main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 58.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 58.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
@@ -533,16 +533,21 @@ Chapter 1.
 ) [5
 
 
-] [6
+]
+\openout2 = `chp/02.aux'.
+
+ (/home/simone/projects/UNIPI/CRI/orale/chp/02.tex [6
+
 
 
 ]
 Chapter 2.
-[7] [8
+[7]) [8]
+Chapter 3.
+[9
+
 
 ]
-Chapter 3.
-[9]
 \openout2 = `chp/04.aux'.
 
  (/home/simone/projects/UNIPI/CRI/orale/chp/04.tex [10
@@ -577,12 +582,12 @@ Chapter 6.
 
 ]
 Chapter 7.
-<./img/des1.png, id=334, 308.65312pt x 634.62094pt>
+<./img/des1.png, id=370, 308.65312pt x 634.62094pt>
 File: ./img/des1.png Graphic file (type png)
 <use ./img/des1.png>
 Package pdftex.def Info: ./img/des1.png  used on input line 22.
 (pdftex.def)             Requested size: 120.0pt x 246.72649pt.
-<./img/des2.png, id=335, 467.49657pt x 542.77782pt>
+<./img/des2.png, id=371, 467.49657pt x 542.77782pt>
 File: ./img/des2.png Graphic file (type png)
 <use ./img/des2.png>
 Package pdftex.def Info: ./img/des2.png  used on input line 23.
@@ -608,29 +613,29 @@ Chapter 9.
 
 
 
-] [30]) [31]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
- (/home/simone/projects/UNIPI/CRI/orale/main.aux (/home/simone/projects/UNIPI/CRI/orale/chp/01.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/04.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/05.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/06.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/07.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/08.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/09.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 70.
+] [30] [31]) [32]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 73.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 73.
+ (/home/simone/projects/UNIPI/CRI/orale/main.aux (/home/simone/projects/UNIPI/CRI/orale/chp/01.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/02.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/04.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/05.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/06.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/07.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/08.aux) (/home/simone/projects/UNIPI/CRI/orale/chp/09.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 73.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 73.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D901ADE5E3FDE58D916B33419B52DD4F;3241.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 70.
+(rerunfilecheck)             Checksum: 2954077D7CAF2CC6E64F39520BA71548;3758.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 73.
  ) 
 Here is how much of TeX's memory you used:
- 11257 strings out of 483107
- 169952 string characters out of 5964630
+ 11292 strings out of 483107
+ 170556 string characters out of 5964630
  640953 words of memory out of 5000000
- 25936 multiletter control sequences out of 15000+600000
+ 25950 multiletter control sequences out of 15000+600000
  544045 words of font info for 67 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 35i,13n,72p,356b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,14n,72p,357b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/simone/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /home/simone/projects/UNIPI/CRI/orale/main.pdf (31 pages, 330768 bytes).
+Output written on /home/simone/projects/UNIPI/CRI/orale/main.pdf (32 pages, 339063 bytes).
 PDF statistics:
- 481 PDF objects out of 1000 (max. 8388607)
- 420 compressed objects within 5 object streams
- 80 named destinations out of 1000 (max. 500000)
- 387 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 528 PDF objects out of 1000 (max. 8388607)
+ 466 compressed objects within 5 object streams
+ 94 named destinations out of 1000 (max. 500000)
+ 443 words of extra memory for PDF output out of 10000 (max. 10000000)
 

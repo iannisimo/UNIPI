@@ -11,7 +11,7 @@
 
 \begin{itemize}
     \item Il messaggio viene diviso in blocchi da 64 bit
-    \item La chiave e' composta da 8 Byte in cui ogni ottavo bit e' di parita'
+    \item La chiave \'e composta da 8 Byte in cui ogni ottavo bit \'e di parit\'a
     \item La cifratura e decifrazione del messaggio avviene attraverso 16 round
     \item Dalla chiave vengono create 16 sottochiavi $k[0],k[1],\dots,k[15]$ dette chiavi locali
     \item La decifrazione si esegue invertendo l'ordine delle chiavi locali
@@ -24,11 +24,11 @@
 
 \subsection{Attacchi}
 \begin{itemize}
-    \item Proprieta' del complemento
+    \item Propriet\'a del complemento
     \begin{itemize}
         \item $\mathcal{C}_{DES}(m, k) = c \implies \mathcal{C}_{DES}(\overline{m}, \overline{k}) = \overline{c}$
-        \item Procurandosi alcune coppie $\langle m, c_1 \rangle$ e $\langle \overline{m}, c_2 \rangle$ si puo' effettivamente dimezzare il numero di chiavi da testare per un attacco esaustivo
-        \item Infatti se testando una chiave $k$ risulta $\mathcal{C}_{DES}(m, k) = c_1$ allora $k$ probabilmente e' la chiave
+        \item Procurandosi alcune coppie $\langle m, c_1 \rangle$ e $\langle \overline{m}, c_2 \rangle$ si pu\`o effettivamente dimezzare il numero di chiavi da testare per un attacco esaustivo
+        \item Infatti se testando una chiave $k$ risulta $\mathcal{C}_{DES}(m, k) = c_1$ allora $k$ probabilmente \'e la chiave
         \item Se invece risulta che  $\mathcal{C}_{DES}(m, k) = \overline{c_2}$ allora la chiave potrebbe essere $\overline{k}$
     \end{itemize}
     \item Crittoanalisi differenziale

@@ -1,9 +1,15 @@
 \contentsline {chapter}{\numberline {1}Domande per la prof}{5}{chapter.1}%
-\contentsline {chapter}{\numberline {2}}{7}{chapter.2}%
+\contentsline {chapter}{\numberline {2}Esercizi}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Correttezza RSA}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Cifrario perfetto}{7}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Definizione}{7}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Enunciato di Shannon}{8}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Perfettezza di One-Time Pad}{8}{subsection.2.2.3}%
 \contentsline {chapter}{\numberline {3}}{9}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Il ruolo del caso}{11}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Il significato algoritmico della casualità}{11}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Generatori di numeri pseudo-casuali}{11}{section.4.2}%
+\contentsline {subsection}{\numberline {4.1.1}Esistenza di sequenze casuali di lunghezza n}{11}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Generatori di numeri pseudo-casuali}{12}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Algoritmi randomizzati}{12}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Cifrari storici}{13}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Cifrari a sostituzione monoalfabetica}{13}{section.5.1}%
@@ -45,3 +51,4 @@
 \contentsline {subsection}{\numberline {9.5.1}Messaggio cifrato, firmato in hash, e certificato}{31}{subsection.9.5.1}%
 \contentsline {section}{\numberline {9.6}Il protocollo SSL}{31}{section.9.6}%
 \contentsline {section}{\numberline {9.7}Protocolli Zero-Knowledge}{31}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Fiat-Shamir}{32}{subsection.9.7.1}%

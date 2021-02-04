@@ -7,7 +7,7 @@ Ai protocolli crittografici sono richieste tre funzionalit\'a importanti
     \item Autenticazione : Il destinatario di un messaggio deve essere in grado di accertare l'identit\'a del mittente e l'integrit\'a di un crittogramma ricevuto
     \item Firma digitale : Come una firma manuale, deve possedere tre caratteristiche (accertabili anche da una terza parte facente da giudice)
     \begin{itemize}
-        \item Il mittente non ha facolt\'a di ripudiare il messaggio
+        \item Il mittente \textbf{non} ha facolt\'a di ripudiare il messaggio
         \item Il destinatario deve poter accertare l'identit\'a del mittente e l'integrit\'a del crittogramma
         \item Il destinatario non deve poter sostenere che $m' \not= m$ \'e il messaggio inviatogli
     \end{itemize}
@@ -93,4 +93,31 @@ Questo protocollo per\`o richiede che $U$ si fidi di $S$. Infatti se $S$ non fos
     \item Nei protocolli Zero-Knowledge due entit\'a (Prover $P$ e Verifier $V$) non si fidano l'uno dell'altro
     \item Il prover dovr\'a essere in grado di dimostrare al Verifier di essere in possesso di una facolt\'a particolare senza comunicargli alcuna informazione su di essa
     \item Questi protocolli si basano su una serie di iterazioni, dopo ognuna delle quali in Verifier aumenta la sua confidenza che $P$ sia \textit{chi dice di essere}
+\end{itemize}
+
+\subsection{Fiat-Shamir}
+
+\begin{itemize}
+    \item Obiettivo : Autenticazione (senza \m{CA})
+    \item $P$ sceglie $n = pq, s < n$, e calcola $t = s^2 \mod{n}$
+    \item Rende nota $\abracket{n, t}$ e mantiene segreti $\abracket{p,q,s}$
+    \item Iterazioni:
+    \begin{enumerate}
+        \item $V$ chiede a $P$ di iniziare un'iterazione
+        \item $P$ genera $r < n$, calcola $u = r^2 \mod{n}$, e comunica $u$
+        \item $V$ genera un bit casuale $e$ e lo comunica
+        \item $P$ calcola $z = rs^e \mod{n}$ e lo comunica
+        \item $V$ controlla che $x = z^2 \mod{n} == ut^e \mod{n}$
+        \item Se il controllo va a buon fine si ripete dal passo 1, altrimenti si blocca
+    \end{enumerate} 
+    \item Completezza
+    \begin{itemize}
+        \item $x = z^2 \mod{n} = (rs^e)^2 \mod{n}$
+        \item $x = ut^e \mod{n} = (r^2)(s^2)^e \mod{n}$
+        \item Se si ha lo stesso valore di $e$ in entrambe le equazioni, esse risultano identiche
+    \end{itemize}
+    \item Correttezza
+    \begin{itemize}
+        \item Se $P$ \'e disonesto, deve prevedere il valore di $e$ prima che gli venga comunicato e inviare $u = \nicefrac{r^2}{t^e} \mod{n}$ e $z = r$
+    \end{itemize}
 \end{itemize}
