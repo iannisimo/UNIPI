@@ -49,3 +49,158 @@
     \item Quindi gli eventi $(C=c) e (M=m)$ sono indipendenti
     \item Ne risulta che $\pr(M=m \mid C=c) = \dfrac{\pr(M=m) \times \cancel{\pr(C=c)}}{\cancel{\pr(C=c)}}$
 \end{itemize}
+
+\section{RSA: n uguale per pi\'u utenti}
+
+\begin{itemize}
+    \item $\abracket{e_1, m} \abracket{e_2, m}$
+    \item $mcd(e1, e2) = 1 \implies e_1r + e_2s = 1$
+    \item $m = m^{e_1r + e_2s} = c_1^r \times c_2s \de{$r < 0$} (c_1^{-1})^{-r} \times c_2^s$
+\end{itemize}
+
+\section{RSA: e piccolo}
+
+\begin{itemize}
+    \item Ipotizziamo di avere $e$ utenti che ricevono lo stesso messaggio $m$
+    \item $c_i = m^e \mod{n_i}$
+    \item Per teorema cinese del resto
+    \begin{itemize}
+        \item $n = \prod_{i=1}^{e} n_i$
+        \item $c' = m^e < n$
+    \end{itemize}
+    \item $\sqrt[e]{c'} = m$
+\end{itemize}
+
+\section{Zero knowledge}
+
+\begin{itemize}
+    \item $s < n \mid t = s^2 \mod{n}$
+    \item $\abracket{s}: priv \mid \abracket{t, n}: pub$
+    \item Iterazioni:
+    \begin{itemize}
+        \item $P : r < n, u = r^2 \mod{n} \rightarrow V$
+        \item $V : e \in [0, 1] \rightarrow P$
+        \item $P : z = rs^e \mod{n}$
+        \item $V : z^2 \mod{n} \de{Verifica} ut^e \mod{n}$
+    \end{itemize}
+\end{itemize}
+
+\section{Correttezza RSA}
+
+\begin{itemize}
+    \item $p, q \nmid m$
+    \begin{itemize}
+        \item $mcd(m, n) = 1$
+        \item $a^\Pn \dequiv{Euler} 1 \mod{n}$
+        \item $e \times d = 1 \mod{\Pn} = 1 + r\Pn$
+        \item $m^{ed} \mod{n} \equiv m^{1 + r\Pn} \mod{n} \equiv m \times (m^\Pn)^r \mod{n} \dequiv{Euler} m \times 1^r \mod{n} = m$
+    \end{itemize}
+    \item $p \mid m \wedge q \nmid m$
+    \begin{itemize}
+        \item $m \equiv m^r \equiv 0 \mod{p}$
+        \item $m^{ed} \mod{q} \equiv m \times m^{r\Pn} \mod{q} \equiv m \times (m^\Pk{q})^{r(p-1)} \mod{q} \dequiv{Euler} m \times 1^{r(p-1)} \mod{q} \equiv m \mod{q}$
+        \item $m^{ed} \equiv m \mod{q} \implies (m^{ed} - m) \equiv 0 \mod{q}$
+        \item $(m^{ed} - m) \equiv 0 \mod{n} \implies m^{ed} \equiv m \mod{n}$
+    \end{itemize}
+\end{itemize}
+
+\section{Esistenza di numeri casuali di lunghezza n}
+
+\begin{itemize}
+    \item $S = $ \#\{Sequenze di lunghezza $\leq n$\} $= 2^n$
+    \item $T = $ \#\{Sequenze non casuali in $S$\}
+    \item $N = $ \#\{Sequenze di lunghezza $\leq n - \ceil{log_2n}$\} $= 2^{n - \ceil{log_2n}}$
+    \item In $N$ ci sono anche gli algoritmi che generano i valori in $T$
+    \item $T \leq N < S$
+    \item $\frac{T}{S} < \frac{1}{2^{\ceil{\log_2n}}}$
+\end{itemize}
+
+\section{Definizione di cifrario perfetto}
+
+\begin{itemize}
+    \item Si considera la variabile aleatoria $M$ che assume valori nello spazio dei messaggi $Msg$
+    \item Si considera la variabile aleatoria $C$ che assume valori nello spazio dei crittogrammi $Critto$
+    \item $\Pr(M = m)$ \'e la probabilit\'a che $Mitt$ voglia spedire il messaggio $m$ a $Dest$
+    \item $\Pr(M = m \mid C = c)$ \'e la probabilit\'a a posteriori che il messaggio fosse effettivamente $m$ dopo aver visto $c$ transitare sul canale
+    \item Un cifrario si dice perfetto se $\Pr(M = m) = \Pr(M = m \mid C = c)$ cio\'e che la conoscenza complessiva di un crittoanalista non cambia dopo aver visto il crittogramma $c$
+\end{itemize}
+
+\section{Teorema di Shannon}
+
+\begin{itemize}
+    \item $N_m = \#\{m \mid \Pr(M = m) > 0\}$ 
+    \item In un cifrario perfetto $N_k \geq N_m$
+    \item Poniamo per assurdo che $N_k < N_m$
+    \item Fissato $c \mid \Pr(C = c) > 0$, ci sono $s \leq N_k$ messaggi in (non necessariamente distinti) ottenuti decrittando $c$ con tutte le chavi
+    \item Dato che $s \leq N_k < N_m$, esiste almeno un messaggio $m' \mid \Pr(M = m') > 0$ non ottenibile da $c$
+    \item $\Pr(M = m \mid C = c) = 0 \not= \Pr(M = m)$
+\end{itemize}
+
+\section{Perfettezza One-Time Pad}
+
+\begin{itemize}
+    \item $\Pr(M = m \mid C = c) \de{Cond} \dfrac{\Pr(M = m, C = c)}{\Pr(C = c)}$
+    \item Fissato un $m$, per definizione di \m{XOR} chiavi diverse generano crittogrammi diversi
+    \item Perci\`o $\Pr(C = c) = (\frac{1}{2})^n$ costante
+    \item \dots
+\end{itemize}
+
+\newpage
+\section{Correttezza RSA}
+
+\begin{itemize}
+    \item $p, q \mid m$
+    \begin{itemize}
+        \item $mcd(m, n) = 1$
+        \item $e \times d \equiv 1 \mod{\Pn} = 1 + r\Pn$
+        \item $a^\Pn \dequiv{Euler} 1 \mod{n}$
+        \item $m^{ed} \mod{n} = m^{1 + r\Pn} \mod{n} = m \times (m^\Pn)^r  \mod{n} \de{Euler} m \times 1^r \mod{n} = m \mod{n} = m$
+    \end{itemize}
+    \item $p \mid m \wedge q \nmid m$
+    \begin{itemize}
+        \item \dots
+    \end{itemize}
+\end{itemize}
+
+\section{Fiat Shamir}
+
+\begin{itemize}
+    \item $P$ sceglie $s < n$ e calcola $t = s^2 \mod{n}$
+    \item $\abracket{s}: Prv$
+    \item $\abracket{t, n}: Pub$
+    \begin{itemize}
+        \item $P: r < n, u = r^2 \mod{n} \to V$
+        \item $V: e \in [0, 1]$
+        \item $P: z = us^e \mod{n} \to V$
+        \item $V: z^2 \mod{n} \de{Ver} ut^e \mod{n}$
+    \end{itemize}
+\end{itemize}
+
+\section{Algoritmo di Koblitz}
+
+\begin{itemize}
+    \item Si fissa $h \mid (m+1)h < p$
+    \item Si itera $i : 1 \to h-1$
+    \begin{itemize}
+        \item $x = mh + i$
+        \item Se $y^2 = x^3 + ax + b$ \'e definito sulla curva si prende $P_m = (x, y)$
+        \item Altrimenti si itera
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\section{ElGamal}
+
+\begin{itemize}
+    \item $E_p(a, b)$ curva
+    \item $B$ punto sulla curva di ordine $n$ molto alto
+    \item Crittazione
+    \begin{itemize}
+        \item $r < n$
+        \item $V = rB, W = P_m + rP_D$
+    \end{itemize}
+    \item Decrittazione
+    \begin{itemize}
+        \item $P_m = W - n_DV = P_m + \cancel{rn_DB} - \cancel{n_DrB}$
+    \end{itemize}
+\end{itemize}

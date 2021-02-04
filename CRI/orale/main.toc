@@ -1,54 +1,67 @@
-\contentsline {chapter}{\numberline {1}Domande per la prof}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {1}Spunti}{5}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Esercizi}{7}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Correttezza RSA}{7}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Cifrario perfetto}{7}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Definizione}{7}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Enunciato di Shannon}{8}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Perfettezza di One-Time Pad}{8}{subsection.2.2.3}%
-\contentsline {chapter}{\numberline {3}}{9}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Il ruolo del caso}{11}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Il significato algoritmico della casualità}{11}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Esistenza di sequenze casuali di lunghezza n}{11}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Generatori di numeri pseudo-casuali}{12}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Algoritmi randomizzati}{12}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Cifrari storici}{13}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Cifrari a sostituzione monoalfabetica}{13}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Cifrari a sostituzione polialfabetica}{13}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Cifrari a trasposizione}{14}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Cifrari perfetti}{15}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Definizione}{15}{section.6.1}%
-\contentsline {section}{\numberline {6.2}One-Time Pad}{15}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Generazione della chiave}{16}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Il cifrario simmetrico standard}{19}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Criteri di Shannon}{19}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Il cifrario DES}{19}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Attacchi}{20}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Variazioni del DES}{21}{subsection.7.2.2}%
-\contentsline {section}{\numberline {7.3}AES}{21}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Cifrari a composizione di blocchi}{21}{section.7.4}%
-\contentsline {chapter}{\numberline {8}Crittografia a chiave pubblica}{23}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Funzioni One-Way Trap-Door}{23}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Pregi e difetti dei cifrari a chiave pubblica}{24}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Il cifrario RSA}{24}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Correttezza di RSA}{24}{subsection.8.3.1}%
-\contentsline {section}{\numberline {8.4}Attacchi all'RSA}{25}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Diffie-Hellman per lo scambio di chiavi}{26}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Curve ellittiche su campi finiti}{26}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Diffie-Hellman su curve ellittiche}{27}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Algoritmo di Koblitz}{27}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Algoritmo di ElGamal su curve ellittiche}{27}{section.8.9}%
-\contentsline {subsection}{\numberline {8.9.1}Cifratura}{27}{subsection.8.9.1}%
-\contentsline {subsection}{\numberline {8.9.2}Decifrazione}{27}{subsection.8.9.2}%
-\contentsline {section}{\numberline {8.10}Sicurezza della crittografia su curve ellittiche}{28}{section.8.10}%
-\contentsline {chapter}{\numberline {9}La firma digitale}{29}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Funzioni hash one-way}{29}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Identificazione}{30}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Identificazione tramite RSA}{30}{subsection.9.2.1}%
-\contentsline {section}{\numberline {9.3}Autenticazione}{30}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Firma digitale}{31}{section.9.4}%
-\contentsline {subsection}{\numberline {9.4.1}Messaggio cifrato e firmato in hash}{31}{subsection.9.4.1}%
-\contentsline {section}{\numberline {9.5}La Certification Authority}{31}{section.9.5}%
-\contentsline {subsection}{\numberline {9.5.1}Messaggio cifrato, firmato in hash, e certificato}{31}{subsection.9.5.1}%
-\contentsline {section}{\numberline {9.6}Il protocollo SSL}{31}{section.9.6}%
-\contentsline {section}{\numberline {9.7}Protocolli Zero-Knowledge}{31}{section.9.7}%
-\contentsline {subsection}{\numberline {9.7.1}Fiat-Shamir}{32}{subsection.9.7.1}%
+\contentsline {section}{\numberline {2.3}RSA: n uguale per pi\'u utenti}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}RSA: e piccolo}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Zero knowledge}{9}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Correttezza RSA}{9}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Esistenza di numeri casuali di lunghezza n}{9}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Definizione di cifrario perfetto}{10}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Teorema di Shannon}{10}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Perfettezza One-Time Pad}{10}{section.2.10}%
+\contentsline {section}{\numberline {2.11}Correttezza RSA}{11}{section.2.11}%
+\contentsline {section}{\numberline {2.12}Fiat Shamir}{11}{section.2.12}%
+\contentsline {section}{\numberline {2.13}Algoritmo di Koblitz}{11}{section.2.13}%
+\contentsline {section}{\numberline {2.14}ElGamal}{12}{section.2.14}%
+\contentsline {chapter}{\numberline {3}Orale}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}}{13}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Il ruolo del caso}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Il significato algoritmico della casualità}{15}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Esistenza di sequenze casuali di lunghezza n}{15}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Generatori di numeri pseudo-casuali}{16}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Algoritmi randomizzati}{16}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Cifrari storici}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Cifrari a sostituzione monoalfabetica}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Cifrari a sostituzione polialfabetica}{17}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Cifrari a trasposizione}{18}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Cifrari perfetti}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Definizione}{19}{section.6.1}%
+\contentsline {section}{\numberline {6.2}One-Time Pad}{19}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Generazione della chiave}{20}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Il cifrario simmetrico standard}{23}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Criteri di Shannon}{23}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Il cifrario DES}{23}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Attacchi}{24}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Variazioni del DES}{25}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}AES}{25}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Cifrari a composizione di blocchi}{25}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Crittografia a chiave pubblica}{27}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Funzioni One-Way Trap-Door}{27}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Pregi e difetti dei cifrari a chiave pubblica}{28}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Il cifrario RSA}{28}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Correttezza di RSA}{28}{subsection.8.3.1}%
+\contentsline {section}{\numberline {8.4}Attacchi all'RSA}{29}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Diffie-Hellman per lo scambio di chiavi}{30}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Curve ellittiche su campi finiti}{30}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Diffie-Hellman su curve ellittiche}{31}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Algoritmo di Koblitz}{31}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Algoritmo di ElGamal su curve ellittiche}{31}{section.8.9}%
+\contentsline {subsection}{\numberline {8.9.1}Cifratura}{31}{subsection.8.9.1}%
+\contentsline {subsection}{\numberline {8.9.2}Decifrazione}{31}{subsection.8.9.2}%
+\contentsline {section}{\numberline {8.10}Sicurezza della crittografia su curve ellittiche}{32}{section.8.10}%
+\contentsline {chapter}{\numberline {9}La firma digitale}{33}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Funzioni hash one-way}{33}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Identificazione}{34}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Identificazione tramite RSA}{34}{subsection.9.2.1}%
+\contentsline {section}{\numberline {9.3}Autenticazione}{34}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Firma digitale}{35}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Messaggio cifrato e firmato in hash}{35}{subsection.9.4.1}%
+\contentsline {section}{\numberline {9.5}La Certification Authority}{35}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Messaggio cifrato, firmato in hash, e certificato}{35}{subsection.9.5.1}%
+\contentsline {section}{\numberline {9.6}Il protocollo SSL}{35}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Protocolli Zero-Knowledge}{35}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Fiat-Shamir}{36}{subsection.9.7.1}%

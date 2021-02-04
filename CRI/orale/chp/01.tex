@@ -1,5 +1,30 @@
-\chapter{Domande per la prof}
+\chapter{Spunti}
 
 \begin{itemize}
-    \item {Pag 148 : $n_A = n - 1 < n, n_B = 1 < n \implies n_An_BB = nB = \mathcal{O}$}
+    \item Sequenza casuale : $\mathcal{K}(h) \geq |h| - \ceil{\log_2|h|}$
+    \item Esistenza sequenze casuali : $S = 2^n, N = 2^{n - \ceil{log_2n}}, T \leq N < S$
+    \item Shannon : $N_k \geq N_m$
+    \item One-Time Pad : Per \m{XOR} $\Pr(C = c) = (\nicefrac{1}{2})^n$ quindi costante
+    \item Correttezza RSA: $p, q \mid m$
+    \begin{itemize}
+        \item $e \times d = 1 + r\Pn$
+        \item $m^{ed} \equiv m^{1+r\Pn}$
+    \end{itemize}
+    \item Correttezza RSA: $p \mid m, q \nmid m$
+    \begin{itemize}
+        \item $(m^r - m) \equiv 0 \mod{p}$
+        \item $m^{ed} \mod{q} \equiv m^{1+r(p-1)(q-1)} \mod{q}$
+    \end{itemize}
+    \item Attacchi RSA:
+    \begin{itemize}
+        \item $|p-q|$ molto piccolo : $\frac{p+q}{2} \approx \sqrt{n}$
+        \item $e$ molto piccolo : $c_i = m^e \mod{n_i}$
+        \item $n$ uguale : $e_1r + e_2s = 1$
+    \end{itemize}
+    \item Koblitz : $(m+1)h<p$
+    \item ElGamal : $V = rB, W = P_m + rP_D, P_m = W - n_DV$
+    \item ZK: $Pvt = \abracket{s}; Pub = \abracket{t = s^2, n}$
+    \begin{itemize}
+        \item $r < n, u = r^2 \dto{u} e \in [0,1] \dto{e} z = rs^e \dto{z} z^2 \de{Ver} ut^e$
+    \end{itemize}
 \end{itemize}

@@ -12,8 +12,8 @@
 \usepackage{nicefrac}
 \usepackage[makeroom]{cancel}
 
-\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-\DeclarePairedDelimiter{\abracket}{\langle}{\rangle}
+% \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+% \DeclarePairedDelimiter{\abracket}{\langle}{\rangle}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -49,7 +49,13 @@
 \renewcommand{\mod}[1]{\ \mathbf{\mathrm{mod}}\ #1}
 \newcommand{\m}[1]{\texttt{#1}}
 \newcommand{\dequiv}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{\equiv}}
+\newcommand{\de}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{=}}
+\newcommand{\dto}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{\to}}
 \newcommand{\pr}{\mathcal{P}r}
+\newcommand{\Pn}{{\Phi(n)}}
+\newcommand{\Pk}[1]{{\Phi{#1}}}
+\newcommand{\ceil}[1]{{\lceil #1 \rceil}}
+\newcommand{\abracket}[1]{{\langle #1 \rangle}}
 
 \begin{document}
 
@@ -62,7 +68,7 @@
 % \setcounter{chapter}{3}
 \include{chp/01}
 \include{chp/02}
-\chapter{}
+\include{chp/03}
 \include{chp/04}
 \include{chp/05}
 \include{chp/06}
