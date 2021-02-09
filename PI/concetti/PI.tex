@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt,twoside]{book}
+\usepackage{listings}		
+\usepackage{graphicx}
+\usepackage[svgnames]{xcolor}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage[makeroom]{cancel}
+
+% \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+% \DeclarePairedDelimiter{\abracket}{\langle}{\rangle}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\setlength{\tabcolsep}{1em}
+\setlength{\emergencystretch}{10pt}
+\graphicspath{ {./img/} }	
+% \pagecolor{black}
+% \color{white}				
+
+\lstset{language=Java,						
+	showspaces=false,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	commentstyle=\color{ForestGreen},
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	identifierstyle=\color{Gray},
+	basicstyle=\small\ttfamily
+}
+
+\newcommand{\bluetext}[1]{\textcolor{blue}{#1}}
+\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+\newcommand{\orangetext}[1]{\textcolor{orange}{#1}}
+\newcommand{\subtext}[1]{\textsubscript{#1}}
+\newcommand{\supertext}[1]{\textsuperscript{#1}}
+\newcommand{\dequiv}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{\equiv}}
+\newcommand{\de}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{=}}
+\newcommand{\dto}[1]{\stackrel{\mathclap{\text{\tiny\mbox{#1}}}}{\to}}
+\newcommand{\ceil}[1]{{\lceil #1 \rceil}}
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}}
+\newcommand{\abracket}[1]{{\langle #1 \rangle}}
+\newcommand{\desc}[1]{{\textbf{#1} :}}
+\newcommand{\m}[1]{{\texttt{#1}}}
+
+\begin{document}
+
+\title{Concetti per Programmazione di Interfacce}
+\author{Simone Ianniciello}
+\date{A.A. 2020/2021}
+\maketitle
+
+\tableofcontents
+\setcounter{chapter}{1}
+\include{chp/02}
+\include{chp/03}
+\include{chp/04}
+\include{chp/05}
+\include{chp/06}
+\include{chp/07}
+\include{chp/08}
+\include{chp/09}
+\include{chp/10}
+\include{chp/11}
+\include{chp/12}
+\include{chp/13}
+\include{chp/14}
+\include{chp/15}
+\end{document}

@@ -1,0 +1,59 @@
+\chapter{Human Interface Devices}
+
+\begin{itemize}
+    \item \desc{HID} Un device che permette l'interazione tra uomo e computer ricevendo input e inviando output agli umanoidi.
+    \item I dispositivi \m{HID} contengono pacchetti autodescriventi che possono contenere qualsiasi numero di formati / tipi di dato.
+    \item I dispositivi \m{USB HID} non necessitano di driver per essere riconosciuti.
+    \item Host $\leftrightarrow$ Device
+    \item Il descrittore HID contiene un array di bytes che descrive i pacchetti dati.
+    \item L'host deve tradurre il descrittore prima di poter comunicare con il dispositivo.
+    \item Durante la fase di boot di una macchina gli unici dispositivi hid abilitati sono tastiera e mouse
+    \item Vari tipi di HID: \{Bluetooth HID, Serial HID, ZigBee HID, I$^2$C HID, HOGP\}
+    \item I dispositivi di input si basano su sensori, mentre quelli di output si basano su attuatori.
+    \item Layout delle tastiere
+    \begin{itemize}
+        \item \desc{Fisico} La posizione dei tasti
+        \item \desc{Visuale} L'arrangiamento dei simboli
+        \item \desc{Funzionale} Determina la risposta alla pressione di un tasto
+    \end{itemize}
+    \item Lettori di codici a barre
+    \item \desc{RFID} tag antifurto
+    \item \desc{NFC} hehe
+    \item \desc{Dispositivi di puntamento} Movimenti del device sono riprodotti a schermo come movimenti del puntatore
+    \item \desc{Fitts law} Tempo richiesto per muoversi velocemente verso un bersaglio.
+    \begin{itemize}
+        \item \desc{Diretto} touch
+        \item \desc{Indiretto} tavoletta grafica
+    \end{itemize}
+    \begin{itemize}
+        \item \desc{Assoluto} La posizione assoluta del dispositivo \'e tradotta in posizione del puntatore (touch)
+        \item \desc{Relativo} Il movimento viene tradotto in movimento del puntatore (mouse)
+    \end{itemize}
+    \begin{itemize}
+        \item \desc{Isotonico} Mobile, misura la posizione, mouse
+        \item \desc{Isometrico} Fisso, misura la forza applicata, nipple
+        \item \desc{Elastico} Fisso, incrementa la sua resistenza in base alla posizione, joystick
+    \end{itemize}
+    \begin{itemize}
+        \item \desc{Controllo di posizione} mouse
+        \item \desc{Controllo di ratio} nipple, analog stick
+    \end{itemize}
+    \item \desc{Eye tracking} Spara luce, riflette occhio, sensore analizza, {\textbf{\color{red}MAGIC}}
+    \item \desc{Dataglove} Misura la flessione delle dita e il movimento della mano.
+    \item \desc{Dispositivi haptici} hanno un feedback tattile coordinato con eventi a schermo
+    \item \desc{Smart paper} Carta intelligente
+    \item \desc{Array di microfoni} Microfoni che emulano un solo, bellissimo, microfono.
+    \item \desc{Image sensor} MAGIC: Charge Coupled Device, CMOS
+    \item \textbf{Scanner 3D}
+    \begin{itemize}
+        \item \desc{Passivi} Non emettono alcuna radiazione.
+        \item \desc{Attivi} Emettono una qualche radiazione ionizzante. Tipi: \{Time-of-flight, Triangolazione, Luce strutturata, Luce modulata\}
+    \end{itemize}
+    \item \desc{Inertial Measurement Unit} 9 assi di libert\'a (giroscopio, accelerometro, magnetomentro)
+    \item \desc{Heart Rate Wearabl Monitor}
+    \begin{itemize}
+        \item \desc{ECG} Biopotenziale elettrico
+        \item \desc{PPG} A base luminosa (Verde: movimento; Rosso: statico)
+    \end{itemize}
+    \item \desc{ECG Headset} Misura l'attivit\'a cerebrale 
+\end{itemize}
